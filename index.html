@@ -232,6 +232,37 @@ footer p{max-width:70ch}
   </div>
 </section>
 
+<!-- ============ OPTIONS ============ -->
+<section class="block" id="options">
+  <div class="wrap">
+    <h2>台北候選清單</h2>
+    <p class="lead">台北能用的只有四天：<b>9/28、9/29、10/3、10/4</b>（9/26 落地、9/27 烤肉、9/30–10/2 出遠門）。
+       四個必選已經卡進去了，其餘都是可以換的——下表最右欄是目前的排法，想換哪個跟我說。</p>
+    <table>
+      <tr><th>選項</th><th>必選</th><th>需時</th><th>限制與備註</th><th>目前排在</th></tr>
+      <tr><td><b>故宮</b></td><td>✔</td><td>半天</td><td class="mute">平常週一休館；9/28 逢連假是特別開館日</td><td>9/28 上午</td></tr>
+      <tr><td><b>九份</b></td><td>✔</td><td>一整天</td><td class="mute">平日人潮差很多，9/29 是全程唯一非假日</td><td>9/29 全天</td></tr>
+      <tr><td><b>中正紀念堂</b></td><td>✔</td><td>半天</td><td class="mute">想看戲劇或音樂會要先在 OPENTIX 訂票</td><td>10/4 上午</td></tr>
+      <tr><td><b>國父紀念館</b></td><td>✔</td><td>約 2 小時</td><td class="mute">整點儀隊交接；走到松菸只要 10 分</td><td>10/4 下午</td></tr>
+      <tr><td>大稻埕</td><td class="mute">可換</td><td>半天</td><td class="mute">傍晚最好，碼頭看夕陽</td><td>9/28 下午</td></tr>
+      <tr><td>松菸</td><td class="mute">可換</td><td>約 2 小時</td><td class="mute">緊鄰國父紀念館，順路買伴手禮</td><td>10/4 傍晚</td></tr>
+      <tr><td>陽明山一日遊</td><td class="mute">可換</td><td>一整天</td><td class="mute"><b>你限定只能 9/28／10/3／10/4</b></td><td>10/3 全天</td></tr>
+      <tr><td>北海岸一日遊</td><td class="mute">可換</td><td>一整天</td><td class="mute">淡水搭台灣好行或 862／863，班次不密</td><td class="mute">未排入</td></tr>
+      <tr><td>貓空</td><td class="mute">可換</td><td>半天＋夜景</td><td class="mute">纜車週一通常停駛保養，遇假日照常</td><td class="mute">未排入</td></tr>
+    </table>
+    <h3 style="margin-top:24px">可以怎麼換</h3>
+    <ul class="one">
+      <li><b>想要北海岸</b>　只能吃掉 10/3 的陽明山。但陽明山被限定在 9/28／10/3／10/4，換掉等於整趟放棄陽明山——除非把 10/4 讓給陽明山，那天的中正紀念堂與國父紀念館就得往前擠到 9/28。</li>
+      <li><b>想要貓空</b>　把 9/28 下午的大稻埕換成貓空，傍晚上山看夜景。損失最小的換法。</li>
+      <li><b>想要貓空又不想放掉大稻埕</b>　貓空接在 10/3 陽明山之後不可行（山上下來已近 20:00）；比較實際的是 10/4 傍晚拿掉松菸改上貓空，但當晚要慶生，時間會很趕。</li>
+      <li><b>兩個一日遊都想要</b>　那就得動 9/30–10/2 的三天兩夜，把出遠門縮成兩天一夜，多出來的那天給北海岸。</li>
+    </ul>
+    <h3 style="margin-top:24px">還沒排進去的兩個</h3>
+    <div class="cards" id="optionCards"></div>
+    <p class="mute" style="margin-top:8px">9/30–10/2 的三天兩夜（阿里山＋日月潭 ／ 花東・山嵐號）還沒定，定了之後這張表可能要再動一次。</p>
+  </div>
+</section>
+
 <!-- ============ DAYS (rendered by JS) ============ -->
 <div id="days"></div>
 
@@ -421,6 +452,12 @@ const CARDS={
  songyan:{name:'松山文創園區',jp:'Songshan Cultural and Creative Park',kind:'景點',short:'老菸廠改造的設計聚落',wiki:['松山文創園區'],
   text:'1937 年的松山菸廠改建，保留了製菸工廠的長廊、巴洛克花園與生態池，現在是設計展覽、選物店與咖啡的聚落，旁邊接著誠品生活松菸店，逛街與伴手禮一次解決。',
   chips:['園區 08:00–22:00','室內館舍 09:00–18:00','免費入園']},
+ northcoast:{name:'北海岸一日遊',jp:'North Coast',kind:'一日遊',short:'野柳女王頭、金山老街、淡水夕陽',wiki:['野柳','野柳地質公園'],
+  text:'從淡水捷運站搭台灣好行皇冠北海岸線或 862／863 公車，沿海岸線往金山、野柳。野柳地質公園的蕈狀岩與女王頭是招牌，金山老街吃鴨肉與芋圓，回程在淡水看夕陽。全程靠公車、班次不算密，出門前先查時刻表抓好回程班次。',
+  chips:['一整天','野柳 NT 120','淡水站搭台灣好行／862・863']},
+ maokong:{name:'貓空',jp:'Maokong',kind:'景點',short:'纜車上山，茶館看台北夜景',wiki:['貓空','貓空纜車'],
+  text:'搭貓空纜車從動物園站上山約 20 分鐘，水晶車廂的地板是透明的。山上是老茶區，指南宮與茶館沿山路散開，傍晚上去邊喝茶邊看台北盆地夜景最划算。纜車週一通常停駛保養（遇國定假日照常營運、順延次日），出發前先查當天有沒有開。',
+  chips:['纜車 09:00–21:00','單程 NT 70–120','捷運動物園站轉纜車']},
  cks:{name:'中正紀念堂',jp:'Chiang Kai-shek Memorial Hall',kind:'景點',short:'自由廣場、兩廳院與衛兵交接',wiki:['中正紀念堂'],
   text:'1980 年落成，白牆藍瓦的主體坐落在自由廣場一端，兩側是國家戲劇院與國家音樂廳，園區綠地開闊很好散步。主堂內設有展廳。衛兵交接的形式與地點近年有過調整，想看的話出發前查一下當天的場次與位置。兩廳院的節目在 OPENTIX 售票，10/4 是週日、下午場機率高，看中了要提早訂。',
   chips:['園區 05:00–24:00','主堂 09:00–18:00','兩廳院演出需先訂票']}
@@ -457,7 +494,7 @@ const DAYS=[
    {t:'晚上',i:'🌕',h:'賞月'}
   ],cards:[],
   rain:'<b>提醒</b>　中秋當週烤肉食材很搶手，肉品與海鮮建議前一天先買好。'},
- {n:3,date:'9/28',wd:'一',title:'故宮・大稻埕',sub:'連假最後一天走室內，傍晚到河邊看夕陽',stay:'家裡',
+ {n:3,date:'9/28',wd:'一',title:'故宮・大稻埕',sub:'連假最後一天走室內，傍晚到河邊看夕陽（下午的大稻埕可換貓空）',stay:'家裡',
   map:{pts:['taipeiStn','shilin','palaceMuseum','dadaocheng','dadaochengPier'],legs:[{a:'taipeiStn',b:'shilin',mode:'metro'},{a:'shilin',b:'palaceMuseum',mode:'bus'},{a:'palaceMuseum',b:'shilin',mode:'bus',curve:.3},{a:'shilin',b:'dadaocheng',mode:'metro',curve:-.12},{a:'dadaocheng',b:'dadaochengPier',mode:'walk'}],labels:{taipeiStn:'b',shilin:'r',palaceMuseum:'r',dadaocheng:'t',dadaochengPier:'b'},minSpan:.08},
   tl:[
    {t:'09:30',i:'🚇',h:'捷運淡水信義線往士林站（約 20 分）',move:1},
@@ -492,7 +529,7 @@ const DAYS=[
  {n:7,date:'10/2',wd:'五',title:'三天兩夜・返回台北',sub:'方案待選',stay:'家裡',
   map:{pts:['taipeiStn','taichungStn','kaohsiungStn','hualien','taitung'],legs:[],labels:{taipeiStn:'t',taichungStn:'l',kaohsiungStn:'l',hualien:'r',taitung:'r'},minSpan:.25},
   tl:[{t:'—',i:'🚄',h:'方案確定後填'}],cards:[]},
- {n:8,date:'10/3',wd:'六',title:'陽明山一日遊',sub:'小油坑、擎天崗、竹子湖，下山泡北投溫泉',stay:'家裡',
+ {n:8,date:'10/3',wd:'六',title:'陽明山一日遊',sub:'小油坑、擎天崗、竹子湖，下山泡北投溫泉（整天可換北海岸）',stay:'家裡',
   map:{pts:['taipeiStn','xiaoyoukeng','qingtiangang','zhuzihu','beitou'],legs:[{a:'taipeiStn',b:'xiaoyoukeng',mode:'bus'},{a:'xiaoyoukeng',b:'qingtiangang',mode:'bus'},{a:'qingtiangang',b:'zhuzihu',mode:'bus',curve:.2},{a:'zhuzihu',b:'beitou',mode:'bus'},{a:'beitou',b:'taipeiStn',mode:'metro',curve:-.15}],labels:{taipeiStn:'b',xiaoyoukeng:'t',qingtiangang:'r',zhuzihu:'l',beitou:'l'},minSpan:.09},
   tl:[
    {t:'08:30',i:'🚌',h:'台北車站 260 或劍潭站紅 5 上陽明山（約 1 小時）',move:1},
@@ -506,7 +543,7 @@ const DAYS=[
    {t:'19:30',i:'🚇',h:'捷運回台北',move:1}
   ],cards:['yangming'],
   rain:'<b>雨備</b>　陽明山秋天午後常起霧下雨、能見度差；山上不行就縮短行程直接下山，把時間全放在北投——溫泉博物館、地熱谷與湯屋都不怕雨。'},
- {n:9,date:'10/4',wd:'日',title:'中正紀念堂・國父紀念館・松菸',sub:'最後一個整天：看場表演、買伴手禮，晚上慶生',stay:'家裡',
+ {n:9,date:'10/4',wd:'日',title:'中正紀念堂・國父紀念館・松菸',sub:'最後一個整天：看場表演、買伴手禮，晚上慶生（松菸可拿掉換別的）',stay:'家裡',
   map:{pts:['taipeiStn','cks','sysMemorial','songyan'],legs:[{a:'taipeiStn',b:'cks',mode:'metro'},{a:'cks',b:'sysMemorial',mode:'metro'},{a:'sysMemorial',b:'songyan',mode:'walk'}],labels:{taipeiStn:'t',cks:'l',sysMemorial:'b',songyan:'r'},minSpan:.03},
   tl:[
    {t:'09:30',i:'🚇',h:'捷運到中正紀念堂站',move:1},
@@ -663,7 +700,7 @@ function animateMap(svg){
 
 // strip nav
 const strip=document.getElementById('strip');
-strip.innerHTML='<a href="#pre">行前</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#tickets">車票・訂票</a><a href="#food">美食・行李</a>';
+strip.innerHTML='<a href="#pre">行前</a><a href="#options">候選</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#tickets">車票・訂票</a><a href="#food">美食・行李</a>';
 
 // days
 function imgsHTML(c,id){
@@ -701,6 +738,10 @@ daysEl.innerHTML=DAYS.map(d=>{
   </div>
 </section>`;
 }).join('');
+
+// 候選區：還沒排進行程的選項也畫成卡片（可點開看介紹）
+const optionCards=document.getElementById('optionCards');
+if(optionCards) optionCards.innerHTML=['northcoast','maokong'].map(cardHTML).join('');
 
 // animate day maps on scroll + replay
 document.querySelectorAll('.mapcard').forEach(mc=>{
