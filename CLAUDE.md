@@ -6,14 +6,14 @@
 
 **改資料，不動引擎。** `index.html` 分成三層：
 
-1. 第一段 `<script>`：`const LAND=[...]`（地圖底圖，台灣縣市界）。只有換目的地或想改精細度時才動，用 `tools/make_land.py` 重生整段。
+1. 第一段 `<script>`：`const LAND=[...]`（台灣縣市界）與 `const METRO=[...]`（台北捷運路網）。只有換目的地或想改精細度時才動，用 `tools/make_land.py` 重生 LAND。
 2. 第二段 `<script>` 開頭到 `/* ===== MAP ENGINE ===== */` 之前：**資料區**，日常修改都在這裡。
 3. `MAP ENGINE` / `RENDER` / `PHOTOS` 三段：引擎，除非要加新功能否則不要改。
    例外：`RENDER` 區開頭的 hero overview `cfg` 是首頁總覽圖的資料，該改。
 
 ## 資料區順序
 
-`WIKI_LANG` → `P`（座標）→ `RAILS`（背景鐵路）→ `MODE`（交通線型）→ `KIND`／`NAMES`（點樣式與顯示名）
+`WIKI_LANG` → `P`（座標）→ `RAILS`（背景鐵路＋捷運路網）→ `MODE`（交通線型）→ `KIND`／`NAMES`（點樣式與顯示名）
 → `CARDS`（景點卡）→ `IMG`（照片，用工具塞）→ `DAYS`（每日行程）
 
 各欄位格式見 `TEMPLATE_GUIDE.md`；要看填好長什麼樣，開 `reference/example-atami-izu.html`。
