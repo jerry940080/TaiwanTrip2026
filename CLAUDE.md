@@ -6,7 +6,9 @@
 
 **改資料，不動引擎。** `index.html` 分成三層：
 
-1. 第一段 `<script>`：`const LAND=[...]`（台灣縣市界）與 `const METRO=[...]`（台北捷運路網）。只有換目的地或想改精細度時才動，用 `tools/make_land.py` 重生 LAND。
+1. 第一段 `<script>`：底圖資料層——`LAND`（台灣縣市界）、`METRO`（台北捷運路網）、
+   `TOWNLINES`／`TOWNS`（雙北基隆的區界與區名）、`COUNTIES`（縣市名）、`STATIONS`（捷運站點）。
+   只有換目的地或想改精細度時才動，用 `tools/make_land.py` 重生 LAND。
 2. 第二段 `<script>` 開頭到 `/* ===== MAP ENGINE ===== */` 之前：**資料區**，日常修改都在這裡。
 3. `MAP ENGINE` / `RENDER` / `PHOTOS` 三段：引擎，除非要加新功能否則不要改。
    例外：`RENDER` 區開頭的 hero overview `cfg` 是首頁總覽圖的資料，該改。

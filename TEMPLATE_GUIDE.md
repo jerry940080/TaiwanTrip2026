@@ -65,6 +65,21 @@
 7. **部署**：push 後到 GitHub → Settings → Pages → Source 選分支與 `/ (root)`，網址即 `https://<帳號>.github.io/TaiwanTrip2026/`。
    注意：YouTube 內嵌需要 referrer，**本機 file:// 開啟影片會顯示錯誤 153**，上了網址就正常。
 
+## 地圖的背景資訊層
+
+底圖除了海岸線，還有三層會依地圖遠近自動開關（在引擎的 `areaBg`／`stationBg`／`railBg` 裡）：
+
+| 圖層 | 何時出現 | 常數 |
+|---|---|---|
+| 縣市名 | 地圖緯度跨幅 > `.35`（全島／跨縣市） | `TOWN_SPAN` |
+| 區界虛線＋區名 | 跨幅 ≤ `.35`（台北尺度） | `TOWN_SPAN` |
+| 捷運路網彩線 | 跨幅 ≤ `.35` | 各線的 `maxSpan` |
+| 捷運站圓點 | 跨幅 ≤ `.115` | `STATION_SPAN` |
+| 捷運站名 | 同上，且畫面內站數 ≤ 48 | `STATION_LABEL_MAX` |
+
+每張地圖右下角有「簡化」按鈕，按了會隱藏這些背景細節（`.mapcard.plain .poi{display:none}`），
+只留路線與景點。覺得某天的地圖太擠，先調 `minSpan` 或直接讓讀者自己按簡化。
+
 ## 引擎行為備忘
 
 - 地圖 bbox 由 `pts` 自動計算，`labels` 控制標籤在點的上/下/左/右，重疊就換方位或加大 `minSpan`。
