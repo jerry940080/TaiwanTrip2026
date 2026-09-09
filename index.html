@@ -37,6 +37,19 @@ h1,h2,h3{font-family:var(--serif);line-height:1.25;font-weight:700}
 .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
 @media (max-width:640px){.wrap{padding:0 16px}}
 
+/* ---------- 二選一方案（同一天區塊內並列兩套排程） ---------- */
+.plan{border-top:1px dashed var(--rule);padding-top:20px;margin-top:26px}
+.plan:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.plan-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.plan-head .tag{flex:none;width:36px;height:36px;border-radius:50%;background:var(--ai);color:#fff;font-family:var(--serif);font-weight:700;display:grid;place-items:center;font-size:17px}
+.plan.alt .plan-head .tag{background:var(--wakatake)}
+.plan-head h3{font-size:21px}
+.plan-head .psub{font-size:13.5px;color:var(--ink2);margin-top:3px}
+.plan-head .pstay{margin-left:auto;flex:none;background:#fff;border:1px solid var(--rule);border-left:4px solid var(--shu);border-radius:8px;padding:8px 14px;font-size:13.5px;line-height:1.45}
+.plan-head .pstay .lab{color:var(--ink3);font-size:12px}
+.pick{margin-top:24px;padding:15px 17px;border:1px solid var(--rule);border-left:3px solid var(--nanohana);background:#fdfbf3;border-radius:6px;font-size:14px;line-height:1.9}
+@media (max-width:640px){.plan-head{flex-wrap:wrap}.plan-head .pstay{margin-left:0;width:100%}}
+
 /* ---------- hero ---------- */
 .hero{position:relative;background:var(--sea);overflow:hidden;border-bottom:1px solid var(--rule)}
 .hero svg{display:block;width:100%;height:clamp(250px,36.7vw,560px);transition:height .45s ease}
@@ -60,7 +73,7 @@ h1,h2,h3{font-family:var(--serif);line-height:1.25;font-weight:700}
 .strip .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
 .strip .wrap::-webkit-scrollbar{display:none}
 .strip a{flex:none;text-decoration:none;color:var(--ink2);border:1px solid transparent;border-radius:999px;padding:5px 12px;font-size:13px;line-height:1.3;display:flex;align-items:center;gap:7px;white-space:nowrap}
-.strip a .n{font-family:var(--serif);font-weight:700;font-size:14px;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;display:inline-flex;align-items:center;justify-content:center}
+.strip a .n{font-family:var(--serif);font-weight:700;font-size:14px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--ink);color:#fff;display:inline-flex;align-items:center;justify-content:center;flex:none}
 .strip a.on{background:#fff;border-color:var(--rule);color:var(--ink)}
 .strip a.on .n{background:var(--shu)}
 .strip a:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
@@ -218,14 +231,14 @@ footer p{max-width:70ch}
   <div class="wrap">
     <h2>行前一頁看懂</h2>
     <p class="lead">9/26 下午落地桃園，10/5 中午飛回北京。台北的日子住家裡，只有 9/30–10/2 的三天兩夜要訂房。
-       行程分成三段：<b>連假段（9/26–9/29）</b>在台北近郊，<b>中段（9/30–10/2）</b>出遠門三天兩夜，
+       行程分成三段：<b>連假段（9/26–9/29）</b>在台北近郊，<b>中段（9/30–10/2）</b>出遠門三天兩夜（A／B 二選一），
        <b>收尾段（10/3–10/4）</b>回台北把剩下的點走完、順便採買，最後一晚慶生。
        要注意 9/25–9/28 是中秋連假，抵達後前三天各地都會擠，長途移動全部排在 9/29 之後。</p>
     <h3>住宿</h3>
         <table>
           <tr><th>日期</th><th>地區</th><th>住哪</th><th>備註</th></tr>
           <tr><td>9/26–9/29（六–二）</td><td>台北</td><td><b>家裡</b></td><td class="mute">四晚</td></tr>
-          <tr><td>9/30–10/1（三四）</td><td>看方案</td><td><b>待訂</b></td><td class="mute">三天兩夜的兩晚，方案敲定後訂</td></tr>
+          <tr><td>9/30–10/1（三四）</td><td>看方案</td><td><b>待訂</b></td><td class="mute">A：阿里山 1 晚＋日月潭 1 晚／B：花蓮 1 晚＋池上或台東 1 晚</td></tr>
           <tr><td>10/2–10/4（五–日）</td><td>台北</td><td><b>家裡</b></td><td class="mute">三晚</td></tr>
         </table>
         <p class="mute" style="margin-top:8px">全程只有兩晚要訂房——平日（週三、週四）出遊，房價與人潮都比連假低很多。</p>
@@ -259,7 +272,7 @@ footer p{max-width:70ch}
     </ul>
     <h3 style="margin-top:24px">還沒排進去的兩個</h3>
     <div class="cards" id="optionCards"></div>
-    <p class="mute" style="margin-top:8px">9/30–10/2 的三天兩夜（阿里山＋日月潭 ／ 花東・山嵐號）還沒定，定了之後這張表可能要再動一次。</p>
+    <p class="mute" style="margin-top:8px">9/30–10/2 的三天兩夜有 A／B 兩套方案並列在 Day 5-7，挑定之後這張表可能要再動一次。</p>
   </div>
 </section>
 
@@ -479,6 +492,21 @@ const CARDS={
  songyan:{name:'松山文創園區',jp:'Songshan Cultural and Creative Park',kind:'景點',short:'老菸廠改造的設計聚落',wiki:['松山文創園區'],
   text:'1937 年的松山菸廠改建，保留了製菸工廠的長廊、巴洛克花園與生態池，現在是設計展覽、選物店與咖啡的聚落，旁邊接著誠品生活松菸店，逛街與伴手禮一次解決。',
   chips:['園區 08:00–22:00','室內館舍 09:00–18:00','免費入園']},
+ alishan:{name:'阿里山國家森林遊樂區',jp:'Alishan',kind:'景點',short:'雲海日出、千年神木與森林小火車',wiki:['阿里山國家森林遊樂區','阿里山森林鐵路'],
+  text:'海拔約 2,200 公尺的高山林場，招牌是祝山線小火車看日出、巨木群棧道的紅檜神木與姊妹潭。日出時間隨季節變動，10 月上旬約 5:50 前後，要前一天在園區訂小火車票。山上溫差大，日出時只有 10 度上下，厚外套必備。',
+  chips:['園區門票 NT 300','祝山線小火車 NT 150','嘉義轉台灣好行約 2.5 小時']},
+ sunmoonlake:{name:'日月潭',jp:'Sun Moon Lake',kind:'景點',short:'環潭遊船、纜車與伊達邵部落',wiki:['日月潭'],
+  text:'台灣最大的天然湖，水社與伊達邵兩個碼頭之間有遊湖船串聯，玄光寺是拍潭景的經典角度。日月潭纜車連到九族文化村，空中看整片湖面。環潭自行車道被評為世界級路線，水社租車很方便。',
+  chips:['遊湖船約 NT 300','纜車來回 NT 300','台中轉南投客運約 1.5 小時']},
+ taroko:{name:'太魯閣峽谷',jp:'Taroko Gorge',kind:'景點',short:'立霧溪切出的大理岩峽谷',wiki:['太魯閣國家公園'],
+  text:'立霧溪在大理岩層裡切出的垂直峽谷，砂卡礑步道、燕子口與九曲洞是主要看點。<b>注意：園區自 2024 年 4 月地震後多處路段與步道仍在修復，開放範圍變動頻繁，出發前務必查國家公園最新公告</b>；若主要路段未開，改去七星潭海灣或鯉魚潭。',
+  chips:['園區免費','花蓮站轉台灣好行約 1 小時','行前查園區公告']},
+ shanlan:{name:'山嵐號 觀光列車',jp:'山嵐號',kind:'交通',short:'花蓮↔池上的縱谷旬味列車',wiki:[],
+  text:'雄獅旅遊與台鐵合作的觀光列車，2025 年 4 月啟航，主打「縱谷旬味」——全景落地窗配對坐雅座，車上供應在地食材的餐點。常態路線是花蓮↔池上，2026 年 9/4–12/27 期間營運。<b>全車只有 60 席、由雄獅售票，班次不是每天都有</b>，這是花東方案能不能成立的關鍵。',
+  chips:['全車 60 席','雄獅旅遊／KKday 售票','先確認 10/1 有無班次']},
+ chishang:{name:'池上伯朗大道',jp:'Chishang',kind:'景點',short:'無電線桿的稻田直路與金城武樹',wiki:['池上鄉'],
+  text:'一條穿過稻田、刻意不設電線桿的田間直路，因廣告拍攝爆紅，路邊那棵茄冬樹就是「金城武樹」。10 月初是二期稻作接近成熟的時候，田色偏金黃。全線禁行汽車，租單車或電動車繞一圈約 1 小時。',
+  chips:['全日開放・免費','單車租借約 NT 100／小時','池上站步行或租車 15 分']},
  northcoast:{name:'北海岸一日遊',jp:'North Coast',kind:'一日遊',short:'野柳女王頭、金山老街、淡水夕陽',wiki:['野柳','野柳地質公園'],
   text:'從淡水捷運站搭台灣好行皇冠北海岸線或 862／863 公車，沿海岸線往金山、野柳。野柳地質公園的蕈狀岩與女王頭是招牌，金山老街吃鴨肉與芋圓，回程在淡水看夕陽。全程靠公車、班次不算密，出門前先查時刻表抓好回程班次。',
   chips:['一整天','野柳 NT 120','淡水站搭台灣好行／862・863']},
@@ -547,15 +575,55 @@ const DAYS=[
    {t:'18:00',i:'🚆',h:'十分 → 台北',move:1}
   ],cards:['jiufen','shifen'],
   rain:'<b>雨備</b>　九份本來就常起霧下雨，躲進茶樓看雨景另有味道；天燈雨天會停放，改走十分瀑布步道或提早回台北。'},
- {n:5,date:'9/30',wd:'三',title:'三天兩夜・出發（方案待選）',sub:'A 阿里山＋日月潭　／　B 花東・山嵐號',stay:'待訂',
-  map:{pts:['taipeiStn','taichungStn','kaohsiungStn','hualien','taitung'],legs:[],labels:{taipeiStn:'t',taichungStn:'l',kaohsiungStn:'l',hualien:'r',taitung:'r'},minSpan:.25},
-  tl:[{t:'—',i:'🚄',h:'方案確定後填'}],cards:[]},
- {n:6,date:'10/1',wd:'四',title:'三天兩夜・第二天',sub:'方案待選',stay:'待訂',
-  map:{pts:['taipeiStn','taichungStn','kaohsiungStn','hualien','taitung'],legs:[],labels:{taipeiStn:'t',taichungStn:'l',kaohsiungStn:'l',hualien:'r',taitung:'r'},minSpan:.25},
-  tl:[{t:'—',i:'📍',h:'方案確定後填'}],cards:[]},
- {n:7,date:'10/2',wd:'五',title:'三天兩夜・返回台北',sub:'方案待選',stay:'家裡',
-  map:{pts:['taipeiStn','taichungStn','kaohsiungStn','hualien','taitung'],legs:[],labels:{taipeiStn:'t',taichungStn:'l',kaohsiungStn:'l',hualien:'r',taitung:'r'},minSpan:.25},
-  tl:[{t:'—',i:'🚄',h:'方案確定後填'}],cards:[]},
+ {n:'5-7',date:'9/30–10/2',wd:'三–五',title:'三天兩夜（二選一）',sub:'兩套方案並列，挑一套就好——決定的關鍵寫在最下面',stay:'看方案',
+  plans:[
+   {tag:'A',t:'阿里山＋日月潭',sub:'高鐵到嘉義上山看日出，再轉日月潭遊湖',stay:'阿里山 1 晚＋日月潭 1 晚',
+    map:{pts:['taipeiStn','chiayiHsr','fenqihu','alishan','sunmoonlake','taichungHsr'],
+     legs:[{a:'taipeiStn',b:'chiayiHsr',mode:'hsr',via:['banqiao','taoyuanHsr','hsinchuHsr','taichungHsr']},{a:'chiayiHsr',b:'alishan',mode:'bus',via:['chiayiStn','fenqihu']},{a:'alishan',b:'sunmoonlake',mode:'bus'},{a:'sunmoonlake',b:'taichungHsr',mode:'bus'},{a:'taichungHsr',b:'taipeiStn',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao'],curve:.14}],
+     labels:{taipeiStn:'t',chiayiHsr:'l',fenqihu:'t',alishan:'b',sunmoonlake:'r',taichungHsr:'l'},minSpan:.3},
+    tl:[
+     {t:'9/30',i:'📅',h:'<b>第一天（三）</b>　台北 → 嘉義 → 阿里山'},
+     {t:'08:00',i:'🚄',h:'台北 → 高鐵嘉義（約 1.5 小時）',move:1},
+     {t:'10:00',i:'🚌',h:'台灣好行阿里山線上山，途經奮起湖（約 2.5 小時）',move:1},
+     {t:'13:00',i:'🏨',h:'阿里山住宿 check-in'},
+     {t:'15:00',i:'🌲',h:'沼平公園、姊妹潭、受鎮宮'},
+     {t:'19:00',i:'✨',h:'園區看星空（海拔高、光害少）'},
+     {t:'10/1',i:'📅',h:'<b>第二天（四）</b>　阿里山日出 → 日月潭'},
+     {t:'04:30',i:'🚂',h:'祝山線小火車看日出（前一天先訂票）',move:1},
+     {t:'08:00',i:'🌳',h:'巨木群棧道、香林神木'},
+     {t:'10:30',i:'🚌',h:'下山轉往日月潭（約 3–4 小時，需在嘉義或水里換車）',move:1},
+     {t:'15:00',i:'🏨',h:'日月潭水社 check-in、環潭自行車道'},
+     {t:'18:00',i:'🍽',h:'水社商圈晚餐'},
+     {t:'10/2',i:'📅',h:'<b>第三天（五）</b>　日月潭 → 台中 → 台北'},
+     {t:'08:30',i:'⛵',h:'遊湖船：水社 → 伊達邵 → 玄光寺'},
+     {t:'11:00',i:'🚡',h:'日月潭纜車（可接九族文化村）'},
+     {t:'14:00',i:'🚌',h:'南投客運往高鐵台中站（約 1.5 小時）',move:1},
+     {t:'16:30',i:'🚄',h:'高鐵台中 → 台北（約 1 小時）',move:1}
+    ],cards:['alishan','sunmoonlake'],
+    rain:'<b>要訂的</b>　阿里山住宿（房間少、很搶手）、祝山線日出小火車、兩段高鐵早鳥票。<br><b>取捨</b>　兩個都是經典景點，但阿里山到日月潭沒有直達車，3–4 小時還要換車，是整個方案最累的一段；日出要 4:30 起床，山上約 10 度。'},
+   {tag:'B',t:'花東・山嵐號',sub:'台鐵一條線到底，中途搭縱谷觀光列車',stay:'花蓮 1 晚＋池上或台東 1 晚',
+    map:{pts:['taipeiStn','hualien','taroko','ruisui','chishang','taitung'],
+     legs:[{a:'taipeiStn',b:'hualien',mode:'tra',via:['songshan','yilan','luodong']},{a:'hualien',b:'taroko',mode:'bus'},{a:'taroko',b:'hualien',mode:'bus',curve:.3},{a:'hualien',b:'chishang',mode:'tra',via:['ruisui']},{a:'chishang',b:'taitung',mode:'tra'},{a:'taitung',b:'taipeiStn',mode:'tra',via:['chishang','ruisui','hualien','luodong','yilan','songshan']}],
+     labels:{taipeiStn:'t',hualien:'r',taroko:'l',ruisui:'l',chishang:'r',taitung:'b'},minSpan:.3},
+    tl:[
+     {t:'9/30',i:'📅',h:'<b>第一天（三）</b>　台北 → 花蓮'},
+     {t:'08:30',i:'🚆',h:'台北 → 花蓮（普悠瑪／太魯閣號約 2 小時）',move:1},
+     {t:'11:00',i:'🏨',h:'花蓮市區放行李'},
+     {t:'13:00',i:'🚌',h:'太魯閣峽谷（先查園區公告）或七星潭海灣',move:1},
+     {t:'18:00',i:'🍜',h:'東大門夜市'},
+     {t:'10/1',i:'📅',h:'<b>第二天（四）</b>　山嵐號 花蓮 → 池上'},
+     {t:'上午',i:'🚄',h:'山嵐號縱谷旬味列車 花蓮 → 池上（含車上餐點）',move:1},
+     {t:'下午',i:'🌾',h:'池上伯朗大道、金城武樹（租單車繞一圈）'},
+     {t:'17:00',i:'🏨',h:'池上或台東住宿'},
+     {t:'10/2',i:'📅',h:'<b>第三天（五）</b>　台東 → 台北'},
+     {t:'上午',i:'🎈',h:'鹿野高台，或台東市區森林公園、鐵花村'},
+     {t:'14:00',i:'🚆',h:'台東 → 台北（普悠瑪約 3.5 小時）',move:1},
+     {t:'18:00',i:'🏠',h:'回到台北'}
+    ],cards:['shanlan','taroko','chishang'],
+    rain:'<b>要訂的</b>　山嵐號（雄獅售票、全車 60 席，<b>先確認 10/1 有沒有班次</b>）、三段台鐵對號座、花蓮與池上住宿。<br><b>取捨</b>　行李只搬兩次、全程一條鐵路，是移動最輕鬆的方案；但太魯閣自 2024 年地震後開放範圍仍不穩定，不開就改七星潭與鯉魚潭。'}
+  ],
+  pick:'<b>怎麼選</b>　關鍵只有一件事：<b>10/1（四）山嵐號有沒有班次與座位</b>。有就選 B——全程台鐵一條線、行李搬最少，觀光列車本身就是一個景點；沒有就選 A。<br><b>其他差別</b>　A 的移動比較零碎（高鐵→客運→林鐵→客運），阿里山到日月潭那段最耗時，但日出與神木是別的地方看不到的；B 的移動單純、時間好掌握，回程普悠瑪 3.5 小時是唯一的長途。<br><b>兩個都不選？</b>　把三天兩夜縮成兩天一夜，多出來的那天就能把台北候選清單裡的北海岸或貓空補進去。',
+  tl:[],cards:[]},
  {n:8,date:'10/3',wd:'六',title:'陽明山一日遊',sub:'小油坑、擎天崗、竹子湖，下山泡北投溫泉（整天可換北海岸）',stay:'家裡',
   map:{pts:['taipeiStn','xiaoyoukeng','qingtiangang','zhuzihu','beitou'],legs:[{a:'taipeiStn',b:'xiaoyoukeng',mode:'bus'},{a:'xiaoyoukeng',b:'qingtiangang',mode:'bus'},{a:'qingtiangang',b:'zhuzihu',mode:'bus',curve:.2},{a:'zhuzihu',b:'beitou',mode:'bus'},{a:'beitou',b:'taipeiStn',mode:'metro',curve:-.15}],labels:{taipeiStn:'b',xiaoyoukeng:'t',qingtiangang:'r',zhuzihu:'l',beitou:'l'},minSpan:.09},
   tl:[
@@ -751,28 +819,41 @@ function cardHTML(id){
     <div class="bd"><h4>${c.name}<span>${c.jp||''}</span></h4><p>${c.short||''}</p></div>
   </article>`;
 }
+function legendOf(map){
+  const modes=[...new Set(map.legs.map(l=>l.mode))];
+  return modes.map(m=>`<span class="lg"><i style="border-color:${MODE[m].c};${MODE[m].d?'border-top-style:dashed':''}"></i>${MODE[m].label}</span>`).join('');
+}
+// 地圖＋時刻表＋雨備＋卡片。o 可以是一個 DAYS 項目，也可以是一個 plans 方案。
+function bodyHTML(o,key,aria){
+  return `<div class="day-body">
+      <div class="mapcard" data-day="${key}">${buildMap(o.map,{aria})}<div class="mapfoot">${legendOf(o.map)}<button type="button" class="replay">重播路線</button></div></div>
+      <div>
+        <ul class="tl">${o.tl.map(r=>`<li${r.move?' class="move"':''}><span class="t">${r.t}</span><span class="i">${r.i}</span><span><div class="h">${r.h}</div></span></li>`).join('')}</ul>
+        ${o.rain?`<div class="rain">${o.rain}</div>`:''}
+      </div>
+    </div>
+    <div class="cards">${(o.cards||[]).map(cardHTML).join('')}</div>`;
+}
 const daysEl=document.getElementById('days');
-daysEl.innerHTML=DAYS.map(d=>{
-  const modes=[...new Set(d.map.legs.map(l=>l.mode))];
-  const legend=modes.map(m=>`<span class="lg"><i style="border-color:${MODE[m].c};${MODE[m].d?'border-top-style:dashed':''}"></i>${MODE[m].label}</span>`).join('');
-  return `<section class="day" id="day${d.n}">
+daysEl.innerHTML=DAYS.map(d=>`<section class="day" id="day${d.n}">
   <div class="wrap">
     <div class="day-head">
       <div class="num"><small>Day</small>${d.n}</div>
       <div class="t"><h2>${d.date}（${d.wd}）${d.title}</h2><div class="sub">${d.sub}</div></div>
       <div class="stay"><div class="lab">今晚住</div>${d.stay}</div>
     </div>
-    <div class="day-body">
-      <div class="mapcard" data-day="${d.n}">${buildMap(d.map,{aria:'第'+d.n+'天路線圖'})}<div class="mapfoot">${legend}<button type="button" class="replay">重播路線</button></div></div>
-      <div>
-        <ul class="tl">${d.tl.map(r=>`<li${r.move?' class="move"':''}><span class="t">${r.t}</span><span class="i">${r.i}</span><span><div class="h">${r.h}</div></span></li>`).join('')}</ul>
-        ${d.rain?`<div class="rain">${d.rain}</div>`:''}
+    ${d.plans
+      ? d.plans.map((pl,i)=>`<div class="plan${i?' alt':''}">
+      <div class="plan-head">
+        <div class="tag">${pl.tag}</div>
+        <div><h3>${pl.t}</h3><div class="psub">${pl.sub}</div></div>
+        <div class="pstay"><div class="lab">兩晚住</div>${pl.stay}</div>
       </div>
-    </div>
-    <div class="cards">${d.cards.map(cardHTML).join('')}</div>
+      ${bodyHTML(pl,d.n+'-'+pl.tag,'方案 '+pl.tag+' '+pl.t+' 路線圖')}
+    </div>`).join('')+(d.pick?`<div class="pick">${d.pick}</div>`:'')
+      : bodyHTML(d,d.n,'第'+d.n+'天路線圖')}
   </div>
-</section>`;
-}).join('');
+</section>`).join('');
 
 // 候選區：還沒排進行程的選項也畫成卡片（可點開看介紹）
 const optionCards=document.getElementById('optionCards');

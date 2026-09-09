@@ -111,7 +111,7 @@ def main():
     if bad:
         print("\n".join("!! " + b for b in bad))
         sys.exit(1 if any(not b.startswith("提醒") for b in bad) else 0)
-    ndays = len(re.findall(r"\{n:\d+", days))
+    ndays = len(re.findall(r"\{n:'?[\d-]+", days))  # n 可能是 5 或 '5-7'（合併多天的區塊）
     print(f"OK：{len(pkeys)} 個地點、{len(ckeys)} 張卡片、{ndays} 天行程，沒有發現問題")
 
 
