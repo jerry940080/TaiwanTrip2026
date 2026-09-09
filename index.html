@@ -47,6 +47,7 @@ h1,h2,h3{font-family:var(--serif);line-height:1.25;font-weight:700}
 .plan-head .psub{font-size:13.5px;color:var(--ink2);margin-top:3px}
 .plan-head .pstay{margin-left:auto;flex:none;background:#fff;border:1px solid var(--rule);border-left:4px solid var(--shu);border-radius:8px;padding:8px 14px;font-size:13.5px;line-height:1.45}
 .plan-head .pstay .lab{color:var(--ink3);font-size:12px}
+.rain a,.pick a{color:var(--ai);text-decoration:underline;text-underline-offset:2px}
 .pick{margin-top:24px;padding:15px 17px;border:1px solid var(--rule);border-left:3px solid var(--nanohana);background:#fdfbf3;border-radius:6px;font-size:14px;line-height:1.9}
 @media (max-width:640px){.plan-head{flex-wrap:wrap}.plan-head .pstay{margin-left:0;width:100%}}
 
@@ -524,8 +525,8 @@ const CARDS={
   text:'立霧溪在大理岩層裡切出的垂直峽谷，砂卡礑步道、燕子口與九曲洞是主要看點。<b>注意：園區自 2024 年 4 月地震後多處路段與步道仍在修復，開放範圍變動頻繁，出發前務必查國家公園最新公告</b>；若主要路段未開，改去七星潭海灣或鯉魚潭。',
   chips:['園區免費','花蓮站轉台灣好行約 1 小時','行前查園區公告']},
  shanlan:{name:'山嵐號 觀光列車',jp:'山嵐號',kind:'交通',short:'花蓮↔池上的縱谷旬味列車',wiki:[],
-  text:'雄獅旅遊與台鐵合作的觀光列車，2025 年 4 月啟航，主打「縱谷旬味」——全景落地窗配對坐雅座，車上供應在地食材的餐點。常態路線是花蓮↔池上，2026 年 9/4–12/27 期間營運。<b>全車只有 60 席、由雄獅售票，班次不是每天都有</b>，這是花東方案能不能成立的關鍵。',
-  chips:['全車 60 席','雄獅旅遊／KKday 售票','先確認 10/1 有無班次']},
+  text:'雄獅旅遊與台鐵合作的觀光列車，2025 年 4 月啟航，主打「縱谷旬味」——全景落地窗配對坐雅座，車上供應在地食材的餐點。常態路線是花蓮↔池上，2026 年 9/4–12/27 期間營運。<b>全車只有 60 席（四節車廂中的 EP 餐車不設座位）、由雄獅售票，班次不是每天都有</b>，這是花東方案能不能成立的關鍵。單程套票每人約 NT 3,900 起。',
+  chips:['全車 60 席','單程套票約 NT 3,900 起','先確認 10/1 有無班次']},
  chishang:{name:'池上伯朗大道',jp:'Chishang',kind:'景點',short:'無電線桿的稻田直路與金城武樹',wiki:['池上鄉'],
   text:'一條穿過稻田、刻意不設電線桿的田間直路，因廣告拍攝爆紅，路邊那棵茄冬樹就是「金城武樹」。10 月初是二期稻作接近成熟的時候，田色偏金黃。全線禁行汽車，租單車或電動車繞一圈約 1 小時。',
   chips:['全日開放・免費','單車租借約 NT 100／小時','池上站步行或租車 15 分']},
@@ -625,7 +626,7 @@ const DAYS=[
      {t:'14:00',i:'🚌',h:'南投客運往高鐵台中站（約 1.5 小時）',move:1},
      {t:'16:30',i:'🚄',h:'高鐵台中 → 台北（約 1 小時）',move:1}
     ],cards:['alishan','sunmoonlake'],
-    rain:'<b>要訂的</b>　阿里山住宿（房間少、很搶手）、祝山線日出小火車、兩段高鐵早鳥票。<br><b>取捨</b>　兩個都是經典景點，但阿里山到日月潭沒有直達車，3–4 小時還要換車，是整個方案最累的一段；日出要 4:30 起床，山上約 10 度。'},
+    rain:'<b>候選商品</b>　KLOOK「<a href="https://www.klook.com/zh-TW/activity/116483-chiayi-alishan-nantou-sun-moon-lake-three-days-from-taipei/" target="_blank" rel="noopener">嘉義阿里山＆南投日月潭｜三天兩夜｜台北出發｜中部山林之美</a>」（含文化體驗、部分門票）。<b>下面的時刻表是我按一般走法排的，不是這個團的實際行程</b>——把團的每日內容給我，我就換成正式版。<br><b>要確認的</b>　出發日有沒有 9/30、集合地點與時間、住宿是哪兩晚、含不含餐與門票。<br><b>取捨</b>　兩個都是經典景點，但阿里山到日月潭沒有直達車，自行前往要 3–4 小時還得換車——跟團的話這段由遊覽車解決，是跟團最大的好處；日出要 4:30 起床，山上約 10 度。'},
    {tag:'B',t:'花東・山嵐號',sub:'台鐵一條線到底，中途搭縱谷觀光列車',stay:'待定（兩晚）',
     map:{pts:['taipeiStn','hualien','taroko','ruisui','chishang','taitung'],
      legs:[{a:'taipeiStn',b:'hualien',mode:'tra',via:['songshan','yilan','luodong']},{a:'hualien',b:'taroko',mode:'bus'},{a:'taroko',b:'hualien',mode:'bus',curve:.3},{a:'hualien',b:'chishang',mode:'tra',via:['ruisui']},{a:'chishang',b:'taitung',mode:'tra'},{a:'taitung',b:'taipeiStn',mode:'tra',via:['chishang','ruisui','hualien','luodong','yilan','songshan']}],
@@ -645,9 +646,9 @@ const DAYS=[
      {t:'14:00',i:'🚆',h:'台東 → 台北（普悠瑪約 3.5 小時）',move:1},
      {t:'18:00',i:'🏠',h:'回到台北'}
     ],cards:['shanlan','taroko','chishang'],
-    rain:'<b>要訂的</b>　山嵐號（雄獅售票、全車 60 席，<b>先確認 10/1 有沒有班次</b>）、三段台鐵對號座、花蓮與池上住宿。<br><b>取捨</b>　行李只搬兩次、全程一條鐵路，是移動最輕鬆的方案；但太魯閣自 2024 年地震後開放範圍仍不穩定，不開就改七星潭與鯉魚潭。'}
+    rain:'<b>候選商品</b>　雄獅旅遊的花東三天兩夜團（<a href="https://travel.liontravel.com/detail?NormGroupID=666c1f93-433f-4fdc-a2fb-2427ea8b0451&amp;GroupID=26TE928QHAT-T&amp;TourSource=Lion&amp;Platform=APP" target="_blank" rel="noopener">商品連結</a>）。<b>下面的時刻表是我按一般走法排的，不是這個團的實際行程</b>——把團的每日內容給我，我就換成正式版。<br><b>要確認的</b>　<b>出發日期是不是 9/30</b>（團號 26TE<b>928</b>QHAT 看起來像 9/28 出發，若是就跟你的空檔對不上）、有沒有含山嵐號、集合地點與時間、住哪兩晚。<br><b>取捨</b>　行李只搬兩次、全程一條鐵路，是移動最輕鬆的方案；但太魯閣自 2024 年地震後開放範圍仍不穩定，不開就改七星潭與鯉魚潭。'}
   ],
-  pick:'<b>怎麼選</b>　關鍵只有一件事：<b>10/1（四）山嵐號有沒有班次與座位</b>。有就選 B——全程台鐵一條線、行李搬最少，觀光列車本身就是一個景點；沒有就選 A。<br><b>其他差別</b>　A 的移動比較零碎（高鐵→客運→林鐵→客運），阿里山到日月潭那段最耗時，但日出與神木是別的地方看不到的；B 的移動單純、時間好掌握，回程普悠瑪 3.5 小時是唯一的長途。<br><b>兩個都不選？</b>　把三天兩夜縮成兩天一夜，多出來的那天就能把台北候選清單裡的北海岸或貓空補進去。',
+  pick:'<b>目前狀態</b>　兩個方案各自對應一個實際可訂的商品（連結在上面各自的說明裡），但商品頁在我這邊開不起來，所以下面兩份時刻表是我按一般走法排的<b>參考版</b>，不是團的正式行程。把兩個團的每日內容貼給我，我就換成正式版並重畫地圖。<br><b>先確認兩件事</b>　雄獅那團的出發日期是不是 9/30（團號看起來像 9/28）；KLOOK 那團 9/30 有沒有出團。日期對不上的話再好的行程也沒用。<br><b>怎麼選</b>　關鍵在<b>10/1（四）山嵐號有沒有班次與座位</b>。有就選 B——全程台鐵一條線、行李搬最少，觀光列車本身就是一個景點；沒有就選 A。<br><b>其他差別</b>　A 的移動比較零碎（高鐵→客運→林鐵→客運），阿里山到日月潭那段最耗時，但日出與神木是別的地方看不到的；B 的移動單純、時間好掌握，回程普悠瑪 3.5 小時是唯一的長途。<br><b>兩個都不選？</b>　把三天兩夜縮成兩天一夜，多出來的那天就能把台北候選清單裡的北海岸或貓空補進去。',
   tl:[],cards:[]},
  {n:8,date:'10/3',wd:'六',title:'北海岸一日遊',sub:'淡水搭台灣好行沿海走，金山吃午餐、野柳看女王頭，收在基隆廟口',stay:'待定',
   map:{pts:['home','tamsui','sanzhi','shimen','jinshan','yehliu','keelung','songshan'],legs:[{a:'home',b:'tamsui',mode:'metro'},{a:'tamsui',b:'yehliu',mode:'bus',via:['sanzhi','shimen','jinshan']},{a:'yehliu',b:'keelung',mode:'bus'},{a:'keelung',b:'songshan',mode:'tra'},{a:'songshan',b:'home',mode:'walk'}],labels:{home:'b',tamsui:'l',sanzhi:'l',shimen:'t',jinshan:'t',yehliu:'r',keelung:'r',songshan:'b'},minSpan:.12},
