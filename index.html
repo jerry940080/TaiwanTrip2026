@@ -43,6 +43,7 @@ h1,h2,h3{font-family:var(--serif);line-height:1.25;font-weight:700}
 .plan-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
 .plan-head .tag{flex:none;width:36px;height:36px;border-radius:50%;background:var(--ai);color:#fff;font-family:var(--serif);font-weight:700;display:grid;place-items:center;font-size:17px}
 .plan.alt .plan-head .tag{background:var(--wakatake)}
+.plan.alt2 .plan-head .tag{background:var(--murasaki)}
 .plan-head h3{font-size:21px}
 .plan-head .psub{font-size:13.5px;color:var(--ink2);margin-top:3px}
 .plan-head .pstay{margin-left:auto;flex:none;background:#fff;border:1px solid var(--rule);border-left:4px solid var(--shu);border-radius:8px;padding:8px 14px;font-size:13.5px;line-height:1.45}
@@ -540,10 +541,13 @@ const CARDS={
   chips:['園區 08:00–22:00','室內館舍 09:00–18:00','免費入園']},
  qingjing:{name:'清境農場',jp:'Qingjing Farm',kind:'景點',short:'海拔 1,750 公尺的高山草原與綿羊秀',wiki:['清境農場'],
   text:'合歡山下的高山牧場，青青草原上放牧綿羊，假日有綿羊秀與馬術秀；高空觀景步道沿稜線架設，天氣好看得到中央山脈稜線。海拔約 1,750 公尺，比平地低 10 度以上，十月上山要帶外套。台中出發車程單程約 2–2.5 小時，山路彎多，會暈車的先吃藥。',
-  chips:['青青草原 08:00–17:00','門票 NT 200','台中出發車程約 2 小時']},
+  chips:['青青草原 08:00–17:00','門票 NT 200','綿羊秀 例假日 09:30／14:30','馬術秀 每日 10:45／15:45']},
+ nantoucard:{name:'南投好行卡',jp:'Nantou Fun Pass',kind:'交通',short:'3 天無限搭台灣好行 6 條路線',wiki:[],
+  text:'南投客運與台灣好行合作的交通卡，第一次上車嗶卡當天起算、連續三天無限次數搭乘六條指定路線：日月潭線（6670A–F 台中站⇄日月潭）、埔里線（6670H）、溪頭線（6683 台中站⇄溪頭）、清境線（6664／6659／6658 埔里⇄清境）、日月潭溪頭線（6801）、車埕線（6671）。在南投客運高鐵台中站服務櫃台取卡，三日期滿後可當一般悠遊卡繼續用。<b>注意清境線是從埔里發車</b>，台中過去要先到埔里轉車，單程約 2.5 小時。',
+  chips:['3 天無限次數','高鐵台中站取卡','售價需向官方確認']},
  xitou:{name:'溪頭自然教育園區',jp:'Xitou',kind:'景點',short:'柳杉林、大學池與空中走廊',wiki:['溪頭自然教育園區'],
   text:'台大實驗林場，海拔約 1,150 公尺，滿山柳杉與孟宗竹，十月上山早晚涼、常有霧氣。招牌是大學池的竹拱橋、離地二十多公尺的空中走廊，還有樹齡兩千多年的紅檜神木。園區步道平緩好走，慢慢逛約 3–4 小時；園區外的妖怪村與綠光小屋竹林可以順路。',
-  chips:['08:00–17:00','全票 NT 200','高鐵台中轉車約 1.5 小時']},
+  chips:['07:00–17:00','全票 NT 220','台中站 6683 直達約 1.5–2 小時']},
  sunmoonlake:{name:'日月潭',jp:'Sun Moon Lake',kind:'景點',short:'環潭遊船、纜車與伊達邵部落',wiki:['日月潭'],
   text:'台灣最大的天然湖，水社與伊達邵兩個碼頭之間有遊湖船串聯，玄光寺是拍潭景的經典角度。日月潭纜車連到九族文化村，空中看整片湖面。環潭自行車道被評為世界級路線，水社租車很方便。',
   chips:['遊湖船約 NT 300','纜車來回 NT 300','台中轉南投客運約 1.5 小時']},
@@ -675,9 +679,32 @@ const DAYS=[
      {t:'傍晚',i:'🚄',h:'高鐵台中 → 台北（約 1 小時）',move:1}
     ],cards:['xitou','sunmoonlake'],
     rain:'<b>候選商品</b>　東南旅遊「<a href="https://trip.settour.com.tw/taiwan/product/GRT0000007931" target="_blank" rel="noopener">【五星FUN鬆】溪頭米堤綠光竹林歐風城堡、日月潭溫德姆溫泉饗宴高鐵三日</a>」。<b>下面的時刻表是我按行程賣點推排的參考版，不是團的正式行程</b>——把每日內容給我就換成正式版。<br><b>要確認的</b>　9/30 有沒有出團、<b>標示 4 人成行</b>（人數不足可能取消）、集合地點與時間、含哪幾餐與哪些門票、高鐵是對號座還是自由座。<br><b>步行與轉乘</b>　<b>全程零自行轉乘</b>——高鐵到台中站有專車接，之後溪頭、日月潭之間都是專車，三天下來不用自己找車、看班表或搬行李進出車站。<br><b>取捨</b>　住得最好、移動最輕鬆；代價是行程照團走、彈性低，且標示 4 人成行，人數不足可能取消。',
-   }
+   },
+   {tag:'C',t:'南投好行卡（住進南投）',sub:'一張卡三天無限搭台灣好行，住日月潭與溪頭各一晚',stay:'日月潭 1 晚＋溪頭 1 晚（待定）',
+    map:{pts:['taipeiStn','taichungHsr','sunmoonlake','xitou'],
+     legs:[{a:'taipeiStn',b:'taichungHsr',mode:'hsr',via:['banqiao','taoyuanHsr','hsinchuHsr']},{a:'taichungHsr',b:'sunmoonlake',mode:'bus'},{a:'sunmoonlake',b:'xitou',mode:'bus'},{a:'xitou',b:'taichungHsr',mode:'bus'},{a:'taichungHsr',b:'taipeiStn',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao'],curve:.14}],
+     labels:{taipeiStn:'t',taichungHsr:'l',sunmoonlake:'r',xitou:'b'},minSpan:.3},
+    tl:[
+     {t:'9/30',i:'📅',h:'<b>第一天（三）</b>　台北 → 高鐵台中 → 日月潭'},
+     {t:'上午',i:'🚄',h:'高鐵台北 → 台中（約 1 小時）',move:1},
+     {t:'到站',i:'🎫',h:'高鐵台中站 1 樓第 5 出入口，南投客運櫃台領好行卡'},
+     {t:'中午',i:'🚌',h:'日月潭線 6670A 直達日月潭（約 1.5 小時，不用轉車）',move:1},
+     {t:'下午',i:'⛵',h:'水社碼頭、遊湖船或環潭自行車道'},
+     {t:'傍晚',i:'🏨',h:'日月潭住宿（水社或伊達邵一帶）'},
+     {t:'10/1',i:'📅',h:'<b>第二天（四）</b>　日月潭一整天 → 傍晚移動到溪頭'},
+     {t:'上午',i:'🏛',h:'向山遊客中心（6670F，車程約 5 分）、向山步道'},
+     {t:'中午',i:'🚡',h:'日月潭纜車、伊達邵老街；或 6671 車埕線去車埕老街'},
+     {t:'傍晚',i:'🚌',h:'日月潭溪頭線 6801 前往溪頭',move:1},
+     {t:'晚上',i:'🏨',h:'溪頭或妖怪村一帶住宿'},
+     {t:'10/2',i:'📅',h:'<b>第三天（五）</b>　溪頭 → 高鐵台中 → 台北'},
+     {t:'07:00',i:'🌲',h:'溪頭自然教育園區一開園就進去：大學池、空中走廊、神木'},
+     {t:'中午',i:'🍜',h:'妖怪村（溪頭松林町）午餐與伴手禮'},
+     {t:'下午',i:'🚌',h:'溪頭線 6683 直達高鐵台中站（約 1.5–2 小時）',move:1},
+     {t:'傍晚',i:'🚄',h:'高鐵台中 → 台北（約 1 小時）',move:1}
+    ],cards:['nantoucard','sunmoonlake','xitou'],
+    rain:'<b>這條路線只走「從台中直達」的線</b>　日月潭線 6670A–F 與溪頭線 6683 都從台中站直達，中間再用日月潭溪頭線 6801 串起來，<b>全程不必在埔里轉車</b>。清境線是從埔里發車的（台中過去單程約 2.5 小時），所以這條路線刻意不排清境。<br><b>要確認的</b>　好行卡售價（官方文章沒寫，售票平台顯示約 NT 550）、6801 日月潭往溪頭的班次與末班時間（這是整條路線的關鍵接點）、9/30–10/1 是平日班表、10/2 週五起算假日班表，時刻不同。<br><b>取捨</b>　車資最省、時間完全自己掌握，而且住在南投當地、不用每天從台中往返；代價是要自己看班表抓車，住宿換一次（行李搬兩次），門票餐食都自付。<br><b>景點數字</b>　溪頭自然教育園區 07:00–17:00、全票 220；日月潭纜車與遊湖船另計。'},
   ],
-  pick:'<b>目前狀態</b>　A 是自己組的（台中住兩晚＋兩個 KLOOK 一日遊），B 是東南的跟團一次搞定。商品連結都在上面，但那些頁面在我這邊開不起來，所以兩份時刻表都是<b>參考版</b>——把實際內容貼給我就換成正式版。<br><b>注意：兩案可能高度重疊</b>　如果 A 的第三天選<b>溪頭</b>，那 A 和 B 的景點幾乎一樣（都是日月潭＋溪頭），差別只剩住宿等級與跟不跟團。想讓兩案真的有區別，A 的第三天就選<b>清境</b>。<br><b>怎麼選</b><br>　・<b>看重「不用自己轉車」</b>　B 全程專車接送、住宿餐食都含在裡面，出了高鐵站就有人接，三天不用看任何班表 → 選 <b>B</b>。<br>　・<b>看重彈性與預算</b>　A 白天交給一日遊、晚上自己逛台中，住同一間飯店兩晚；代價是高鐵轉台鐵、每天自己到集合點、10/2 要寄行李 → 選 <b>A</b>。<br>　・A 的第三天：<b>溪頭</b>是低海拔森林、步道平緩好走；<b>清境</b>海拔 1,750 公尺、看草原綿羊與山景，但單程車程約 2 小時、十月山上冷。<br><b>先確認</b>　三個 KLOOK 一日遊 9/30–10/2 出不出團；東南那團 9/30 出不出（標示 4 人成行，人數不足可能取消）。',
+  pick:'<b>三個方案都到日月潭，差別在「誰幫你安排」與「住哪裡」</b><br><b>A 台中定點＋一日遊</b>　住台中同一間兩晚、行李只搬一次，白天交給 KLOOK 一日遊、晚上自己逛台中。每天早上要自己準時到集合點，10/2 還得寄行李。<br><b>B 溪頭＋日月潭跟團</b>　全程專車接送、兩晚五星、餐食都含，出了高鐵站就有人接，三天不用看任何班表。彈性最低，且標示 4 人成行、人數不足可能取消。<br><b>C 南投好行卡自由行</b>　一張卡三天無限搭，車資最省、時間完全自己掌握，而且住在南投當地不用每天往返台中。代價是要自己看班表抓車、住宿換一次、門票餐食自付。<br><b>用交通負擔排序</b>　B（零自行轉乘）＞ A（高鐵轉台鐵一次，之後有專車）＞ C（全靠自己看班表搭公車）。<br><b>用彈性與花費排序</b>　C ＞ A ＞ B。<br><b>三個都要先確認的</b>　9/30 出不出團／有沒有位子；C 則是要確認好行卡售價，以及 10/1 傍晚日月潭往溪頭的 6801 班次與末班時間——那是 C 的關鍵接點，沒接上就要臨時改住日月潭。<br><b>注意 A 與 B 可能撞車</b>　A 的第三天若選溪頭，景點會和 B 幾乎一樣，差別只剩住宿等級與跟不跟團；想讓兩案有區別，A 第三天就選清境。',
   tl:[],cards:[]},
  {n:8,date:'10/3',wd:'六',title:'北海岸：野柳・金山・基隆廟口',sub:'台鐵到基隆轉一班公車，沿海岸走到金山，晚餐收在廟口',stay:'待定',
   map:{pts:['home','songshan','keelung','yehliu','jinshan'],legs:[{a:'home',b:'songshan',mode:'walk'},{a:'songshan',b:'keelung',mode:'tra'},{a:'keelung',b:'yehliu',mode:'bus'},{a:'yehliu',b:'jinshan',mode:'bus'},{a:'jinshan',b:'keelung',mode:'bus',via:['yehliu'],curve:.28},{a:'keelung',b:'songshan',mode:'tra',curve:-.14}],labels:{home:'t',songshan:'b',keelung:'r',yehliu:'b',jinshan:'t'},minSpan:.12},
@@ -957,7 +984,7 @@ daysEl.innerHTML=DAYS.map(d=>`<section class="day" id="day${d.n}">
       <div class="stay"><div class="lab">今晚住</div>${d.stay}</div>
     </div>
     ${d.plans
-      ? d.plans.map((pl,i)=>`<div class="plan${i?' alt':''}">
+      ? d.plans.map((pl,i)=>`<div class="plan${i===0?'':i===1?' alt':' alt2'}">
       <div class="plan-head">
         <div class="tag">${pl.tag}</div>
         <div><h3>${pl.t}</h3><div class="psub">${pl.sub}</div></div>
