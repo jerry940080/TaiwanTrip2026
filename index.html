@@ -304,8 +304,9 @@ footer p{max-width:70ch}
         <h3>車票與費用</h3>
         <table>
           <tr><th>區間</th><th>車種</th><th>時間</th><th>車資</th><th>訂票</th></tr>
-          <tr><td>桃園機場 → 台北車站</td><td>機場捷運直達車</td><td>約 40 分</td><td>NT 160</td><td class="mute">現場刷悠遊卡，不需訂票</td></tr>
-          <tr><td>台北車站 → 家（南京三民）</td><td>捷運轉乘</td><td>約 20 分</td><td>NT 25</td><td class="mute">中山站轉松山新店線</td></tr>
+          <tr><td>桃園機場 → 家（9/26）</td><td>開車接機</td><td>約 50 分–1 小時</td><td class="mute">油資與過路費</td><td class="mute">連假傍晚國道 1 號可能塞</td></tr>
+          <tr><td>家 → 桃園機場（10/5）</td><td>開車或叫車</td><td>約 50 分–1 小時</td><td class="mute">叫車前一晚先預約</td><td class="mute">黃金週期間現叫不一定有車</td></tr>
+          <tr><td class="mute">（備案）機場 ⇄ 台北車站</td><td class="mute">機場捷運直達車</td><td class="mute">約 40 分</td><td class="mute">NT 160</td><td class="mute">現場刷悠遊卡，再轉捷運到南京三民</td></tr>
           <tr><td>9/27 下午 市區環線</td><td>雙層觀光巴士 紅線</td><td>下午半天</td><td>NT 500</td><td class="mute">日間票，09:00–18:00 無限上下車</td></tr>
           <tr><td>台北車站 → 桃園機場</td><td>機場捷運直達車</td><td>約 40 分</td><td>NT 160</td><td class="mute">同上</td></tr>
           <tr><td>（中段行程待定）</td><td>—</td><td>—</td><td>—</td><td class="mute">路線確定後補</td></tr>
@@ -459,12 +460,10 @@ const MODE={
  hsr:{c:'#2b4c7e',w:4.5,label:'高鐵'},
  tra:{c:'#2b4c7e',w:3,label:'台鐵'},
  metro:{c:'#6f5aa0',w:3,label:'台北捷運'},
- arex:{c:'#8b2f8f',w:3.4,label:'機場捷運'},
  car:{c:'#c8452e',w:3,label:'租車'},
- drive:{c:'#c8452e',w:3.2,d:'9 4',label:'家人接送'},
+ drive:{c:'#c8452e',w:3.2,d:'9 4',label:'開車／叫車'},
  coach:{c:'#c8452e',w:3.4,label:'專車接送'},
  sightbus:{c:'#c8452e',w:4,label:'雙層觀光巴士 紅線'},
- taxi:{c:'#c8452e',w:2.5,d:'6 4',label:'計程車'},
  bus:{c:'#d9a21b',w:2.6,d:'7 5',label:'客運・公車'},
  ferry:{c:'#3c9a72',w:2.8,d:'9 5',label:'渡輪'},
  ropeway:{c:'#6f5aa0',w:2.6,d:'2 4',label:'纜車'},
@@ -596,18 +595,17 @@ const IMG={};
        cards:['cardKey'],
        rain:'<b>雨備</b>　...'}                      // 可省略                                        */
 const DAYS=[
- {n:1,date:'9/26',wd:'六',title:'北京 → 桃園 → 台北',sub:'下午落地，接機捷進市區；中秋連假第二天',stay:'待定',
-  map:{pts:['tpe','taoyuanHsr','taipeiStn','home'],legs:[{a:'tpe',b:'taipeiStn',mode:'arex',via:['taoyuanHsr']},{a:'taipeiStn',b:'home',mode:'metro'}],labels:{tpe:'b',taipeiStn:'b',home:'t'},minSpan:.12},
+ {n:1,date:'9/26',wd:'六',title:'北京 → 桃園 → 台北',sub:'下午落地，開車接機直接回家；中秋連假第二天',stay:'待定',
+  map:{pts:['tpe','home'],legs:[{a:'tpe',b:'home',mode:'drive',via:['taipeiStn']}],labels:{tpe:'b',home:'t'},minSpan:.12},
   tl:[
    {t:'13:55',i:'✈',h:'北京首都 → 桃園（CA189）'},
    {t:'17:10',i:'🛬',h:'抵達桃園機場'},
    {t:'17:10–18:10',i:'🧳',h:'入境、領行李、換錢或領網卡'},
-   {t:'18:20',i:'🚇',h:'機場捷運直達車 → 台北車站（約 40 分，桃園捷運系統）',move:1},
-   {t:'19:10',i:'🚇',h:'轉捷運回家（台北車站 → 中山轉松山新店線 → 南京三民，約 20 分）',move:1},
-   {t:'19:40',i:'🏠',h:'到家、放行李'},
-   {t:'20:30',i:'🍜',h:'第一餐（待定）'}
+   {t:'18:10',i:'🚗',h:'開車接機，直接載回家（國道 2 號接 1 號，約 50 分–1 小時）',move:1},
+   {t:'19:10',i:'🏠',h:'到家、放行李'},
+   {t:'20:00',i:'🍜',h:'第一餐（待定）'}
   ],cards:[],
-  rain:'<b>步行與轉乘</b>　機捷直達車到台北車站，再轉一次捷運到家，<b>轉乘一次</b>；兩段都有電梯，行李不用搬樓梯。<br><b>提醒</b>　9/26 是中秋連假第二天，機捷與市區都會比平常擠；當晚別排太滿，落地當天以進市區、吃飯、休息為主。'},
+  rain:'<b>開車接機，全程零轉乘</b>　行李直接上車，不用在台北車站拖著走轉乘通道。<br><b>路況要抓寬</b>　9/26 是中秋連假第二天的週六傍晚，國道 1 號往台北方向可能會塞，順的話 50 分鐘，塞起來抓 1.5 小時。<br><b>備案</b>　真的不想開，機場捷運直達車到台北車站約 40 分（NT 160），再轉捷運到南京三民約 20 分。<br><b>提醒</b>　9/26 是中秋連假第二天，機捷與市區都會比平常擠；當晚別排太滿，落地當天以進市區、吃飯、休息為主。'},
  {n:2,date:'9/27',wd:'日',title:'國父紀念館・雙層巴士紅線',sub:'上午走路到國父紀念館，下午搭紅線繞一圈，傍晚回家烤肉',stay:'待定',
   map:{pts:['home','sysMemorial','songyan','huashan','cks','taipei101','zhongxiaodunhua','zhongxiaofuxing','taipeiStn','ximen','xiaonanmen','longshan','dongmen','daanPark','daan','cityHall'],
    legs:[{a:'home',b:'sysMemorial',mode:'bus'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'sysMemorial',mode:'walk',curve:.3},{a:'sysMemorial',b:'huashan',mode:'sightbus',via:['zhongxiaodunhua','zhongxiaofuxing']},{a:'huashan',b:'cks',mode:'sightbus',via:['taipeiStn','ximen','xiaonanmen','longshan']},{a:'cks',b:'taipei101',mode:'sightbus',via:['dongmen','daanPark','daan']},{a:'taipei101',b:'sysMemorial',mode:'sightbus',via:['cityHall']},{a:'sysMemorial',b:'home',mode:'bus',curve:.25}],
@@ -765,17 +763,16 @@ const DAYS=[
    {t:'21:30',i:'🚕',h:'回家'}
   ],cards:['dadaocheng','bopiliao'],
   rain:'<b>這天減量了</b>　中正紀念堂移到 9/27 的雙層巴士紅線行程裡，所以這天只留大稻埕與剝皮寮兩個老街區，<b>傍晚就能回家休息、換衣服再出門慶生</b>，不用一路走到晚餐。<br><b>步行與轉乘</b>　去程與中段是捷運（北門 → 西門轉車 → 龍山寺）；<b>回程二選一</b>——捷運同樣在西門轉車約 30 分，或直接叫計程車約 20 分，走了一整天累的話就搭車。迪化街有騎樓、剝皮寮有紅磚拱廊，都是平地。<br><b>慶生餐廳</b>　從家出發比較輕鬆，訂在家附近或信義區都可以；蛋糕與包廂需求訂位時一起講。<br><b>雨備</b>　迪化街整條有騎樓、剝皮寮有拱廊，這天下雨影響不大。<br><b>提醒</b>　剝皮寮歷史街區週一休，10/4 是週日沒問題。'},
- {n:10,date:'10/5',wd:'一',title:'台北 → 桃園 → 北京',sub:'中午的飛機，早上留一點緩衝',stay:'—',
-  map:{pts:['home','taipeiStn','taoyuanHsr','tpe'],legs:[{a:'home',b:'taipeiStn',mode:'metro'},{a:'taipeiStn',b:'tpe',mode:'arex',via:['taoyuanHsr']}],labels:{home:'t',taipeiStn:'b',tpe:'b'},minSpan:.12},
+ {n:10,date:'10/5',wd:'一',title:'台北 → 桃園 → 北京',sub:'開車或叫車直達機場，中午的飛機',stay:'—',
+  map:{pts:['home','tpe'],legs:[{a:'home',b:'tpe',mode:'drive',via:['taipeiStn']}],labels:{home:'t',tpe:'b'},minSpan:.12},
   tl:[
    {t:'08:30',i:'🍳',h:'早餐、整理行李'},
-   {t:'09:00',i:'🚇',h:'從家搭捷運到台北車站（約 20 分）',move:1},
-   {t:'09:40',i:'🚇',h:'機場捷運 → 桃園機場（約 40 分）',move:1},
-   {t:'10:25',i:'🧳',h:'報到、託運、出境'},
+   {t:'09:15',i:'🚗',h:'開車或叫車直達桃園機場（約 50 分–1 小時）',move:1},
+   {t:'10:15',i:'🧳',h:'報到、託運、出境'},
    {t:'13:15',i:'✈',h:'桃園 → 北京首都（CA186）'},
    {t:'16:45',i:'🛬',h:'抵達北京首都'}
   ],cards:[],
-  rain:'<b>步行與轉乘</b>　捷運到台北車站轉機場捷運，<b>轉乘一次</b>；台北車站的轉乘通道有點長，行李多的話抓寬鬆一點。<br><b>提醒</b>　10/5 在中國十一黃金週（10/1–7）內，桃園機場報到櫃檯與北京端入境都會排隊，抓 3 小時比較保險。'},
+  rain:'<b>開車或叫車，全程零轉乘</b>　行李不用進出車站，門到門。叫車的話前一晚先預約，連假期間現叫不一定有車。<br><b>備案</b>　搭大眾運輸的話是捷運到台北車站（約 20 分）轉機場捷運（約 40 分，NT 160），要多抓 30 分鐘與轉乘通道的時間。<br><b>提醒</b>　10/5 在中國十一黃金週（10/1–7）內，桃園機場報到櫃檯與北京端入境都會排隊，抓 3 小時比較保險。'},
 ];
 
 /* ================= MAP ENGINE ================= */
