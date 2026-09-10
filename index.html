@@ -835,9 +835,11 @@ function scaleBar(pr){
   const w=km*pxPerKm;
   return `<g transform="translate(${W-w-16},${H-16})"><line x1="0" y1="0" x2="${w.toFixed(1)}" y2="0" stroke="#26292e" stroke-width="1.5"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#26292e" stroke-width="1.5"/><line x1="${w.toFixed(1)}" y1="-4" x2="${w.toFixed(1)}" y2="4" stroke="#26292e" stroke-width="1.5"/><text x="${(w/2).toFixed(1)}" y="-6" text-anchor="middle" font-size="10" fill="#26292e">${km} km</text></g>`;
 }
-function marker(key,pr,side,big,kindOverride){
+function marker(key,pr,side,big,kindOverride,nameOverride){
   // kindOverride：讓某一天把某個點改用別的樣式畫（例如把捷運站改畫成巴士停靠站）
-  const [name,kind0]=NAMES[key]||[key,'spot'];
+  // nameOverride：讓點多的地圖改用短名（首頁總覽圖就靠這個把「家（西松高中）」縮成「家」）
+  const [name0,kind0]=NAMES[key]||[key,'spot'];
+  const name=nameOverride||name0;
   const kind=kindOverride||kind0;
   const K=KIND[kind];const [x,y]=pr.pt(P[key]);
   const r=(K.r)*(big?1.15:1);
@@ -865,14 +867,17 @@ function placeLabels(items,pr,fontPx){
   }
   return out;
 }
-function areaBg(pr,bbox){
-  const span=bbox.la1-bbox.la0;
-  if(span>TOWN_SPAN){
-    const cs=placeLabels(COUNTIES.filter(c=>inBox(c[1],c[2],bbox,.06)),pr,11.5);
-    return '<g class="poi">'+cs.map(([n,q])=>
+function areaBg(pr,bbox,detail,wide){
+  // bbox＝整張圖的範圍；detail＝要畫多細（沒給就跟 bbox 一樣）；
+  // wide＝縣市名要涵蓋到哪（含鏡頭平移後才看得到的範圍，沒給就跟 bbox 一樣）。
+  // 首頁大圖聚焦台北，但只想在台北那一帶畫出區界與捷運，就靠 detail 分開控制。
+  const d=detail||bbox, span=d.la1-d.la0;
+  const cs=placeLabels(COUNTIES.filter(c=>inBox(c[1],c[2],wide||bbox,.06)),pr,11.5);
+  const counties=cs.map(([n,q])=>
       `<text x="${q[0].toFixed(1)}" y="${q[1].toFixed(1)}" text-anchor="middle" font-size="11.5" fill="#b3a88f" letter-spacing=".1em">${n}</text>`
-    ).join('')+'</g>';
-  }
+    ).join('');
+  if(span>TOWN_SPAN) return '<g class="poi">'+counties+'</g>';
+  bbox=d;
   const lines=TOWNLINES.filter(l=>l.some(p=>inBox(p[0],p[1],bbox,-.02))).map(l=>{
     const q=l.map(p=>pr.pt(p));
     return '<path d="M'+q.map(a=>a[0].toFixed(1)+','+a[1].toFixed(1)).join('L')+'" fill="none" stroke="#c4baa4" stroke-width=".7" stroke-dasharray="1 4" opacity=".75"/>';
@@ -882,9 +887,10 @@ function areaBg(pr,bbox){
   const names=placeLabels(cand,pr,12.5).map(([n,q])=>
     `<text x="${q[0].toFixed(1)}" y="${q[1].toFixed(1)}" text-anchor="middle" font-size="12.5" font-weight="600" fill="#b0a488" letter-spacing=".2em">${n}</text>`
   ).join('');
-  return '<g class="poi">'+lines+names+'</g>';
+  return '<g class="poi">'+counties+lines+names+'</g>';
 }
-function stationBg(pr,bbox){
+function stationBg(pr,bbox,detail){
+  bbox=detail||bbox;
   if(bbox.la1-bbox.la0>STATION_SPAN) return '';
   const vis=STATIONS.filter(st=>inBox(st[1],st[2],bbox,.001));
   const named=vis.length<=STATION_LABEL_MAX;
@@ -895,7 +901,8 @@ function stationBg(pr,bbox){
       +`</g>`;
   }).join('')+'</g>';
 }
-function railBg(pr,bbox){
+function railBg(pr,bbox,detail){
+  bbox=detail||bbox;
   // 每條背景線可帶：c 顏色 / w 線寬 / d 虛線（null=實線）/ o 透明度 / maxSpan 只在地圖夠近時畫
   // 座標來源二選一：pts（P 的 key）或 ll（原始 [lat,lng] 陣列，供捷運路網這類密集折線用）
   const span=bbox.la1-bbox.la0;
@@ -910,6 +917,11 @@ function buildMap(cfg,opts={}){
   const oW=W,oH=H; if(opts.W){W=opts.W;H=opts.H;}
   const bbox=cfg.bbox||bboxOf(cfg.pts,cfg.minSpan||.05);
   const pr=proj(bbox);
+  // 鏡頭會平移到的範圍也要標縣市名，不然平移過去只剩一片空白
+  const wide={...bbox};
+  cfg.legs.forEach(lg=>{const z=lg.zoom;if(z&&z!=='reset'){
+    wide.la0=Math.min(wide.la0,z.la0);wide.la1=Math.max(wide.la1,z.la1);
+    wide.lo0=Math.min(wide.lo0,z.lo0);wide.lo1=Math.max(wide.lo1,z.lo1);}});
   // leg 可帶 zoom：'reset' 代表回到全圖，或給 {la0,la1,lo0,lo1} 讓動畫播到這段時把畫面平移過去。
   // 這裡先用當下的投影把經緯度框換算成 viewBox 座標，動畫時就不必再帶著投影跑。
   const zoomAttr=lg=>{
@@ -929,13 +941,13 @@ function buildMap(cfg,opts={}){
   const legs=cfg.legs.map((lg,i)=>{const M=MODE[lg.mode];return `<path class="leg" data-i="${i}"${zoomAttr(lg)}${pauseAttr(lg)} d="${legPath(lg,pr)}" fill="none" stroke="${M.c}" stroke-width="${M.w}" ${M.d?`stroke-dasharray="${M.d}"`:''} stroke-linecap="${M.cap||'round'}" stroke-linejoin="round"/>`;}).join('');
   const order=[];cfg.legs.forEach((lg,i)=>{if(!order.includes(lg.a))order.push(lg.a);if(!order.includes(lg.b))order.push(lg.b);});
   cfg.pts.forEach(kk=>{if(!order.includes(kk))order.push(kk);});
-  const mks=order.map(kk=>marker(kk,pr,(cfg.labels||{})[kk],opts.big,(cfg.kinds||{})[kk])).join('');
+  const mks=order.map(kk=>marker(kk,pr,(cfg.labels||{})[kk],opts.big,(cfg.kinds||{})[kk],(cfg.names||{})[kk])).join('');
   const out=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${opts.aria||'路線圖'}">
 <rect width="${W}" height="${H}" fill="#d7e3ea"/>
 <path d="${landPaths(pr)}" fill="#ece6d8" stroke="#c9bfa9" stroke-width=".7" stroke-linejoin="round"/>
-${areaBg(pr,bbox)}
-${railBg(pr,bbox)}
-${stationBg(pr,bbox)}
+${areaBg(pr,bbox,cfg.detail,wide)}
+${railBg(pr,bbox,cfg.detail)}
+${stationBg(pr,bbox,cfg.detail)}
 <g class="legs">${legs}</g>
 <g class="mks">${mks}</g>
 ${scaleBar(pr)}
@@ -985,22 +997,46 @@ function animateMap(svg){
 (function(){
   // 整趟的大路線，legs 依日期先後排列——引擎會照這個順序逐段畫線，
   // 所以捲到這張圖時，路線會照時間順序長出來。
-  // 市區的日子（9/27 信義區、9/28 故宮、10/4 大稻埕）在這個尺度下都落在「台北」那一點裡。
-  const cfg={pts:['tpe','home','jiufen','yehliu','taichungHsr','sunmoonlake','xitou'],
+  // 一開始聚焦在台北一帶（區名、捷運路網都畫得出來），9/30 南下時鏡頭平移到南投，10/2 再拉回台北。
+  const cfg={
+    // 有標名字的點：台北一帶的景點＋南投三天兩夜的三個點。
+    pts:['tpe','home','taipei101','cks','dadaocheng','palaceMuseum','beitou','tamsui',
+         'jiufen','keelung','yehliu','taichungHsr','sunmoonlake','xitou'],
     legs:[
-      {a:'tpe',b:'home',mode:'drive',via:['taipeiStn']},                                                         // 9/26 開車接機
-      {a:'home',b:'jiufen',mode:'bus',via:['ruifang']},                                                          // 9/29 九份
-      {a:'home',b:'taichungHsr',mode:'hsr',via:['taipeiStn','banqiao','taoyuanHsr','hsinchuHsr'],zoom:{la0:23.50,la1:24.30,lo0:120.40,lo1:121.15}},  // 9/30 南下，畫面跟著移到南投
-      {a:'taichungHsr',b:'sunmoonlake',mode:'bus'},                                                              // 9/30–10/2 南投
+      // 9/26 桃園機場 → 家（開車接機）
+      {a:'tpe',b:'home',mode:'drive',via:['banqiao','taipeiStn']},
+      // 9/27 雙層觀光巴士紅線：家 → 國父紀念館 → 華山 → 中正紀念堂 → 台北 101 → 家
+      {a:'home',b:'cks',mode:'sightbus',via:['sysMemorial','zhongxiaofuxing','huashan']},
+      {a:'cks',b:'home',mode:'sightbus',via:['dongmen','daanPark','taipei101','cityHall'],curve:.12},
+      // 9/28 故宮 → 北投 → 淡水
+      {a:'home',b:'palaceMuseum',mode:'metro',via:['taipeiStn','shilinStn']},
+      {a:'palaceMuseum',b:'tamsui',mode:'metro',via:['shilinStn','beitou']},
+      // 9/29 九份看黃昏與夜景
+      {a:'home',b:'jiufen',mode:'bus',via:['ruifang']},
+      // 9/30 南下——畫面跟著移到南投
+      {a:'home',b:'taichungHsr',mode:'hsr',via:['taipeiStn','banqiao','taoyuanHsr','hsinchuHsr'],
+       zoom:{la0:23.60,la1:24.17,lo0:120.45,lo1:120.76}},
+      {a:'taichungHsr',b:'sunmoonlake',mode:'bus'},
       {a:'sunmoonlake',b:'xitou',mode:'bus'},
       {a:'xitou',b:'taichungHsr',mode:'bus',curve:.2,pause:1600},
-      {a:'taichungHsr',b:'home',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao','taipeiStn'],curve:.1,zoom:'reset'},  // 10/2 北返，畫面拉回全圖
-      {a:'home',b:'keelung',mode:'tra',via:['songshan']},                                                        // 10/3 北海岸
-      {a:'keelung',b:'yehliu',mode:'bus',via:['jinshan']},
-      {a:'home',b:'tpe',mode:'drive',via:['taipeiStn'],curve:.14}],                                              // 10/5 回程
-    labels:{tpe:'l',home:'b',jiufen:'r',yehliu:'t',taichungHsr:'l',sunmoonlake:'r',xitou:'b'},
-    padLeft:.40,                                   // 左邊四成留給標題文字
-    bbox:{la0:23.55,la1:25.35,lo0:120.40,lo1:121.95}};
+      // 10/2 北返——畫面拉回台北
+      {a:'taichungHsr',b:'home',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao','taipeiStn'],curve:.1,zoom:'reset'},
+      // 10/3 北海岸：台鐵到基隆，客運走野柳、金山，經陽明山回台北
+      {a:'home',b:'keelung',mode:'tra',via:['songshan','nangang']},
+      {a:'keelung',b:'yehliu',mode:'bus'},
+      {a:'yehliu',b:'home',mode:'bus',via:['jinshan','shilinStn'],curve:.12},
+      // 10/4 龍山寺・剝皮寮 → 大稻埕
+      {a:'home',b:'dadaocheng',mode:'metro',via:['taipeiStn','ximen','longshan']},
+      // 10/5 家 → 桃園機場
+      {a:'home',b:'tpe',mode:'drive',via:['taipeiStn','banqiao'],curve:.14}],
+    // 點太密，總覽圖一律用短名（NAMES 的全名留給每日地圖）
+    names:{home:'家',palaceMuseum:'故宮',beitou:'北投',dadaocheng:'大稻埕',
+           keelung:'基隆',yehliu:'野柳',taichungHsr:'高鐵台中',xitou:'溪頭'},
+    labels:{tpe:'b',home:'r',taipei101:'b',cks:'l',dadaocheng:'t',palaceMuseum:'l',beitou:'l',
+            tamsui:'l',jiufen:'b',keelung:'r',yehliu:'t',taichungHsr:'l',sunmoonlake:'r',xitou:'b'},
+    // bbox 只框台北一帶（緯度跨度 .34 剛好在區界／捷運的門檻內，所以背景會畫出區名與捷運路網）；
+    // 經度中心偏西，把地形推到畫面右側，左邊留給標題。南投在框外，靠 leg 的 zoom 把鏡頭帶過去。
+    bbox:{la0:24.955,la1:25.295,lo0:120.75,lo1:121.85}};
   const el=document.getElementById('heroMap');
   el.innerHTML=buildMap(cfg,{big:true,aria:'全程路線總覽',W:1200,H:440}).replace('viewBox="0 0 1200 440"','viewBox="0 0 1200 440" preserveAspectRatio="xMidYMid meet"');
   const svg=el.querySelector('svg');
