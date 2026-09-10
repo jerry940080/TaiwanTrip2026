@@ -425,6 +425,7 @@ const P={ // [lat,lng]
  dadaocheng:[25.0556,121.5100], dadaochengPier:[25.0566,121.5062], cks:[25.0346,121.5220], yongkang:[25.0331,121.5296],
  home:[25.05557,121.56710], jiantan:[25.08424,121.52497],
  huashan:[25.04412,121.52964], daanPark:[25.03354,121.53531], cityHall:[25.04118,121.56526], zhongxiaofuxing:[25.04160,121.54379],
+ xiaonanmen:[25.03567,121.51078], daan:[25.03282,121.54363], zhongxiaodunhua:[25.04149,121.54966], dongmen:[25.03393,121.52832],
  sysMemorial:[25.0402,121.5601], songyan:[25.0442,121.5606], maokong:[24.97093,121.58692], zoo:[24.99828,121.57933],
  qingtiangang:[25.1697,121.5700], zhuzihu:[25.1750,121.5390], xiaoyoukeng:[25.1785,121.5490], jinshan:[25.22149,121.63919], sanzhi:[25.25730,121.50118], shimen:[25.29197,121.56696],
  taoyuanHsr:[25.0130,121.2150], ruifang:[25.1080,121.8080], jiufen:[25.1097,121.8443], shifen:[25.0410,121.7750],
@@ -472,7 +473,8 @@ const MODE={
 
 /* ── 4. KIND / NAMES：地圖上點的樣式與顯示名。
       類型：hotel（朱紅＋🛏）/ spot（櫻粉）/ station（白圈）/ air（黑菱形） */
-const KIND={hotel:{c:'#c8452e',r:6,t:'🛏'},spot:{c:'#e28aa5',r:5.5},station:{c:'#fff',r:4,s:'#2b4c7e'},air:{c:'#26292e',r:5.5,sq:true}};
+const KIND={hotel:{c:'#c8452e',r:6,t:'🛏'},spot:{c:'#e28aa5',r:5.5},station:{c:'#fff',r:4,s:'#2b4c7e'},air:{c:'#26292e',r:5.5,sq:true},
+ bus:{c:'#c8452e',r:3.6,s:'#fff'}};   // bus＝雙層觀光巴士停靠站，小紅點
 const NAMES={
  tpe:['桃園機場','air'], tsa:['松山機場','air'], rmq:['台中機場','air'], khh:['高雄小港機場','air'], hun:['花蓮機場','air'],
  taipeiStn:['台北車站','station'], nangang:['南港','station'], banqiao:['板橋','station'], songshan:['松山','station'],
@@ -481,7 +483,8 @@ const NAMES={
  yangming:['陽明山','spot'], tamsui:['淡水','spot'], raohe:['饒河街夜市','spot'], shilin:['士林夜市','spot'],
  dadaocheng:['大稻埕・迪化街','spot'], dadaochengPier:['大稻埕碼頭','spot'], cks:['中正紀念堂','spot'], yongkang:['永康街','spot'],
  home:['家（西松高中）','hotel'], jiantan:['劍潭','station'],
- huashan:['華山文創園區','spot'], daanPark:['大安森林公園','station'], cityHall:['市政府','station'], zhongxiaofuxing:['忠孝復興','station'],
+ huashan:['華山文創園區','spot'], daanPark:['大安森林公園','bus'], cityHall:['市政府','bus'], zhongxiaofuxing:['忠孝復興','bus'],
+ xiaonanmen:['小南門','bus'], daan:['大安','bus'], zhongxiaodunhua:['忠孝敦化','bus'], dongmen:['永康街','bus'],
  sysMemorial:['國父紀念館','spot'], songyan:['松山文創園區','spot'], maokong:['貓空','spot'], zoo:['台北市立動物園','spot'],
  qingtiangang:['擎天崗','spot'], zhuzihu:['竹子湖','spot'], xiaoyoukeng:['小油坑','spot'],
  jinshan:['金山老街','spot'], sanzhi:['三芝','spot'], shimen:['石門','spot'],
@@ -604,7 +607,10 @@ const DAYS=[
   ],cards:[],
   rain:'<b>步行與轉乘</b>　機捷直達車到台北車站，再轉一次捷運到家，<b>轉乘一次</b>；兩段都有電梯，行李不用搬樓梯。<br><b>提醒</b>　9/26 是中秋連假第二天，機捷與市區都會比平常擠；當晚別排太滿，落地當天以進市區、吃飯、休息為主。'},
  {n:2,date:'9/27',wd:'日',title:'國父紀念館・雙層巴士紅線',sub:'上午走路到國父紀念館，下午搭紅線繞一圈，傍晚回家烤肉',stay:'待定',
-  map:{pts:['home','sysMemorial','songyan','huashan','cks','taipei101'],legs:[{a:'home',b:'sysMemorial',mode:'metro'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'sysMemorial',mode:'walk',curve:.3},{a:'sysMemorial',b:'huashan',mode:'sightbus',via:['zhongxiaofuxing']},{a:'huashan',b:'cks',mode:'sightbus',via:['taipeiStn','ximen','longshan']},{a:'cks',b:'taipei101',mode:'sightbus',via:['yongkang','daanPark']},{a:'taipei101',b:'sysMemorial',mode:'sightbus',via:['cityHall']},{a:'sysMemorial',b:'home',mode:'taxi'}],labels:{home:'l',sysMemorial:'r',songyan:'t',huashan:'t',cks:'l',taipei101:'b'},minSpan:.03},
+  map:{pts:['home','sysMemorial','songyan','huashan','cks','taipei101','zhongxiaodunhua','zhongxiaofuxing','taipeiStn','ximen','xiaonanmen','longshan','dongmen','daanPark','daan','cityHall'],
+   legs:[{a:'home',b:'sysMemorial',mode:'metro'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'sysMemorial',mode:'walk',curve:.3},{a:'sysMemorial',b:'huashan',mode:'sightbus',via:['zhongxiaodunhua','zhongxiaofuxing']},{a:'huashan',b:'cks',mode:'sightbus',via:['taipeiStn','ximen','xiaonanmen','longshan']},{a:'cks',b:'taipei101',mode:'sightbus',via:['dongmen','daanPark','daan']},{a:'taipei101',b:'sysMemorial',mode:'sightbus',via:['cityHall']},{a:'sysMemorial',b:'home',mode:'taxi'}],
+   kinds:{taipeiStn:'bus',ximen:'bus',longshan:'bus'},
+   labels:{home:'l',sysMemorial:'b',songyan:'t',huashan:'t',cks:'b',taipei101:'b',taipeiStn:'t',ximen:'l',xiaonanmen:'t',longshan:'b',dongmen:'t',daanPark:'b',daan:'t',zhongxiaodunhua:'b',zhongxiaofuxing:'t',cityHall:'t'},minSpan:.03},
   tl:[
    {t:'09:30',i:'🚇',h:'從家出發到國父紀念館（捷運一站，或走路約 20 分）',move:1},
    {t:'10:00',i:'🏛',h:'國父紀念館：翠湖拍 101、整點儀隊交接'},
@@ -622,7 +628,7 @@ const DAYS=[
    {t:'18:30',i:'🍖',h:'中秋烤肉'},
    {t:'20:00',i:'🌕',h:'賞月'}
   ],cards:['sightseeingBus','sysMemorial','songyan','huashan','cks','taipei101'],
-  rain:'<b>順序就是紅線的行進方向</b>　國父紀念館 → 忠孝復興 → 華山 → 台北車站 → 西門 → 龍山寺 → 中正紀念堂 → 永康街 → 大安 → 台北 101 → 市政府 → 回國父紀念館，<b>一圈繞回來不必回頭</b>，也剛好收在離家最近的那一站。<br><b>上面的時間是「不用等車」的理想值</b>　觀光巴士班距比捷運疏，實際會拖長。<b>來不及就砍台北 101</b>——它排在最後，直接坐在車上繞回國父紀念館就好，中正紀念堂在中間反而不受影響。<br><b>票種</b>　日間票 NT 500（紅線 09:00–18:00 無限上下車）。只搭四小時的話 4 小時票 NT 300 也夠，但限當天 18:00 前使用，時間會很緊。<br><b>上層是露天座</b>　全車 57 席裡室內只有 10 席，下雨或太陽大的時候先搶室內。<br><b>雨備</b>　華山、中正紀念堂主堂、101 商場、松菸都有室內，這天下雨主要影響的是坐上層的體驗。<br><b>提醒</b>　中秋當天烤肉食材很搶手，前一天先買好。'},
+  rain:'<b>地圖上的小紅點是紅線的停靠站</b>　整條環線與沿途停靠站都畫出來了；粉紅色的大點是你會下車的四個地方，小紅點是經過但不下車的站。<br><b>順序就是紅線的行進方向</b>　國父紀念館 → 忠孝復興 → 華山 → 台北車站 → 西門 → 龍山寺 → 中正紀念堂 → 永康街 → 大安 → 台北 101 → 市政府 → 回國父紀念館，<b>一圈繞回來不必回頭</b>，也剛好收在離家最近的那一站。<br><b>上面的時間是「不用等車」的理想值</b>　觀光巴士班距比捷運疏，實際會拖長。<b>來不及就砍台北 101</b>——它排在最後，直接坐在車上繞回國父紀念館就好，中正紀念堂在中間反而不受影響。<br><b>票種</b>　日間票 NT 500（紅線 09:00–18:00 無限上下車）。只搭四小時的話 4 小時票 NT 300 也夠，但限當天 18:00 前使用，時間會很緊。<br><b>上層是露天座</b>　全車 57 席裡室內只有 10 席，下雨或太陽大的時候先搶室內。<br><b>雨備</b>　華山、中正紀念堂主堂、101 商場、松菸都有室內，這天下雨主要影響的是坐上層的體驗。<br><b>提醒</b>　中秋當天烤肉食材很搶手，前一天先買好。'},
  {n:3,date:'9/28',wd:'一',title:'故宮・淡水或北投',sub:'故宮留久一點慢慢看，下午沿淡水信義線往北二選一',stay:'待定',
   map:{pts:['home','shilin','palaceMuseum','beitou','beitouLib','hell','tamsui'],legs:[{a:'home',b:'shilin',mode:'metro'},{a:'shilin',b:'palaceMuseum',mode:'bus'},{a:'palaceMuseum',b:'shilin',mode:'bus',curve:.3},{a:'shilin',b:'beitou',mode:'metro'},{a:'beitou',b:'beitouLib',mode:'walk'},{a:'beitouLib',b:'hell',mode:'walk'},{a:'shilin',b:'tamsui',mode:'metro',curve:-.14}],labels:{home:'b',shilin:'r',palaceMuseum:'r',beitou:'b',beitouLib:'l',hell:'t',tamsui:'l'},minSpan:.09},
   tl:[
@@ -830,8 +836,10 @@ function scaleBar(pr){
   const w=km*pxPerKm;
   return `<g transform="translate(${W-w-16},${H-16})"><line x1="0" y1="0" x2="${w.toFixed(1)}" y2="0" stroke="#26292e" stroke-width="1.5"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#26292e" stroke-width="1.5"/><line x1="${w.toFixed(1)}" y1="-4" x2="${w.toFixed(1)}" y2="4" stroke="#26292e" stroke-width="1.5"/><text x="${(w/2).toFixed(1)}" y="-6" text-anchor="middle" font-size="10" fill="#26292e">${km} km</text></g>`;
 }
-function marker(key,pr,side,big){
-  const [name,kind]=NAMES[key]||[key,'spot'];
+function marker(key,pr,side,big,kindOverride){
+  // kindOverride：讓某一天把某個點改用別的樣式畫（例如把捷運站改畫成巴士停靠站）
+  const [name,kind0]=NAMES[key]||[key,'spot'];
+  const kind=kindOverride||kind0;
   const K=KIND[kind];const [x,y]=pr.pt(P[key]);
   const r=(K.r)*(big?1.15:1);
   let dot;
@@ -906,7 +914,7 @@ function buildMap(cfg,opts={}){
   const legs=cfg.legs.map((lg,i)=>{const M=MODE[lg.mode];return `<path class="leg" data-i="${i}" d="${legPath(lg,pr)}" fill="none" stroke="${M.c}" stroke-width="${M.w}" ${M.d?`stroke-dasharray="${M.d}"`:''} stroke-linecap="${M.cap||'round'}" stroke-linejoin="round"/>`;}).join('');
   const order=[];cfg.legs.forEach((lg,i)=>{if(!order.includes(lg.a))order.push(lg.a);if(!order.includes(lg.b))order.push(lg.b);});
   cfg.pts.forEach(kk=>{if(!order.includes(kk))order.push(kk);});
-  const mks=order.map(kk=>marker(kk,pr,(cfg.labels||{})[kk],opts.big)).join('');
+  const mks=order.map(kk=>marker(kk,pr,(cfg.labels||{})[kk],opts.big,(cfg.kinds||{})[kk])).join('');
   const out=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${opts.aria||'路線圖'}">
 <rect width="${W}" height="${H}" fill="#d7e3ea"/>
 <path d="${landPaths(pr)}" fill="#ece6d8" stroke="#c9bfa9" stroke-width=".7" stroke-linejoin="round"/>
