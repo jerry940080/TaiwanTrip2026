@@ -910,7 +910,23 @@ function buildMap(cfg,opts={}){
   const oW=W,oH=H; if(opts.W){W=opts.W;H=opts.H;}
   const bbox=cfg.bbox||bboxOf(cfg.pts,cfg.minSpan||.05);
   const pr=proj(bbox);
-  const legs=cfg.legs.map((lg,i)=>{const M=MODE[lg.mode];return `<path class="leg" data-i="${i}" d="${legPath(lg,pr)}" fill="none" stroke="${M.c}" stroke-width="${M.w}" ${M.d?`stroke-dasharray="${M.d}"`:''} stroke-linecap="${M.cap||'round'}" stroke-linejoin="round"/>`;}).join('');
+  // leg 可帶 zoom：'reset' 代表回到全圖，或給 {la0,la1,lo0,lo1} 讓動畫播到這段時把畫面平移過去。
+  // 這裡先用當下的投影把經緯度框換算成 viewBox 座標，動畫時就不必再帶著投影跑。
+  const zoomAttr=lg=>{
+    if(!lg.zoom) return '';
+    if(lg.zoom==='reset') return ' data-zoom="reset"';
+    const p1=pr.pt([lg.zoom.la1,lg.zoom.lo0]), p2=pr.pt([lg.zoom.la0,lg.zoom.lo1]);
+    let x=Math.min(p1[0],p2[0]), y=Math.min(p1[1],p2[1]);
+    let w=Math.abs(p2[0]-p1[0]), h=Math.abs(p2[1]-p1[1]);
+    const ar=W/H;
+    const fit=()=>{ if(w/h<ar){const nw=h*ar; x-=(nw-w)/2; w=nw;} else {const nh=w/ar; y-=(nh-h)/2; h=nh;} };
+    fit();                                          // 先補成畫布的長寬比
+    // cfg.padLeft：再往左撐開一段留給標題文字，讓放大後的地形落在右側、不被字蓋住
+    if(cfg.padLeft){const nw=w/(1-cfg.padLeft); x-=nw-w; w=nw; fit();}
+    return ` data-zoom="${x.toFixed(1)} ${y.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}"`;
+  };
+  const pauseAttr=lg=>lg.pause?` data-pause="${lg.pause}"`:'';
+  const legs=cfg.legs.map((lg,i)=>{const M=MODE[lg.mode];return `<path class="leg" data-i="${i}"${zoomAttr(lg)}${pauseAttr(lg)} d="${legPath(lg,pr)}" fill="none" stroke="${M.c}" stroke-width="${M.w}" ${M.d?`stroke-dasharray="${M.d}"`:''} stroke-linecap="${M.cap||'round'}" stroke-linejoin="round"/>`;}).join('');
   const order=[];cfg.legs.forEach((lg,i)=>{if(!order.includes(lg.a))order.push(lg.a);if(!order.includes(lg.b))order.push(lg.b);});
   cfg.pts.forEach(kk=>{if(!order.includes(kk))order.push(kk);});
   const mks=order.map(kk=>marker(kk,pr,(cfg.labels||{})[kk],opts.big,(cfg.kinds||{})[kk])).join('');
@@ -927,9 +943,24 @@ ${scaleBar(pr)}
   W=oW;H=oH;
   return out;
 }
+// 把 viewBox 從現在的位置補間到目標矩形，用來在動畫中平移／縮放畫面
+function tweenViewBox(svg,to,ms){
+  const b=svg.viewBox.baseVal, from=[b.x,b.y,b.width,b.height];
+  if(from.every((v,i)=>Math.abs(v-to[i])<0.5)) return;
+  const t0=performance.now();
+  cancelAnimationFrame(svg._vbRaf||0);
+  (function step(now){
+    const k=Math.min(1,(now-t0)/ms), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;   // easeInOut
+    svg.setAttribute('viewBox',from.map((v,i)=>(v+(to[i]-v)*e).toFixed(1)).join(' '));
+    if(k<1) svg._vbRaf=requestAnimationFrame(step);
+  })(t0);
+}
 function animateMap(svg){
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const legs=[...svg.querySelectorAll('.leg')], mks=[...svg.querySelectorAll('.mk')];
+  if(!svg._vb0) svg._vb0=svg.getAttribute('viewBox');       // 記住原始畫面，重播時歸位
+  cancelAnimationFrame(svg._vbRaf||0);
+  svg.setAttribute('viewBox',svg._vb0);
   if(reduce){legs.forEach(l=>l.style.opacity=1);mks.forEach(m=>m.style.opacity=1);return;}
   legs.forEach(l=>{const len=l.getTotalLength();l.style.transition='none';l.style.strokeDasharray=l.getAttribute('stroke-dasharray')?null:len;l.style.strokeDashoffset=l.getAttribute('stroke-dasharray')?null:len;l.style.opacity=l.getAttribute('stroke-dasharray')?0:1;});
   mks.forEach((m,i)=>{m.style.transition='none';m.style.opacity=i===0?1:0;});
@@ -940,9 +971,11 @@ function animateMap(svg){
     setTimeout(()=>{
       if(l.getAttribute('stroke-dasharray')){l.style.transition='opacity '+(dur/1000)+'s ease';l.style.opacity=1;}
       else{l.style.transition='stroke-dashoffset '+(dur/1000)+'s ease-in-out';l.style.strokeDashoffset=0;}
+      const z=l.dataset.zoom;
+      if(z) tweenViewBox(svg, z==='reset'?svg._vb0.split(' ').map(Number):z.split(' ').map(Number), 900);
     },t);
     setTimeout(()=>{const m=mks[i+1];if(m){m.style.transition='opacity .35s';m.style.opacity=1;}},t+dur*0.85);
-    t+=dur+120;
+    t+=dur+120+(+l.dataset.pause||0);
   });
   setTimeout(()=>mks.forEach(m=>{m.style.transition='opacity .3s';m.style.opacity=1;}),t+200);
 }
@@ -957,15 +990,16 @@ function animateMap(svg){
     legs:[
       {a:'tpe',b:'home',mode:'drive',via:['taipeiStn']},                                                         // 9/26 開車接機
       {a:'home',b:'jiufen',mode:'bus',via:['ruifang']},                                                          // 9/29 九份
-      {a:'home',b:'taichungHsr',mode:'hsr',via:['taipeiStn','banqiao','taoyuanHsr','hsinchuHsr']},                // 9/30 南下
+      {a:'home',b:'taichungHsr',mode:'hsr',via:['taipeiStn','banqiao','taoyuanHsr','hsinchuHsr'],zoom:{la0:23.50,la1:24.30,lo0:120.40,lo1:121.15}},  // 9/30 南下，畫面跟著移到南投
       {a:'taichungHsr',b:'sunmoonlake',mode:'bus'},                                                              // 9/30–10/2 南投
       {a:'sunmoonlake',b:'xitou',mode:'bus'},
-      {a:'xitou',b:'taichungHsr',mode:'bus',curve:.2},
-      {a:'taichungHsr',b:'home',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao','taipeiStn'],curve:.1},       // 10/2 北返
+      {a:'xitou',b:'taichungHsr',mode:'bus',curve:.2,pause:1600},
+      {a:'taichungHsr',b:'home',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao','taipeiStn'],curve:.1,zoom:'reset'},  // 10/2 北返，畫面拉回全圖
       {a:'home',b:'keelung',mode:'tra',via:['songshan']},                                                        // 10/3 北海岸
       {a:'keelung',b:'yehliu',mode:'bus',via:['jinshan']},
       {a:'home',b:'tpe',mode:'drive',via:['taipeiStn'],curve:.14}],                                              // 10/5 回程
     labels:{tpe:'l',home:'b',jiufen:'r',yehliu:'t',taichungHsr:'l',sunmoonlake:'r',xitou:'b'},
+    padLeft:.40,                                   // 左邊四成留給標題文字
     bbox:{la0:23.55,la1:25.35,lo0:120.40,lo1:121.95}};
   const el=document.getElementById('heroMap');
   el.innerHTML=buildMap(cfg,{big:true,aria:'全程路線總覽',W:1200,H:440}).replace('viewBox="0 0 1200 440"','viewBox="0 0 1200 440" preserveAspectRatio="xMidYMid meet"');
