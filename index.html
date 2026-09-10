@@ -264,7 +264,7 @@ footer p{max-width:70ch}
       <tr><td>象山・四四南村・台北 101</td><td class="mute">—</td><td>一整天</td><td class="mute">象山來回約 1.5 小時，石階雨後濕滑</td><td>9/27 白天</td></tr>
       <tr><td>饒河街夜市</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">松山車站旁，1062 從九份回來剛好收在這裡</td><td>9/29 晚上</td></tr>
       <tr><td>松菸</td><td class="mute">可換</td><td>約 1 小時</td><td class="mute">緊鄰國父紀念館，順路</td><td>9/29 上午</td></tr>
-      <tr><td>淡水 <span class="mute">或</span> 北投</td><td class="mute">二選一</td><td>半天</td><td class="mute">都在淡水信義線上；北投離士林只有 12 分鐘</td><td>9/28 下午</td></tr>
+      <tr><td>淡水 <span class="mute">或</span> 北投</td><td class="mute">二選一</td><td>半天</td><td class="mute">都在淡水信義線上；北投離士林只有 12 分鐘，但溫泉博物館 9/28 休館</td><td>9/28 下午</td></tr>
       <tr><td>北海岸一日遊</td><td class="mute">可換</td><td>一整天</td><td class="mute">台灣好行皇冠北海岸線約一小時一班，先查班表</td><td>10/3 全天</td></tr>
       <tr><td>大稻埕・剝皮寮</td><td class="mute">—</td><td>大半天</td><td class="mute">剝皮寮週一休，10/4 是週日沒問題</td><td>10/4 白天</td></tr>
       <tr><td class="mute">平溪・十分</td><td class="mute">可換</td><td>半天</td><td class="mute">9/29 改成傍晚上九份後就沒空間了；要去得整天排</td><td class="mute">未排入</td></tr>
@@ -410,7 +410,7 @@ const P={ // [lat,lng]
  // ── 北部
  taipeiStn:[25.04623,121.51744], nangang:[25.05218,121.60763], banqiao:[25.01430,121.46288], songshan:[25.05000,121.57773],
  ximen:[25.04221,121.50849], taipei101:[25.03352,121.56460], xiangshan:[25.03279,121.57067], ssnc:[25.03159,121.56218],
- bopiliao:[25.03685,121.50227], longshan:[25.03523,121.50122], palaceMuseum:[25.1023,121.5485], beitou:[25.13694,121.50253],
+ bopiliao:[25.03685,121.50227], longshan:[25.03523,121.50122], palaceMuseum:[25.1023,121.5485], beitou:[25.13694,121.50253], beitouLib:[25.13635,121.50627], hell:[25.13780,121.50963],
  yangming:[25.1560,121.5600], tamsui:[25.16799,121.44526], raohe:[25.0510,121.5770], shilin:[25.0880,121.5240],
  dadaocheng:[25.0556,121.5100], dadaochengPier:[25.0566,121.5062], cks:[25.0346,121.5220], yongkang:[25.0331,121.5296],
  home:[25.05557,121.56710], jiantan:[25.08424,121.52497],
@@ -465,7 +465,7 @@ const NAMES={
  tpe:['桃園機場','air'], tsa:['松山機場','air'], rmq:['台中機場','air'], khh:['高雄小港機場','air'], hun:['花蓮機場','air'],
  taipeiStn:['台北車站','station'], nangang:['南港','station'], banqiao:['板橋','station'], songshan:['松山','station'],
  ximen:['西門町','spot'], taipei101:['台北 101','spot'], xiangshan:['象山步道口','spot'], ssnc:['四四南村','spot'],
- bopiliao:['剝皮寮','spot'], longshan:['龍山寺','spot'], palaceMuseum:['故宮博物院','spot'], beitou:['北投溫泉','spot'],
+ bopiliao:['剝皮寮','spot'], longshan:['龍山寺','spot'], palaceMuseum:['故宮博物院','spot'], beitou:['北投溫泉','spot'], beitouLib:['北投圖書館','spot'], hell:['地熱谷','spot'],
  yangming:['陽明山','spot'], tamsui:['淡水','spot'], raohe:['饒河街夜市','spot'], shilin:['士林夜市','spot'],
  dadaocheng:['大稻埕・迪化街','spot'], dadaochengPier:['大稻埕碼頭','spot'], cks:['中正紀念堂','spot'], yongkang:['永康街','spot'],
  home:['家（西松高中）','hotel'], jiantan:['劍潭','station'],
@@ -510,9 +510,12 @@ const CARDS={
  tamsui:{name:'淡水',jp:'Tamsui',kind:'景點',short:'老街、紅毛城與漁人碼頭夕陽',wiki:['淡水區','紅毛城'],
   text:'淡水河出海口的老鎮，捷運淡水線終點。中正路老街吃阿給與魚丸，往上走是 1644 年荷蘭人建的紅毛城與英國領事館官邸，河岸的金色水岸步道一路可走到漁人碼頭看情人橋與夕陽。從士林搭捷運約 25 分鐘。',
   chips:['老街全日','紅毛城 09:30–17:00・NT 80','捷運淡水站']},
+ beitouLib:{name:'臺北市立圖書館 北投分館',jp:'Beitou Public Library',kind:'景點',short:'藏在北投公園樹林裡的木造綠建築',wiki:['臺北市立圖書館北投分館'],
+  text:'2006 年落成的木構造圖書館，屋頂鋪太陽能板、斜屋頂把雨水導入回收系統，是台灣第一座拿到鑽石級綠建築標章的公共圖書館，也常被列進世界最美圖書館的名單。整棟藏在北投公園的老樹之間，陽台面著北投溪，光線從木格柵漏進來，是那種會讓人想坐下來待一下午的地方。館內請放輕聲量，部分區域禁止攝影。',
+  chips:['週日一 09:00–17:00','週二–六 08:30–21:00','捷運新北投站步行 3 分']},
  beitou:{name:'北投溫泉',jp:'Beitou',kind:'景點',short:'地熱谷、溫泉博物館與湯屋',wiki:['北投溫泉','北投溫泉博物館'],
-  text:'台北市區內的溫泉區，新北投站一出來就是北投公園，沿溪往上是溫泉博物館（日治時期的公共浴場改建）、免費的露天大眾池與冒著白煙的地熱谷。想好好泡的話沿路有很多湯屋，一小時計費。從士林搭捷運只要 12 分鐘，是最省時的下午行程。',
-  chips:['溫泉博物館 10:00–18:00・免費','週一休','捷運新北投站']},
+  text:'台北市區內的溫泉區，新北投站一出來就是北投公園，沿著北投溪往上依序是木造的北投圖書館、日治時期公共浴場改建的溫泉博物館、免費的露天大眾池，最上頭是冒著白煙的地熱谷。想好好泡的話沿路很多湯屋，一小時計費。從士林搭捷運只要 12 分鐘，是最省時的下午行程。<b>注意：溫泉博物館「週一及國定例假日休館」，9/28 兩個條件都中，確定不開</b>；圖書館與地熱谷不受影響。',
+  chips:['地熱谷 08:00–18:00','溫泉博物館 9/28 休館','捷運新北投站']},
  palaceMuseum:{name:'國立故宮博物院',jp:'National Palace Museum',kind:'景點',short:'翠玉白菜與肉形石所在',wiki:['國立故宮博物院'],
   text:'收藏近 70 萬件宋元明清宮廷文物，常設展逛下來約 2–3 小時。鎮館的翠玉白菜與肉形石偶爾會外借或輪換，出發前先上官網確認在不在館內。平常週一休館，但 9/28 逢中秋連假被列為特別開館日，照常營運。',
   chips:['09:00–17:00','NT 350','士林站轉紅 30／304 公車']},
@@ -593,7 +596,7 @@ const DAYS=[
   ],cards:['xiangshan','ssnc','taipei101'],
   rain:'<b>國父紀念館與松菸移到 9/29 上午了</b>　那天上午本來就要在市區附近逛，離家也近，這天就不用趕。<br><b>雨備</b>　象山石階雨後很滑，下雨就整段跳過、從四四南村開始；101 觀景台與信義區商場都在室內。<br><b>提醒</b>　中秋當天烤肉食材很搶手，前一天先買好。'},
  {n:3,date:'9/28',wd:'一',title:'故宮・淡水或北投',sub:'故宮留久一點慢慢看，下午沿淡水信義線往北二選一',stay:'待定',
-  map:{pts:['home','shilin','palaceMuseum','beitou','tamsui'],legs:[{a:'home',b:'shilin',mode:'metro'},{a:'shilin',b:'palaceMuseum',mode:'bus'},{a:'palaceMuseum',b:'shilin',mode:'bus',curve:.3},{a:'shilin',b:'beitou',mode:'metro'},{a:'shilin',b:'tamsui',mode:'metro',curve:-.14}],labels:{home:'b',shilin:'r',palaceMuseum:'r',beitou:'l',tamsui:'l'},minSpan:.09},
+  map:{pts:['home','shilin','palaceMuseum','beitou','beitouLib','hell','tamsui'],legs:[{a:'home',b:'shilin',mode:'metro'},{a:'shilin',b:'palaceMuseum',mode:'bus'},{a:'palaceMuseum',b:'shilin',mode:'bus',curve:.3},{a:'shilin',b:'beitou',mode:'metro'},{a:'beitou',b:'beitouLib',mode:'walk'},{a:'beitouLib',b:'hell',mode:'walk'},{a:'shilin',b:'tamsui',mode:'metro',curve:-.14}],labels:{home:'b',shilin:'r',palaceMuseum:'r',beitou:'b',beitouLib:'l',hell:'t',tamsui:'l'},minSpan:.09},
   tl:[
    {t:'09:00',i:'🚇',h:'從家搭捷運往士林站（約 35 分）',move:1},
    {t:'09:40',i:'🚌',h:'士林站轉紅 30／304 公車上故宮（約 15 分）',move:1},
@@ -601,10 +604,10 @@ const DAYS=[
    {t:'13:30',i:'🍽',h:'午餐（故宮周邊或回士林）'},
    {t:'15:00',i:'📍',h:'<b>下午二選一</b>，兩個都在淡水信義線上'},
    {t:'選項 A',i:'⛵',h:'淡水（士林約 25 分）：老街、紅毛城、漁人碼頭看夕陽'},
-   {t:'選項 B',i:'♨',h:'北投（士林約 12 分）：溫泉博物館、地熱谷、泡湯'},
+   {t:'選項 B',i:'♨',h:'北投（士林約 12 分）：北投圖書館、地熱谷、泡湯'},
    {t:'19:30',i:'🚇',h:'捷運回家',move:1}
-  ],cards:['palaceMuseum','tamsui','beitou'],
-  rain:'<b>為什麼只排兩件事</b>　故宮常設展慢慢看要 3–4 小時，這天特意只排一個重點加一個下午行程，不趕。<br><b>選哪個</b>　想看海與夕陽選淡水，但回程較遠、假日人多；想泡湯放鬆選北投，離士林只有 12 分鐘、回家也快。<br><b>雨備</b>　故宮全程室內；下雨就選北投，溫泉博物館與湯屋都不怕雨。<br><b>務必確認</b>　故宮平常週一休館，9/28 逢中秋連假是官網公告的特別開館日，出發前再確認一次。'},
+  ],cards:['palaceMuseum','tamsui','beitouLib','beitou'],
+  rain:'<b>為什麼只排兩件事</b>　故宮常設展慢慢看要 3–4 小時，這天特意只排一個重點加一個下午行程，不趕。<br><b>選哪個</b>　想看海與夕陽選淡水，但回程較遠、假日人多；想泡湯放鬆選北投，離士林只有 12 分鐘、回家也快。<br><b>選北投的話請注意</b>　北投溫泉博物館公告「<b>週一及國定例假日休館</b>」，9/28 是週一又是中秋連假，兩個條件都中，<b>確定不開</b>。但旁邊的<b>北投圖書館</b>（那棟木造綠建築，常被列進世界最美圖書館名單）週日、週一 09:00–17:00 照常開放，地熱谷 08:00–18:00，湯屋也不受影響——所以這天的北投改走「圖書館 → 地熱谷 → 泡湯」，博物館那棟從外面看看就好。地熱谷 9/28 是否休園，出發前順便確認一下。<br><b>雨備</b>　故宮全程室內；下雨就選北投，溫泉博物館與湯屋都不怕雨。<br><b>務必確認</b>　故宮平常週一休館，9/28 逢中秋連假是官網公告的特別開館日，出發前再確認一次。'},
  {n:4,date:'9/29',wd:'二',title:'國父紀念館・松菸・九份夜景',sub:'上午市區、下午休息，傍晚上九份看夕陽與點燈，回饒河夜市收尾',stay:'待定',
   map:{pts:['home','sysMemorial','songyan','raohe','jiufen','ruifang'],legs:[{a:'home',b:'sysMemorial',mode:'metro'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'home',mode:'walk'},{a:'home',b:'raohe',mode:'walk'},{a:'raohe',b:'jiufen',mode:'bus',via:['ruifang']},{a:'jiufen',b:'ruifang',mode:'bus',curve:.28},{a:'ruifang',b:'raohe',mode:'tra'}],labels:{home:'t',sysMemorial:'b',songyan:'l',raohe:'r',jiufen:'r',ruifang:'t'},minSpan:.05},
   tl:[
