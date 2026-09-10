@@ -314,7 +314,7 @@ footer p{max-width:70ch}
           <li><span class="d">已完成</span><span>機票：去程 CA189、回程 CA186 已訂</span></li>
           <li><span class="d">立刻</span><span>決定台北九晚要不要訂房；若要訂，9/26–9/28 這三晚卡在中秋連假，最難訂也最貴</span></li>
           <li><span class="d">立刻</span><span>若連假要移動：高鐵早鳥（28 天前開賣）已錯過，台鐵對號座（29 天前開賣）也已開賣多時，剩自由座、站票或客運</span></li>
-          <li><span class="d">立刻</span><span>確認 9/30–10/2 兩個候選團（KLOOK 阿里山日月潭／東南 溪頭日月潭）9/30 有沒有出團，再決定 A 或 B</span></li>
+          <li><span class="d">立刻</span><span>確認 9/30–10/2 的方案：A 要訂台中兩晚住宿＋兩個 KLOOK 一日遊；B 要確認東南那團 9/30 出不出（4 人成行）</span></li>
           <li><span class="d">越早越好</span><span>訂 10/4（日）晚上的慶生餐廳——週日晚上熱門餐廳位子難搶，蛋糕與包廂需求訂位時一起提</span></li>
           <li><span class="d">越早越好</span><span>OPENTIX 查 10/4 兩廳院有沒有想看的下午場，有就先訂</span></li>
           <li><span class="d">出發前</span><span>查 9/28 貓空纜車是否營運（週一例行保養，逢假日照理照常）</span></li>
@@ -422,7 +422,7 @@ const P={ // [lat,lng]
  // ── 桃竹苗・中部
  hsinchuStn:[24.8017,120.9718], hsinchuHsr:[24.8078,121.0405], miaoli:[24.5700,120.8250],
  taichungStn:[24.1369,120.6869], taichungHsr:[24.1121,120.6156], fengjia:[24.1790,120.6470], gaomei:[24.3100,120.5490],
- lukang:[24.0530,120.4340], sunmoonlake:[23.8500,120.9150], qingjing:[24.0570,121.1600], cingjingRd:[23.9700,120.9600],
+ lukang:[24.0530,120.4340], sunmoonlake:[23.8500,120.9150], qingjing:[24.04426,121.15289], cingjingRd:[23.9700,120.9600],
  // ── 南部
  xitou:[23.67187,120.79333], chiayiStn:[23.4790,120.4410], chiayiHsr:[23.4595,120.3237], alishan:[23.5100,120.8030], fenqihu:[23.5560,120.6970],
  tainanStn:[22.9971,120.2126], tainanHsr:[22.9250,120.2860], anping:[23.0010,120.1600], chimei:[23.0430,120.2100],
@@ -516,9 +516,9 @@ const CARDS={
  songyan:{name:'松山文創園區',jp:'Songshan Cultural and Creative Park',kind:'景點',short:'老菸廠改造的設計聚落',wiki:['松山文創園區'],
   text:'1937 年的松山菸廠改建，保留了製菸工廠的長廊、巴洛克花園與生態池，現在是設計展覽、選物店與咖啡的聚落，旁邊接著誠品生活松菸店，逛街與伴手禮一次解決。',
   chips:['園區 08:00–22:00','室內館舍 09:00–18:00','免費入園']},
- alishan:{name:'阿里山國家森林遊樂區',jp:'Alishan',kind:'景點',short:'雲海日出、千年神木與森林小火車',wiki:['阿里山國家森林遊樂區','阿里山森林鐵路'],
-  text:'海拔約 2,200 公尺的高山林場，招牌是祝山線小火車看日出、巨木群棧道的紅檜神木與姊妹潭。日出時間隨季節變動，10 月上旬約 5:50 前後，要前一天在園區訂小火車票。山上溫差大，日出時只有 10 度上下，厚外套必備。',
-  chips:['園區門票 NT 300','祝山線小火車 NT 150','嘉義轉台灣好行約 2.5 小時']},
+ qingjing:{name:'清境農場',jp:'Qingjing Farm',kind:'景點',short:'海拔 1,750 公尺的高山草原與綿羊秀',wiki:['清境農場'],
+  text:'合歡山下的高山牧場，青青草原上放牧綿羊，假日有綿羊秀與馬術秀；高空觀景步道沿稜線架設，天氣好看得到中央山脈稜線。海拔約 1,750 公尺，比平地低 10 度以上，十月上山要帶外套。台中出發車程單程約 2–2.5 小時，山路彎多，會暈車的先吃藥。',
+  chips:['青青草原 08:00–17:00','門票 NT 200','台中出發車程約 2 小時']},
  xitou:{name:'溪頭自然教育園區',jp:'Xitou',kind:'景點',short:'柳杉林、大學池與空中走廊',wiki:['溪頭自然教育園區'],
   text:'台大實驗林場，海拔約 1,150 公尺，滿山柳杉與孟宗竹，十月上山早晚涼、常有霧氣。招牌是大學池的竹拱橋、離地二十多公尺的空中走廊，還有樹齡兩千多年的紅檜神木。園區步道平緩好走，慢慢逛約 3–4 小時；園區外的妖怪村與綠光小屋竹林可以順路。',
   chips:['08:00–17:00','全票 NT 200','高鐵台中轉車約 1.5 小時']},
@@ -598,30 +598,26 @@ const DAYS=[
   rain:'<b>雨備</b>　九份本來就常起霧下雨，躲進茶樓看雨景另有味道；天燈雨天會停放，改走十分瀑布步道或提早回台北。'},
  {n:'5-7',date:'9/30–10/2',wd:'三–五',title:'三天兩夜（二選一）',sub:'兩套方案並列，挑一套就好——決定的關鍵寫在最下面',stay:'看方案',
   plans:[
-   {tag:'A',t:'阿里山＋日月潭',sub:'高鐵到嘉義上山看日出，再轉日月潭遊湖',stay:'待定（兩晚）',
-    map:{pts:['taipeiStn','chiayiHsr','fenqihu','alishan','sunmoonlake','taichungHsr'],
-     legs:[{a:'taipeiStn',b:'chiayiHsr',mode:'hsr',via:['banqiao','taoyuanHsr','hsinchuHsr','taichungHsr']},{a:'chiayiHsr',b:'alishan',mode:'bus',via:['chiayiStn','fenqihu']},{a:'alishan',b:'sunmoonlake',mode:'bus'},{a:'sunmoonlake',b:'taichungHsr',mode:'bus'},{a:'taichungHsr',b:'taipeiStn',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao'],curve:.14}],
-     labels:{taipeiStn:'t',chiayiHsr:'l',fenqihu:'t',alishan:'b',sunmoonlake:'r',taichungHsr:'l'},minSpan:.3},
+   {tag:'A',t:'台中三日（住台中＋兩個一日遊）',sub:'高鐵到台中住兩晚，第二天日月潭、第三天溪頭或清境二選一',stay:'台中市區 ×2 晚（待定）',
+    map:{pts:['taipeiStn','taichungHsr','taichungStn','sunmoonlake','xitou','qingjing'],
+     legs:[{a:'taipeiStn',b:'taichungHsr',mode:'hsr',via:['banqiao','taoyuanHsr','hsinchuHsr']},{a:'taichungHsr',b:'taichungStn',mode:'tra'},{a:'taichungStn',b:'sunmoonlake',mode:'coach'},{a:'sunmoonlake',b:'taichungStn',mode:'coach',curve:.25},{a:'taichungStn',b:'xitou',mode:'coach'},{a:'taichungStn',b:'qingjing',mode:'coach'},{a:'taichungHsr',b:'taipeiStn',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao'],curve:.14}],
+     labels:{taipeiStn:'t',taichungHsr:'l',taichungStn:'r',sunmoonlake:'r',xitou:'b',qingjing:'r'},minSpan:.3},
     tl:[
-     {t:'9/30',i:'📅',h:'<b>第一天（三）</b>　台北 → 嘉義 → 阿里山'},
-     {t:'08:00',i:'🚄',h:'台北 → 高鐵嘉義（約 1.5 小時）',move:1},
-     {t:'10:00',i:'🚌',h:'台灣好行阿里山線上山，途經奮起湖（約 2.5 小時）',move:1},
-     {t:'13:00',i:'🏨',h:'阿里山住宿 check-in'},
-     {t:'15:00',i:'🌲',h:'沼平公園、姊妹潭、受鎮宮'},
-     {t:'19:00',i:'✨',h:'園區看星空（海拔高、光害少）'},
-     {t:'10/1',i:'📅',h:'<b>第二天（四）</b>　阿里山日出 → 日月潭'},
-     {t:'04:30',i:'🚂',h:'祝山線小火車看日出（前一天先訂票）',move:1},
-     {t:'08:00',i:'🌳',h:'巨木群棧道、香林神木'},
-     {t:'10:30',i:'🚌',h:'下山轉往日月潭（約 3–4 小時，需在嘉義或水里換車）',move:1},
-     {t:'15:00',i:'🏨',h:'日月潭水社 check-in、環潭自行車道'},
-     {t:'18:00',i:'🍽',h:'水社商圈晚餐'},
-     {t:'10/2',i:'📅',h:'<b>第三天（五）</b>　日月潭 → 台中 → 台北'},
-     {t:'08:30',i:'⛵',h:'遊湖船：水社 → 伊達邵 → 玄光寺'},
-     {t:'11:00',i:'🚡',h:'日月潭纜車（可接九族文化村）'},
-     {t:'14:00',i:'🚌',h:'南投客運往高鐵台中站（約 1.5 小時）',move:1},
-     {t:'16:30',i:'🚄',h:'高鐵台中 → 台北（約 1 小時）',move:1}
-    ],cards:['alishan','sunmoonlake'],
-    rain:'<b>候選商品</b>　KLOOK「<a href="https://www.klook.com/zh-TW/activity/116483-chiayi-alishan-nantou-sun-moon-lake-three-days-from-taipei/" target="_blank" rel="noopener">嘉義阿里山＆南投日月潭｜三天兩夜｜台北出發｜中部山林之美</a>」（含文化體驗、部分門票）。<b>下面的時刻表是我按一般走法排的，不是這個團的實際行程</b>——把團的每日內容給我，我就換成正式版。<br><b>要確認的</b>　出發日有沒有 9/30、集合地點與時間、住宿是哪兩晚、含不含餐與門票。<br><b>取捨</b>　兩個都是經典景點，但阿里山到日月潭沒有直達車，自行前往要 3–4 小時還得換車——跟團的話這段由遊覽車解決，是跟團最大的好處；日出要 4:30 起床，山上約 10 度。'},
+     {t:'9/30',i:'📅',h:'<b>第一天（三）</b>　台北 → 台中，市區自由行'},
+     {t:'上午',i:'🚄',h:'高鐵台北 → 台中（約 1 小時）',move:1},
+     {t:'中午',i:'🚆',h:'新烏日轉台鐵到台中車站，飯店寄行李',move:1},
+     {t:'下午',i:'🏙',h:'台中市區：宮原眼科、審計新村、台中國家歌劇院'},
+     {t:'傍晚',i:'🍜',h:'逢甲夜市或一中街'},
+     {t:'10/1',i:'📅',h:'<b>第二天（四）</b>　日月潭一日遊'},
+     {t:'約 08:00',i:'🚌',h:'台中市區集合（常見上車點：高鐵台中站、逢甲、宮原眼科）',move:1},
+     {t:'白天',i:'⛵',h:'日月潭：遊湖船、纜車、環湖單車'},
+     {t:'約 18:00',i:'🚌',h:'回台中，晚餐自理',move:1},
+     {t:'10/2',i:'📅',h:'<b>第三天（五）</b>　二選一，結束後直接回台北'},
+     {t:'選項 A',i:'🌲',h:'溪頭自然教育園區一日遊——低海拔森林，步道平緩好走'},
+     {t:'選項 B',i:'🐑',h:'清境農場一日遊——高山草原與綿羊秀，車程較遠'},
+     {t:'傍晚',i:'🚄',h:'取行李、高鐵台中 → 台北（約 1 小時）',move:1}
+    ],cards:['sunmoonlake','xitou','qingjing'],
+    rain:'<b>候選商品</b>　第二天 KLOOK「<a href="https://www.klook.com/zh-TW/activity/12447-sun-moon-lake-adventure-one-day-tour-taichung/" target="_blank" rel="noopener">日月潭一日遊（台中出發）</a>」；第三天二選一：「<a href="https://www.klook.com/zh-TW/activity/87239-xitou-nature-education-area-day-tour/" target="_blank" rel="noopener">溪頭自然教育園區一日遊</a>」或「<a href="https://www.klook.com/zh-TW/activity/31415-qingjing-farm-day-tour-taichung/" target="_blank" rel="noopener">清境農場一日遊（台中出發）</a>」。<b>下面的時刻表是我按這類一日遊的一般安排推排的參考版</b>，把商品頁的實際內容給我就換成正式版。<br><b>要確認的</b>　三團 9/30–10/2 的出團日、上車點與集合時間、含不含餐與門票、清境那團會不會拉到合歡山武嶺（海拔 3,275 公尺，有高山反應風險）。<br><b>行李</b>　10/2 是一日遊當天又要回台北，退房後把行李寄在飯店或台中車站置物櫃，晚上回程再取。<br><b>取捨</b>　住同一間飯店兩晚、行李只搬一次，白天交給一日遊、晚上自己逛台中，是三個方案裡最有彈性的；代價是每天要配合團體集合時間。'},
    {tag:'B',t:'溪頭＋日月潭（五星FUN鬆）',sub:'高鐵來回，兩晚五星飯店，專車接送溪頭–日月潭',stay:'溪頭米堤 1 晚＋日月潭溫德姆 1 晚',
     map:{pts:['taipeiStn','taichungHsr','xitou','sunmoonlake'],
      legs:[{a:'taipeiStn',b:'taichungHsr',mode:'hsr',via:['banqiao','taoyuanHsr','hsinchuHsr']},{a:'taichungHsr',b:'xitou',mode:'coach'},{a:'xitou',b:'sunmoonlake',mode:'coach'},{a:'sunmoonlake',b:'taichungHsr',mode:'coach',curve:.22},{a:'taichungHsr',b:'taipeiStn',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao'],curve:.14}],
@@ -647,7 +643,7 @@ const DAYS=[
     rain:'<b>候選商品</b>　東南旅遊「<a href="https://trip.settour.com.tw/taiwan/product/GRT0000007931" target="_blank" rel="noopener">【五星FUN鬆】溪頭米堤綠光竹林歐風城堡、日月潭溫德姆溫泉饗宴高鐵三日</a>」。<b>下面的時刻表是我按行程賣點推排的參考版，不是團的正式行程</b>——把每日內容給我就換成正式版。<br><b>要確認的</b>　9/30 有沒有出團、<b>標示 4 人成行</b>（人數不足可能取消）、集合地點與時間、含哪幾餐與哪些門票、高鐵是對號座還是自由座。<br><b>取捨</b>　住得最好、移動最輕鬆——高鐵來回加專車接送，山路那段不用自己想辦法；代價是沒有阿里山的日出與神木，走的是度假放鬆路線。',
    }
   ],
-  pick:'<b>目前狀態</b>　兩個方案各自對應一個實際可訂的團（連結在上面各自的說明裡），但商品頁在我這邊開不起來，所以兩份時刻表都是<b>參考版</b>，不是團的正式行程。把每日內容貼給我，我就換成正式版並重畫地圖。<br><b>先確認</b>　兩團 9/30 有沒有出團；東南那團標示 4 人成行，人數不足可能取消。日期對不上，行程再好也沒用。<br><b>怎麼選</b>　兩團都會到日月潭，差別在另外那一半：<br>　・想看<b>阿里山日出與神木</b>、不介意 4:30 起床與高山溫差 → 選 <b>A</b>，含文化體驗與部分門票。<br>　・想<b>住得好、走得輕鬆</b>——溪頭柳杉林散步、兩晚五星飯店與溫泉、高鐵來回加專車接送山路 → 選 <b>B</b>。<br><b>兩個都不選？</b>　把三天兩夜縮成兩天一夜，多出來的那天就能把台北候選清單裡的陽明山或大稻埕補回去。',
+  pick:'<b>目前狀態</b>　A 是自己組的（台中住兩晚＋兩個 KLOOK 一日遊），B 是東南的跟團一次搞定。商品連結都在上面，但那些頁面在我這邊開不起來，所以兩份時刻表都是<b>參考版</b>——把實際內容貼給我就換成正式版。<br><b>注意：兩案可能高度重疊</b>　如果 A 的第三天選<b>溪頭</b>，那 A 和 B 的景點幾乎一樣（都是日月潭＋溪頭），差別只剩住宿等級與跟不跟團。想讓兩案真的有區別，A 的第三天就選<b>清境</b>。<br><b>怎麼選</b><br>　・想<b>住得好、完全不用自己安排</b>——兩晚五星、高鐵來回加專車接送 → 選 <b>B</b>。<br>　・想<b>有彈性、晚上自己逛台中、預算省一些</b>——白天交給一日遊、住同一間飯店兩晚、行李只搬一次 → 選 <b>A</b>。<br>　・A 的第三天：<b>溪頭</b>是低海拔森林、步道平緩好走；<b>清境</b>海拔 1,750 公尺、看草原綿羊與山景，但單程車程約 2 小時、十月山上冷。<br><b>先確認</b>　三個 KLOOK 一日遊 9/30–10/2 出不出團；東南那團 9/30 出不出（標示 4 人成行，人數不足可能取消）。',
   tl:[],cards:[]},
  {n:8,date:'10/3',wd:'六',title:'北海岸一日遊',sub:'淡水搭台灣好行沿海走，金山吃午餐、野柳看女王頭，收在基隆廟口',stay:'待定',
   map:{pts:['home','tamsui','sanzhi','shimen','jinshan','yehliu','keelung','songshan'],legs:[{a:'home',b:'tamsui',mode:'metro'},{a:'tamsui',b:'yehliu',mode:'bus',via:['sanzhi','shimen','jinshan']},{a:'yehliu',b:'keelung',mode:'bus'},{a:'keelung',b:'songshan',mode:'tra'},{a:'songshan',b:'home',mode:'walk'}],labels:{home:'b',tamsui:'l',sanzhi:'l',shimen:'t',jinshan:'t',yehliu:'r',keelung:'r',songshan:'b'},minSpan:.12},
