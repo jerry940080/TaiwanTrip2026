@@ -269,6 +269,7 @@ footer p{max-width:70ch}
       <tr><td>淡水 <span class="mute">或</span> 北投</td><td class="mute">二選一</td><td>半天</td><td class="mute">同一條線往北；北投從士林只要 4 站、腹地小好走，淡水多坐 10 站、範圍大，但溫泉博物館 9/28 休館</td><td>9/28 下午</td></tr>
       <tr><td>北海岸（野柳・金山・基隆）</td><td class="mute">可換</td><td>一整天</td><td class="mute">改走基隆側：台鐵到基隆轉 790 一條路線走完，只轉一次車</td><td>10/3 全天</td></tr>
       <tr><td>大稻埕・剝皮寮</td><td class="mute">—</td><td>大半天</td><td class="mute">剝皮寮週一休，10/4 是週日沒問題</td><td>10/4 白天</td></tr>
+      <tr><td>雙層觀光巴士</td><td class="mute">交通替代</td><td>看票種</td><td class="mute"><b>紅線</b>涵蓋 9/27 的 101、國父紀念館與 10/4 的龍山寺、中正紀念堂；<b>藍線</b>涵蓋 9/28 的故宮、士林官邸</td><td class="mute">可搭配 9/27、9/28、10/4</td></tr>
       <tr><td class="mute">平溪・十分</td><td class="mute">可換</td><td>半天</td><td class="mute">9/29 改成傍晚上九份後就沒空間了；要去得整天排</td><td class="mute">未排入</td></tr>
       <tr><td class="mute">貓空</td><td class="mute">可換</td><td>半天＋夜景</td><td class="mute">纜車週一例行停駛保養</td><td class="mute">未排入</td></tr>
       <tr><td class="mute">陽明山一日遊</td><td class="mute">可換</td><td>一整天</td><td class="mute">只能 9/28／10/3／10/4，三天都有事了</td><td class="mute">未排入</td></tr>
@@ -278,8 +279,13 @@ footer p{max-width:70ch}
       <li><b>貓空</b>　最合理的位置是 9/28 下午——把淡水／北投換成貓空。但故宮在士林、貓空在文山，捷運要坐 45 分鐘穿過整個台北，比往北去淡水北投累得多。</li>
       <li><b>陽明山</b>　只能吃掉 10/3 的北海岸。兩者性質接近（都是一整天的山海行程），看你想看地質海岸還是高山草原。</li>
       <li><b>兩個都想要</b>　9/30–10/2 的三天兩夜縮成兩天一夜，多出來的 10/2 就能補一天。</li>
+      <li><b>雙層觀光巴士怎麼配</b>　它不新增景點，而是換一種方式跑既有行程：<b>紅線</b>一趟就串起
+          台北 101、國父紀念館（9/27）與龍山寺、中正紀念堂（10/4）；<b>藍線</b>直接到故宮與士林官邸（9/28）。
+          9/27 與 9/28 剛好連續兩天，2 日票 NT1,200 可以一次涵蓋；但藍線<b>不到淡水或北投</b>，
+          9/28 下午還是得搭捷運。上層是露天座，十月天氣與下雨要納入考慮。</li>
     </ul>
-    <h3 style="margin-top:24px">還沒排進去的三個</h3>
+    <h3 style="margin-top:24px">其他選項</h3>
+    <p class="mute" style="margin:-4px 0 12px">雙層觀光巴士是<b>交通替代方案</b>（用它跑既有行程），其餘三個是還沒排進去的景點。</p>
     <div class="cards" id="optionCards"></div>
     <p class="mute" style="margin-top:8px">9/30–10/2 的三天兩夜有 A／B 兩套方案並列在 Day 5-7，挑定之後這張表可能要再動一次。</p>
   </div>
@@ -542,6 +548,9 @@ const CARDS={
  qingjing:{name:'清境農場',jp:'Qingjing Farm',kind:'景點',short:'海拔 1,750 公尺的高山草原與綿羊秀',wiki:['清境農場'],
   text:'合歡山下的高山牧場，青青草原上放牧綿羊，假日有綿羊秀與馬術秀；高空觀景步道沿稜線架設，天氣好看得到中央山脈稜線。海拔約 1,750 公尺，比平地低 10 度以上，十月上山要帶外套。台中出發車程單程約 2–2.5 小時，山路彎多，會暈車的先吃藥。',
   chips:['青青草原 08:00–17:00','門票 NT 200','綿羊秀 例假日 09:30／14:30','馬術秀 每日 10:45／15:45']},
+ sightseeingBus:{name:'臺北市雙層觀光巴士',jp:'Taipei Sightseeing Bus',kind:'交通',short:'紅藍兩線，效期內無限上下車',wiki:['臺北市雙層觀光巴士'],
+  text:'開放式頂層的雙層巴士，同一張票在效期內可無限次上下車。<b>紅線</b>從台北車站繞西門、萬華、龍山寺、中正紀念堂、永康街、大安森林公園、台北 101、市政府、國父紀念館、忠孝敦化、忠孝復興到華山，再回台北車站；<b>藍線</b>走北門、圓環、中山、晶華、北美館、圓山飯店、劍潭到士林官邸與故宮博物院。全車 57 席（上層 37 個露天座、10 個室內座，下層 9 席與 1 個無障礙座），車上有免費 WiFi、充電座與中英日韓泰五語導覽。<b>注意藍線只到故宮，不到淡水或北投。</b>',
+  chips:['4 小時票 300／日間票 500','1 日票 700／2 日票 1,200','紅線 09:00–22:00・藍線日間至 17:00']},
  nantoucard:{name:'南投好行卡',jp:'Nantou Fun Pass',kind:'交通',short:'3 天無限搭台灣好行 6 條路線',wiki:[],
   text:'南投客運與台灣好行合作的交通卡，第一次上車嗶卡當天起算、連續三天無限次數搭乘六條指定路線：日月潭線（6670A–F 台中站⇄日月潭）、埔里線（6670H）、溪頭線（6683 台中站⇄溪頭）、清境線（6664／6659／6658 埔里⇄清境）、日月潭溪頭線（6801）、車埕線（6671）。在南投客運高鐵台中站服務櫃台取卡，三日期滿後可當一般悠遊卡繼續用。<b>注意清境線是從埔里發車</b>，台中過去要先到埔里轉車，單程約 2.5 小時。',
   chips:['3 天無限次數','高鐵台中站取卡','售價需向官方確認']},
@@ -998,7 +1007,7 @@ daysEl.innerHTML=DAYS.map(d=>`<section class="day" id="day${d.n}">
 
 // 候選區：還沒排進行程的選項也畫成卡片（可點開看介紹）
 const optionCards=document.getElementById('optionCards');
-if(optionCards) optionCards.innerHTML=['shifen','maokong','yangming'].map(cardHTML).join('');
+if(optionCards) optionCards.innerHTML=['sightseeingBus','maokong','yangming','shifen'].map(cardHTML).join('');
 
 // animate day maps on scroll + replay
 document.querySelectorAll('.mapcard').forEach(mc=>{
