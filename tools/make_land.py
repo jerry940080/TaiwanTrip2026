@@ -10,6 +10,10 @@
   python3 tools/make_land.py --preset japan --lat0 34.4 --lat1 36.0 --lng0 138.2 --lng1 140.6 \
       --regions 静岡県 神奈川県 東京都 千葉県 山梨県 埼玉県 > land.js
 
+只把某一小塊畫細（例如要放大到步行尺度的八斗子）：
+  python3 tools/make_land.py --preset taiwan --all --eps 0.002 \
+      --fine-eps 0.00015 --fine-lat0 25.125 --fine-lat1 25.155 --fine-lng0 121.785 --fine-lng1 121.815 > land.js
+
 用法（其他國家，Natural Earth 海岸線）：
   python3 tools/make_land.py --preset world --lat0 -45 --lat1 -34 --lng0 166 --lng1 179 > land.js
 
@@ -42,11 +46,20 @@ PRESETS = {
 }
 
 
-def dp(pts, eps):
-    """Douglas-Peucker 簡化（用堆疊，避免深度遞迴爆掉）。"""
+def dp(pts, eps, fine=None, eps_fine=None):
+    """Douglas-Peucker 簡化（用堆疊，避免深度遞迴爆掉）。
+
+    fine 給 (lat0, lat1, lng0, lng1) 時，落在那個範圍內的點改用 eps_fine 判斷，
+    可以只把某一小塊海岸線畫細（例如要放大到步行尺度的那一區），其他地方維持粗簡化。
+    """
     n = len(pts)
     if n < 3:
         return pts
+
+    def thresh(p):
+        if fine and fine[0] <= p[1] <= fine[1] and fine[2] <= p[0] <= fine[3]:
+            return eps_fine
+        return eps
 
     def d(p, a, b):
         (x, y), (x1, y1), (x2, y2) = p, a, b
@@ -64,11 +77,12 @@ def dp(pts, eps):
         if i1 <= i0 + 1:
             continue
         a, b = pts[i0], pts[i1]
-        imax, dmax = -1, eps
+        # 用「距離／該點的容差」的比值來挑，這樣不同區域可以有不同容差
+        imax, rmax = -1, 1.0
         for i in range(i0 + 1, i1):
-            dd = d(pts[i], a, b)
-            if dd > dmax:
-                dmax, imax = dd, i
+            r = d(pts[i], a, b) / thresh(pts[i])
+            if r > rmax:
+                rmax, imax = r, i
         if imax >= 0:
             keep[imax] = True
             stack.append((i0, imax))
@@ -101,6 +115,11 @@ def main():
     ap.add_argument("--lng0", type=float)
     ap.add_argument("--lng1", type=float)
     ap.add_argument("--eps", type=float, default=0.0007, help="簡化容差(度)，越大檔越小")
+    ap.add_argument("--fine-eps", type=float, help="細節區的容差，配合 --fine-* 四個邊界")
+    ap.add_argument("--fine-lat0", type=float)
+    ap.add_argument("--fine-lat1", type=float)
+    ap.add_argument("--fine-lng0", type=float)
+    ap.add_argument("--fine-lng1", type=float)
     ap.add_argument("--min-pts", type=int, default=5, help="小於這個點數的環直接丟掉（濾掉小島）")
     a = ap.parse_args()
 
@@ -131,15 +150,27 @@ def main():
             picked += hit
         feats = picked
 
+    fine = None
+    if a.fine_eps is not None:
+        if None in (a.fine_lat0, a.fine_lat1, a.fine_lng0, a.fine_lng1):
+            sys.exit("!! --fine-eps 要配 --fine-lat0/lat1/lng0/lng1 一起給")
+        fine = (a.fine_lat0, a.fine_lat1, a.fine_lng0, a.fine_lng1)
+        print(f"細節區 {fine} 容差 {a.fine_eps}", file=sys.stderr)
+
     out = []
     for f in feats:
         for r in rings(f["geometry"]):
             if not any(lat0 <= y <= lat1 and lng0 <= x <= lng1 for x, y in r):
                 continue
-            sr = dp(r, a.eps)
+            sr = dp(r, a.eps, fine, a.fine_eps)
             if len(sr) < a.min_pts:
                 continue
-            out.append([[round(x, 4), round(y, 4)] for x, y in sr])
+            # 細節區的點留 5 位小數（約 1 公尺），其餘 4 位（約 11 公尺）——只在需要的地方付檔案大小
+            def rd(x, y):
+                if fine and fine[0] <= y <= fine[1] and fine[2] <= x <= fine[3]:
+                    return [round(x, 5), round(y, 5)]
+                return [round(x, 4), round(y, 4)]
+            out.append([rd(x, y) for x, y in sr])
 
     sys.stdout.write("const LAND=" + json.dumps(out, separators=(",", ":")) + ";\n")
     pts = sum(len(o) for o in out)

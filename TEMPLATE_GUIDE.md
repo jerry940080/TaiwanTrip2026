@@ -22,7 +22,12 @@
    只走某幾個縣市、想讓檔案更小或線條更細時重生：
    ```bash
    python3 tools/make_land.py --preset taiwan --regions 台北市 新北市 基隆市 宜蘭縣 --eps 0.0005 > land.js
-   python3 tools/make_land.py --preset taiwan --all --eps 0.002 > land.js     # 全台（現在用的）
+   python3 tools/make_land.py --preset taiwan --all --eps 0.002 --min-pts 8 > land.js   # 全台（現在用的）
+
+   # 只把某一小塊畫細（要放大到步行尺度時；現在 index.html 就多帶了八斗子這一塊）
+   python3 tools/make_land.py --preset taiwan --all --eps 0.002 --min-pts 8 \
+       --fine-eps 0.00015 --fine-lat0 25.125 --fine-lat1 25.155 \
+       --fine-lng0 121.785 --fine-lng1 121.815 > land.js
    ```
    把輸出整段取代第一段 `<script>` 的內容。純市區行程不想要地形，也可以 `const LAND=[];`（地圖變純色底）。
    出國行程：`--preset japan --regions 静岡県 …`，或 `--preset world --lat0 … --lat1 … --lng0 … --lng1 …`。
@@ -81,6 +86,21 @@
 `cfg.detail` 讓「整體範圍」和「畫多細」分開：首頁大圖只框台北一帶，但鏡頭會平移到南投，
 就靠 `bbox` 決定基準比例、`detail` 決定背景細到哪一層。
 縣市名的範圍會自動涵蓋各 leg `zoom` 會平移到的地方，否則鏡頭移過去只剩一片空白。
+
+### 同一天放兩張地圖
+
+景點全擠在幾百公尺內的日子（10/3 的八斗子潮境就是），跟全日路線畫在同一張圖上一定糊掉。
+這時在 DAYS 那天加 `map2`，就會在時刻表左邊上下疊兩張圖：
+
+```js
+map:{cap:'全日路線：南京三民 → 瑞芳 → 深澳線', pts:[...], legs:[...], minSpan:.12},
+map2:{cap:'步行段：八斗子車站 → 潮境 → 海科館站', pts:[...], legs:[...],
+      bbox:{la0:25.1345,la1:25.1465,lo0:121.7915,lo1:121.8095}},
+```
+
+`cap` 是圖上方的小標題，兩張都要寫，不然讀者分不出哪張是哪張。放大的那張建議直接給
+`bbox`（不要用 `minSpan` 自動算），比較好控制留白。**放大到 1 公里尺度時記得同時把
+`LAND` 那一區重生成細的**（見上面 `--fine-eps`），不然海岸線會粗到看起來像景點掉在海裡。
 
 每張地圖右下角有「簡化」按鈕，按了會隱藏這些背景細節（`.mapcard.plain .poi{display:none}`），
 只留路線與景點。覺得某天的地圖太擠，先調 `minSpan` 或直接讓讀者自己按簡化。
