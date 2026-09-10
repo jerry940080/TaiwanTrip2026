@@ -220,7 +220,7 @@ footer p{max-width:70ch}
   <div class="hero-text">
     <div class="kicker">2026 年 9 月 26 日（六）— 10 月 5 日（一）・10 天 9 夜</div>
     <h1>台灣<small>10 天 9 夜 旅のしおり</small></h1>
-    <div class="route">桃園機場 → 台北（松山）→ 信義區・故宮・九份 →（9/30–10/2 三天兩夜待選）→ 北海岸・大稻埕 → 桃園機場</div>
+    <div class="route">桃園機場 → 台北 → 九份 →（南投三天兩夜待選）→ 北海岸 → 台北 → 桃園機場</div>
     <div class="flights">
       <div>去程 <b>國航 CA189</b>　北京首都 13:55 → 桃園 17:10</div>
       <div>回程 <b>國航 CA186</b>　桃園 13:15 → 北京首都 16:45</div>
@@ -950,17 +950,23 @@ function animateMap(svg){
 /* ================= RENDER ================= */
 // hero overview
 (function(){
-  // 整趟的大路線。行程有 8 天在大台北，所以總覽圖框北台灣；
-  // 9/30–10/2 的三天兩夜還沒選 A 或 B，選定後再把該方案的目的地加進來。
-  const cfg={pts:['tpe','home','jiufen','tamsui','yehliu','jinshan','keelung'],
-    legs:[{a:'tpe',b:'home',mode:'metro',via:['taoyuanHsr','taipeiStn']},
-      {a:'home',b:'jiufen',mode:'tra',via:['songshan','ruifang']},
-      {a:'home',b:'tamsui',mode:'metro'},
-      {a:'home',b:'keelung',mode:'tra',via:['songshan']},
-      {a:'keelung',b:'yehliu',mode:'bus'},
-      {a:'yehliu',b:'jinshan',mode:'bus'}],
-    labels:{tpe:'b',home:'b',jiufen:'r',tamsui:'l',yehliu:'b',jinshan:'t',keelung:'r'},
-    bbox:{la0:24.60,la1:25.40,lo0:121.00,lo1:122.20}};
+  // 整趟的大路線，legs 依日期先後排列——引擎會照這個順序逐段畫線，
+  // 所以捲到這張圖時，路線會照時間順序長出來。
+  // 市區的日子（9/27 信義區、9/28 故宮、10/4 大稻埕）在這個尺度下都落在「台北」那一點裡。
+  const cfg={pts:['tpe','home','jiufen','yehliu','taichungHsr','sunmoonlake','xitou'],
+    legs:[
+      {a:'tpe',b:'home',mode:'drive',via:['taipeiStn']},                                                         // 9/26 開車接機
+      {a:'home',b:'jiufen',mode:'bus',via:['ruifang']},                                                          // 9/29 九份
+      {a:'home',b:'taichungHsr',mode:'hsr',via:['taipeiStn','banqiao','taoyuanHsr','hsinchuHsr']},                // 9/30 南下
+      {a:'taichungHsr',b:'sunmoonlake',mode:'bus'},                                                              // 9/30–10/2 南投
+      {a:'sunmoonlake',b:'xitou',mode:'bus'},
+      {a:'xitou',b:'taichungHsr',mode:'bus',curve:.2},
+      {a:'taichungHsr',b:'home',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao','taipeiStn'],curve:.1},       // 10/2 北返
+      {a:'home',b:'keelung',mode:'tra',via:['songshan']},                                                        // 10/3 北海岸
+      {a:'keelung',b:'yehliu',mode:'bus',via:['jinshan']},
+      {a:'home',b:'tpe',mode:'drive',via:['taipeiStn'],curve:.14}],                                              // 10/5 回程
+    labels:{tpe:'l',home:'b',jiufen:'r',yehliu:'t',taichungHsr:'l',sunmoonlake:'r',xitou:'b'},
+    bbox:{la0:23.55,la1:25.35,lo0:120.40,lo1:121.95}};
   const el=document.getElementById('heroMap');
   el.innerHTML=buildMap(cfg,{big:true,aria:'全程路線總覽',W:1200,H:440}).replace('viewBox="0 0 1200 440"','viewBox="0 0 1200 440" preserveAspectRatio="xMidYMid meet"');
   const svg=el.querySelector('svg');
