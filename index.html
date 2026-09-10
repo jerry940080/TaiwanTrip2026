@@ -258,14 +258,15 @@ footer p{max-width:70ch}
     <table>
       <tr><th>選項</th><th>必選</th><th>需時</th><th>限制與備註</th><th>目前排在</th></tr>
       <tr><td><b>故宮</b></td><td>✔</td><td>3–4 小時</td><td class="mute">平常週一休館；9/28 逢連假是特別開館日</td><td>9/28 上午</td></tr>
-      <tr><td><b>九份</b></td><td>✔</td><td>傍晚半天</td><td class="mute">9/29 是全程唯一非假日；日落 17:44，要看黃昏得 16:00 出發</td><td>9/29 傍晚</td></tr>
-      <tr><td><b>國父紀念館</b></td><td>✔</td><td>約 1 小時</td><td class="mute">整點儀隊交接；走到松菸 10 分鐘</td><td>9/29 上午</td></tr>
+      <tr><td><b>九份</b></td><td>✔</td><td>大半天</td><td class="mute">1062 從松山車站直達、零轉乘；豎崎路是連續石階，白天走比較安全</td><td>9/29 白天</td></tr>
+      <tr><td><b>國父紀念館</b></td><td>✔</td><td>約 1 小時</td><td class="mute">整點儀隊交接；走到松菸 10 分鐘</td><td>9/27 下午</td></tr>
       <tr><td><b>中正紀念堂</b></td><td>✔</td><td>半天</td><td class="mute">想看表演要先在 OPENTIX 訂票</td><td>10/4 傍晚</td></tr>
-      <tr><td>象山・四四南村・台北 101</td><td class="mute">—</td><td>一整天</td><td class="mute">象山來回約 1.5 小時，石階雨後濕滑</td><td>9/27 白天</td></tr>
-      <tr><td>饒河街夜市</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">松山車站旁，1062 從九份回來剛好收在這裡</td><td>9/29 晚上</td></tr>
-      <tr><td>松菸</td><td class="mute">可換</td><td>約 1 小時</td><td class="mute">緊鄰國父紀念館，順路</td><td>9/29 上午</td></tr>
-      <tr><td>淡水 <span class="mute">或</span> 北投</td><td class="mute">二選一</td><td>半天</td><td class="mute">都在淡水信義線上；北投離士林只有 12 分鐘，但溫泉博物館 9/28 休館</td><td>9/28 下午</td></tr>
-      <tr><td>北海岸一日遊</td><td class="mute">可換</td><td>一整天</td><td class="mute">台灣好行皇冠北海岸線約一小時一班，先查班表</td><td>10/3 全天</td></tr>
+      <tr><td>四四南村・台北 101</td><td class="mute">—</td><td>半天</td><td class="mute">兩點之間走路 5 分，全程平地</td><td>9/27 上午</td></tr>
+      <tr><td class="mute">象山步道</td><td class="mute">選配</td><td>1.5 小時</td><td class="mute">石階陡上、遮蔭少；排在 9/27 上午當選配，不走不影響行程</td><td class="mute">9/27 選配</td></tr>
+      <tr><td>饒河街夜市</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">走路就到，是全程最省力的一段</td><td>9/29 晚上</td></tr>
+      <tr><td>松菸</td><td class="mute">可換</td><td>約 1 小時</td><td class="mute">緊鄰國父紀念館，順路</td><td>9/27 傍晚</td></tr>
+      <tr><td>淡水 <span class="mute">或</span> 北投</td><td class="mute">二選一</td><td>半天</td><td class="mute">同一條線往北；北投從士林只要 4 站、腹地小好走，淡水多坐 10 站、範圍大，但溫泉博物館 9/28 休館</td><td>9/28 下午</td></tr>
+      <tr><td>北海岸（野柳・金山・基隆）</td><td class="mute">可換</td><td>一整天</td><td class="mute">改走基隆側：台鐵到基隆轉 790 一條路線走完，只轉一次車</td><td>10/3 全天</td></tr>
       <tr><td>大稻埕・剝皮寮</td><td class="mute">—</td><td>大半天</td><td class="mute">剝皮寮週一休，10/4 是週日沒問題</td><td>10/4 白天</td></tr>
       <tr><td class="mute">平溪・十分</td><td class="mute">可換</td><td>半天</td><td class="mute">9/29 改成傍晚上九份後就沒空間了；要去得整天排</td><td class="mute">未排入</td></tr>
       <tr><td class="mute">貓空</td><td class="mute">可換</td><td>半天＋夜景</td><td class="mute">纜車週一例行停駛保養</td><td class="mute">未排入</td></tr>
@@ -580,21 +581,23 @@ const DAYS=[
    {t:'19:40',i:'🏠',h:'到家、放行李'},
    {t:'20:30',i:'🍜',h:'第一餐（待定）'}
   ],cards:[],
-  rain:'<b>提醒</b>　9/26 是中秋連假第二天，機捷與市區都會比平常擠；當晚別排太滿，落地當天以進市區、吃飯、休息為主。'},
- {n:2,date:'9/27',wd:'日',title:'信義區 city walk・中秋烤肉',sub:'象山、四四南村、台北 101，傍晚回家烤肉賞月',stay:'待定',
-  map:{pts:['home','xiangshan','ssnc','taipei101'],legs:[{a:'home',b:'xiangshan',mode:'metro'},{a:'xiangshan',b:'ssnc',mode:'walk'},{a:'ssnc',b:'taipei101',mode:'walk'},{a:'taipei101',b:'home',mode:'metro'}],labels:{home:'r',xiangshan:'b',ssnc:'b',taipei101:'l'},minSpan:.028},
+  rain:'<b>步行與轉乘</b>　機捷直達車到台北車站，再轉一次捷運到家，<b>轉乘一次</b>；兩段都有電梯，行李不用搬樓梯。<br><b>提醒</b>　9/26 是中秋連假第二天，機捷與市區都會比平常擠；當晚別排太滿，落地當天以進市區、吃飯、休息為主。'},
+ {n:2,date:'9/27',wd:'日',title:'信義區・國父紀念館・松菸',sub:'四四南村到松菸一路平地，傍晚回家烤肉賞月',stay:'待定',
+  map:{pts:['home','xiangshan','ssnc','taipei101','sysMemorial','songyan'],legs:[{a:'home',b:'ssnc',mode:'metro'},{a:'ssnc',b:'xiangshan',mode:'walk'},{a:'xiangshan',b:'ssnc',mode:'walk',curve:.3},{a:'ssnc',b:'taipei101',mode:'walk'},{a:'taipei101',b:'sysMemorial',mode:'metro'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'home',mode:'taxi'}],labels:{home:'r',xiangshan:'b',ssnc:'b',taipei101:'l',sysMemorial:'l',songyan:'t'},minSpan:.028},
   tl:[
-   {t:'09:00',i:'🚇',h:'捷運到象山站（約 25 分）',move:1},
-   {t:'09:30',i:'⛰',h:'象山親山步道：六巨石平台看 101（來回約 1.5 小時）'},
-   {t:'11:15',i:'🏘',h:'四四南村：眷村老屋、好丘、101 天際線'},
-   {t:'12:30',i:'🍽',h:'午餐（信義區或 101 地下美食街）'},
-   {t:'14:00',i:'🏙',h:'台北 101：觀景台或商場'},
-   {t:'16:00',i:'🛍',h:'信義區逛街（新光三越、誠品信義）'},
-   {t:'17:00',i:'🚇',h:'捷運回家休整',move:1},
+   {t:'09:30',i:'🚇',h:'捷運到台北 101／世貿站（約 25 分）',move:1},
+   {t:'10:00',i:'🏘',h:'四四南村：眷村老屋、好丘，前面就是 101'},
+   {t:'選配',i:'⛰',h:'象山親山步道（石階陡上，來回約 1.5 小時；不走可直接跳過）'},
+   {t:'11:30',i:'🏙',h:'台北 101：觀景台或商場'},
+   {t:'12:30',i:'🍽',h:'午餐（101 地下美食街，有座位又不用曬太陽）'},
+   {t:'14:00',i:'🚇',h:'捷運一站到國父紀念館站',move:1},
+   {t:'14:30',i:'🏛',h:'國父紀念館：翠湖拍 101、整點儀隊交接'},
+   {t:'15:30',i:'🛍',h:'松菸、誠品生活松菸（走路 10 分，全程平地）'},
+   {t:'17:00',i:'🚕',h:'回家休整（松菸離家 1.4 公里）',move:1},
    {t:'18:30',i:'🍖',h:'中秋烤肉'},
    {t:'20:00',i:'🌕',h:'賞月'}
-  ],cards:['xiangshan','ssnc','taipei101'],
-  rain:'<b>國父紀念館與松菸移到 9/29 上午了</b>　那天上午本來就要在市區附近逛，離家也近，這天就不用趕。<br><b>雨備</b>　象山石階雨後很滑，下雨就整段跳過、從四四南村開始；101 觀景台與信義區商場都在室內。<br><b>提醒</b>　中秋當天烤肉食材很搶手，前一天先買好。'},
+  ],cards:['ssnc','taipei101','sysMemorial','songyan','xiangshan'],
+  rain:'<b>步行與轉乘</b>　捷運進出各一次、中間一站，其餘全靠走；四四南村到 101 到國父紀念館到松菸<b>全是平地</b>，累了隨處有捷運站與計程車。<br><b>象山是選配</b>　石階陡上 20–30 分鐘、遮蔭少，體力允許再走；不走完全不影響這天的完整度，四四南村前面拍 101 的角度一樣好。<br><b>雨備</b>　101 觀景台與商場、國父紀念館主堂、松菸館舍都在室內，這天下雨影響不大。<br><b>提醒</b>　中秋當天烤肉食材很搶手，前一天先買好。'},
  {n:3,date:'9/28',wd:'一',title:'故宮・淡水或北投',sub:'故宮留久一點慢慢看，下午沿淡水信義線往北二選一',stay:'待定',
   map:{pts:['home','shilin','palaceMuseum','beitou','beitouLib','hell','tamsui'],legs:[{a:'home',b:'shilin',mode:'metro'},{a:'shilin',b:'palaceMuseum',mode:'bus'},{a:'palaceMuseum',b:'shilin',mode:'bus',curve:.3},{a:'shilin',b:'beitou',mode:'metro'},{a:'beitou',b:'beitouLib',mode:'walk'},{a:'beitouLib',b:'hell',mode:'walk'},{a:'shilin',b:'tamsui',mode:'metro',curve:-.14}],labels:{home:'b',shilin:'r',palaceMuseum:'r',beitou:'b',beitouLib:'l',hell:'t',tamsui:'l'},minSpan:.09},
   tl:[
@@ -607,23 +610,20 @@ const DAYS=[
    {t:'選項 B',i:'♨',h:'北投（士林約 12 分）：北投圖書館、地熱谷、泡湯'},
    {t:'19:30',i:'🚇',h:'捷運回家',move:1}
   ],cards:['palaceMuseum','tamsui','beitouLib','beitou'],
-  rain:'<b>為什麼只排兩件事</b>　故宮常設展慢慢看要 3–4 小時，這天特意只排一個重點加一個下午行程，不趕。<br><b>選哪個</b>　想看海與夕陽選淡水，但回程較遠、假日人多；想泡湯放鬆選北投，離士林只有 12 分鐘、回家也快。<br><b>選北投的話請注意</b>　北投溫泉博物館公告「<b>週一及國定例假日休館</b>」，9/28 是週一又是中秋連假，兩個條件都中，<b>確定不開</b>。但旁邊的<b>北投圖書館</b>（那棟木造綠建築，常被列進世界最美圖書館名單）週日、週一 09:00–17:00 照常開放，地熱谷 08:00–18:00，湯屋也不受影響——所以這天的北投改走「圖書館 → 地熱谷 → 泡湯」，博物館那棟從外面看看就好。地熱谷 9/28 是否休園，出發前順便確認一下。<br><b>雨備</b>　故宮全程室內；下雨就選北投，溫泉博物館與湯屋都不怕雨。<br><b>務必確認</b>　故宮平常週一休館，9/28 逢中秋連假是官網公告的特別開館日，出發前再確認一次。'},
- {n:4,date:'9/29',wd:'二',title:'國父紀念館・松菸・九份夜景',sub:'上午市區、下午休息，傍晚上九份看夕陽與點燈，回饒河夜市收尾',stay:'待定',
-  map:{pts:['home','sysMemorial','songyan','raohe','jiufen','ruifang'],legs:[{a:'home',b:'sysMemorial',mode:'metro'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'home',mode:'walk'},{a:'home',b:'raohe',mode:'walk'},{a:'raohe',b:'jiufen',mode:'bus',via:['ruifang']},{a:'jiufen',b:'ruifang',mode:'bus',curve:.28},{a:'ruifang',b:'raohe',mode:'tra'}],labels:{home:'t',sysMemorial:'b',songyan:'l',raohe:'r',jiufen:'r',ruifang:'t'},minSpan:.05},
+  rain:'<b>步行與轉乘</b>　去程捷運轉一次到士林、再轉公車上故宮（<b>轉乘兩次</b>）；下午選北投只要在士林同月台往北坐 4 站，選淡水則多坐 10 站。故宮園區有電梯與手扶梯，展間全程室內平地。<br><b>為什麼只排兩件事</b>　故宮常設展慢慢看要 3–4 小時，這天特意只排一個重點加一個下午行程，不趕。<br><b>選哪個</b>　想看海與夕陽選淡水，但回程較遠、假日人多；想泡湯放鬆選北投，離士林只有 12 分鐘、回家也快。<br><b>選北投的話請注意</b>　北投溫泉博物館公告「<b>週一及國定例假日休館</b>」，9/28 是週一又是中秋連假，兩個條件都中，<b>確定不開</b>。但旁邊的<b>北投圖書館</b>（那棟木造綠建築，常被列進世界最美圖書館名單）週日、週一 09:00–17:00 照常開放，地熱谷 08:00–18:00，湯屋也不受影響——所以這天的北投改走「圖書館 → 地熱谷 → 泡湯」，博物館那棟從外面看看就好。地熱谷 9/28 是否休園，出發前順便確認一下。<br><b>雨備</b>　故宮全程室內；下雨就選北投，溫泉博物館與湯屋都不怕雨。<br><b>務必確認</b>　故宮平常週一休館，9/28 逢中秋連假是官網公告的特別開館日，出發前再確認一次。'},
+ {n:4,date:'9/29',wd:'二',title:'九份（直達車往返）・饒河夜市',sub:'一班公車直達九份不用轉車，午後下山，晚上走路去饒河夜市',stay:'待定',
+  map:{pts:['home','raohe','jiufen','ruifang'],legs:[{a:'home',b:'raohe',mode:'walk'},{a:'raohe',b:'jiufen',mode:'bus',via:['ruifang']},{a:'jiufen',b:'raohe',mode:'bus',via:['ruifang'],curve:.2}],labels:{home:'t',raohe:'b',jiufen:'r',ruifang:'t'},minSpan:.05},
   tl:[
-   {t:'09:30',i:'🚇',h:'捷運到國父紀念館站（約 10 分）',move:1},
-   {t:'10:00',i:'🏛',h:'國父紀念館：翠湖拍 101、整點儀隊交接'},
-   {t:'11:00',i:'🛍',h:'松菸、誠品生活松菸（走路 10 分）'},
-   {t:'12:30',i:'🍽',h:'午餐'},
-   {t:'14:00',i:'🏠',h:'回家休息（松菸離家只有 1.4 公里）',move:1},
-   {t:'16:00',i:'🚌',h:'松山車站／饒河夜市搭 1062 往九份（約 70–80 分）',move:1},
-   {t:'17:15',i:'⛰',h:'九份老街：豎崎路、茶樓看海'},
-   {t:'17:44',i:'🌇',h:'日落——阿妹茶樓一帶看黃昏轉點燈'},
-   {t:'19:30',i:'🚌',h:'離開九份（1062 直達松山，或下山到瑞芳轉台鐵）',move:1},
-   {t:'20:45',i:'🍜',h:'饒河街夜市'},
-   {t:'22:00',i:'🚶',h:'走路回家'}
-  ],cards:['sysMemorial','songyan','jiufen'],
-  rain:'<b>出發時間我從 17:00 提前到 16:00</b>　9/29 台北與九份的日落都在 <b>17:44</b>，而松山到九份的 1062 車程約 70–80 分鐘。17:00 出發約 18:10 才到，黃昏會整段在車上錯過，只剩夜景。16:00 出發約 17:15 抵達，剛好接上黃昏轉點燈那段——這正是九份最好看的一小時。想睡飽一點就照原訂 17:00，那就當作純夜景行程。<br><b>1062 停饒河</b>　你記得沒錯，基隆客運 1062（捷運忠孝復興站－金瓜石）沿途停<b>松山車站</b>，就在饒河夜市旁，不用跑去忠孝復興。悠遊卡約 NT 90。<br><b>回程要查</b>　1062 末班車時間務必先查；沒車就搭 788／856 下山到瑞芳（約 15 分），轉台鐵回松山（約 40 分）——台鐵松山站出站就是饒河夜市，反而更順。<br><b>平溪十分拿掉了</b>　這天改成上午市區＋傍晚九份，沒有平溪的空間，已退到候選清單。'},
+   {t:'08:45',i:'🚶',h:'走到松山車站／饒河夜市站牌',move:1},
+   {t:'09:00',i:'🚌',h:'搭 1062 直達九份（約 70–80 分，全程有座位、不用轉車）',move:1},
+   {t:'10:20',i:'⛰',h:'九份老街：豎崎路、阿妹茶樓、芋圓'},
+   {t:'12:00',i:'🍵',h:'茶樓午餐，靠窗看海慢慢坐'},
+   {t:'14:30',i:'🚌',h:'原車 1062 直達回松山（約 70–80 分）',move:1},
+   {t:'16:00',i:'🏠',h:'到家休息'},
+   {t:'18:00',i:'🍜',h:'走路到饒河街夜市吃晚餐'},
+   {t:'20:00',i:'🚶',h:'走路回家'}
+  ],cards:['jiufen'],
+  rain:'<b>步行與轉乘</b>　<b>全天零轉乘</b>——1062 從松山車站直達九份，同一班車原路回來，中途不用換車也不用爬樓梯轉月台。晚上的饒河夜市走路就到。<br><b>為什麼改成白天</b>　九份的豎崎路是連續石階、路窄人多，晚上濕滑又暗；白天上山視野好、人也比連假期間少很多（9/29 是全程唯一的非假日）。而且不必賭 1062 末班車。<br><b>要看夜景的話</b>　那就得傍晚上山、晚上下山，回到家會超過 22:00，且末班車要先查好——建議改到有人同行的日子再去。<br><b>雨備</b>　九份本來就常起霧下雨，躲進茶樓看雨景另有味道；石階濕滑，鞋子挑防滑的。'},
  {n:'5-7',date:'9/30–10/2',wd:'三–五',title:'三天兩夜（二選一）',sub:'兩套方案並列，挑一套就好——決定的關鍵寫在最下面',stay:'看方案',
   plans:[
    {tag:'A',t:'台中三日（住台中＋兩個一日遊）',sub:'高鐵到台中住兩晚，第二天日月潭、第三天溪頭或清境二選一',stay:'台中市區 ×2 晚（待定）',
@@ -645,7 +645,7 @@ const DAYS=[
      {t:'選項 B',i:'🐑',h:'清境農場一日遊——高山草原與綿羊秀，車程較遠'},
      {t:'傍晚',i:'🚄',h:'取行李、高鐵台中 → 台北（約 1 小時）',move:1}
     ],cards:['sunmoonlake','xitou','qingjing'],
-    rain:'<b>候選商品</b>　第二天 KLOOK「<a href="https://www.klook.com/zh-TW/activity/12447-sun-moon-lake-adventure-one-day-tour-taichung/" target="_blank" rel="noopener">日月潭一日遊（台中出發）</a>」；第三天二選一：「<a href="https://www.klook.com/zh-TW/activity/87239-xitou-nature-education-area-day-tour/" target="_blank" rel="noopener">溪頭自然教育園區一日遊</a>」或「<a href="https://www.klook.com/zh-TW/activity/31415-qingjing-farm-day-tour-taichung/" target="_blank" rel="noopener">清境農場一日遊（台中出發）</a>」。<b>下面的時刻表是我按這類一日遊的一般安排推排的參考版</b>，把商品頁的實際內容給我就換成正式版。<br><b>要確認的</b>　三團 9/30–10/2 的出團日、上車點與集合時間、含不含餐與門票、清境那團會不會拉到合歡山武嶺（海拔 3,275 公尺，有高山反應風險）。<br><b>行李</b>　10/2 是一日遊當天又要回台北，退房後把行李寄在飯店或台中車站置物櫃，晚上回程再取。<br><b>取捨</b>　住同一間飯店兩晚、行李只搬一次，白天交給一日遊、晚上自己逛台中，是三個方案裡最有彈性的；代價是每天要配合團體集合時間。'},
+    rain:'<b>候選商品</b>　第二天 KLOOK「<a href="https://www.klook.com/zh-TW/activity/12447-sun-moon-lake-adventure-one-day-tour-taichung/" target="_blank" rel="noopener">日月潭一日遊（台中出發）</a>」；第三天二選一：「<a href="https://www.klook.com/zh-TW/activity/87239-xitou-nature-education-area-day-tour/" target="_blank" rel="noopener">溪頭自然教育園區一日遊</a>」或「<a href="https://www.klook.com/zh-TW/activity/31415-qingjing-farm-day-tour-taichung/" target="_blank" rel="noopener">清境農場一日遊（台中出發）</a>」。<b>下面的時刻表是我按這類一日遊的一般安排推排的參考版</b>，把商品頁的實際內容給我就換成正式版。<br><b>要確認的</b>　三團 9/30–10/2 的出團日、上車點與集合時間、含不含餐與門票、清境那團會不會拉到合歡山武嶺（海拔 3,275 公尺，有高山反應風險）。<br><b>行李</b>　10/2 是一日遊當天又要回台北，退房後把行李寄在飯店或台中車站置物櫃，晚上回程再取。<br><b>步行與轉乘</b>　高鐵到台中後要轉台鐵一站到市區（<b>轉乘一次</b>），之後兩天各自到一日遊的集合點上車。<br><b>取捨</b>　住同一間飯店兩晚、行李只搬一次，白天交給一日遊、晚上自己逛台中，彈性最大；代價是每天早上要自己準時到集合點，10/2 還得處理行李寄放。'},
    {tag:'B',t:'溪頭＋日月潭（五星FUN鬆）',sub:'高鐵來回，兩晚五星飯店，專車接送溪頭–日月潭',stay:'溪頭米堤 1 晚＋日月潭溫德姆 1 晚',
     map:{pts:['taipeiStn','taichungHsr','xitou','sunmoonlake'],
      legs:[{a:'taipeiStn',b:'taichungHsr',mode:'hsr',via:['banqiao','taoyuanHsr','hsinchuHsr']},{a:'taichungHsr',b:'xitou',mode:'coach'},{a:'xitou',b:'sunmoonlake',mode:'coach'},{a:'sunmoonlake',b:'taichungHsr',mode:'coach',curve:.22},{a:'taichungHsr',b:'taipeiStn',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao'],curve:.14}],
@@ -668,26 +668,27 @@ const DAYS=[
      {t:'下午',i:'🚌',h:'專車回高鐵台中站',move:1},
      {t:'傍晚',i:'🚄',h:'高鐵台中 → 台北（約 1 小時）',move:1}
     ],cards:['xitou','sunmoonlake'],
-    rain:'<b>候選商品</b>　東南旅遊「<a href="https://trip.settour.com.tw/taiwan/product/GRT0000007931" target="_blank" rel="noopener">【五星FUN鬆】溪頭米堤綠光竹林歐風城堡、日月潭溫德姆溫泉饗宴高鐵三日</a>」。<b>下面的時刻表是我按行程賣點推排的參考版，不是團的正式行程</b>——把每日內容給我就換成正式版。<br><b>要確認的</b>　9/30 有沒有出團、<b>標示 4 人成行</b>（人數不足可能取消）、集合地點與時間、含哪幾餐與哪些門票、高鐵是對號座還是自由座。<br><b>取捨</b>　住得最好、移動最輕鬆——高鐵來回加專車接送，山路那段不用自己想辦法；代價是沒有阿里山的日出與神木，走的是度假放鬆路線。',
+    rain:'<b>候選商品</b>　東南旅遊「<a href="https://trip.settour.com.tw/taiwan/product/GRT0000007931" target="_blank" rel="noopener">【五星FUN鬆】溪頭米堤綠光竹林歐風城堡、日月潭溫德姆溫泉饗宴高鐵三日</a>」。<b>下面的時刻表是我按行程賣點推排的參考版，不是團的正式行程</b>——把每日內容給我就換成正式版。<br><b>要確認的</b>　9/30 有沒有出團、<b>標示 4 人成行</b>（人數不足可能取消）、集合地點與時間、含哪幾餐與哪些門票、高鐵是對號座還是自由座。<br><b>步行與轉乘</b>　<b>全程零自行轉乘</b>——高鐵到台中站有專車接，之後溪頭、日月潭之間都是專車，三天下來不用自己找車、看班表或搬行李進出車站。<br><b>取捨</b>　住得最好、移動最輕鬆；代價是行程照團走、彈性低，且標示 4 人成行，人數不足可能取消。',
    }
   ],
-  pick:'<b>目前狀態</b>　A 是自己組的（台中住兩晚＋兩個 KLOOK 一日遊），B 是東南的跟團一次搞定。商品連結都在上面，但那些頁面在我這邊開不起來，所以兩份時刻表都是<b>參考版</b>——把實際內容貼給我就換成正式版。<br><b>注意：兩案可能高度重疊</b>　如果 A 的第三天選<b>溪頭</b>，那 A 和 B 的景點幾乎一樣（都是日月潭＋溪頭），差別只剩住宿等級與跟不跟團。想讓兩案真的有區別，A 的第三天就選<b>清境</b>。<br><b>怎麼選</b><br>　・想<b>住得好、完全不用自己安排</b>——兩晚五星、高鐵來回加專車接送 → 選 <b>B</b>。<br>　・想<b>有彈性、晚上自己逛台中、預算省一些</b>——白天交給一日遊、住同一間飯店兩晚、行李只搬一次 → 選 <b>A</b>。<br>　・A 的第三天：<b>溪頭</b>是低海拔森林、步道平緩好走；<b>清境</b>海拔 1,750 公尺、看草原綿羊與山景，但單程車程約 2 小時、十月山上冷。<br><b>先確認</b>　三個 KLOOK 一日遊 9/30–10/2 出不出團；東南那團 9/30 出不出（標示 4 人成行，人數不足可能取消）。',
+  pick:'<b>目前狀態</b>　A 是自己組的（台中住兩晚＋兩個 KLOOK 一日遊），B 是東南的跟團一次搞定。商品連結都在上面，但那些頁面在我這邊開不起來，所以兩份時刻表都是<b>參考版</b>——把實際內容貼給我就換成正式版。<br><b>注意：兩案可能高度重疊</b>　如果 A 的第三天選<b>溪頭</b>，那 A 和 B 的景點幾乎一樣（都是日月潭＋溪頭），差別只剩住宿等級與跟不跟團。想讓兩案真的有區別，A 的第三天就選<b>清境</b>。<br><b>怎麼選</b><br>　・<b>看重「不用自己轉車」</b>　B 全程專車接送、住宿餐食都含在裡面，出了高鐵站就有人接，三天不用看任何班表 → 選 <b>B</b>。<br>　・<b>看重彈性與預算</b>　A 白天交給一日遊、晚上自己逛台中，住同一間飯店兩晚；代價是高鐵轉台鐵、每天自己到集合點、10/2 要寄行李 → 選 <b>A</b>。<br>　・A 的第三天：<b>溪頭</b>是低海拔森林、步道平緩好走；<b>清境</b>海拔 1,750 公尺、看草原綿羊與山景，但單程車程約 2 小時、十月山上冷。<br><b>先確認</b>　三個 KLOOK 一日遊 9/30–10/2 出不出團；東南那團 9/30 出不出（標示 4 人成行，人數不足可能取消）。',
   tl:[],cards:[]},
- {n:8,date:'10/3',wd:'六',title:'北海岸一日遊',sub:'淡水搭台灣好行沿海走，金山吃午餐、野柳看女王頭，收在基隆廟口',stay:'待定',
-  map:{pts:['home','tamsui','sanzhi','shimen','jinshan','yehliu','keelung','songshan'],legs:[{a:'home',b:'tamsui',mode:'metro'},{a:'tamsui',b:'yehliu',mode:'bus',via:['sanzhi','shimen','jinshan']},{a:'yehliu',b:'keelung',mode:'bus'},{a:'keelung',b:'songshan',mode:'tra'},{a:'songshan',b:'home',mode:'walk'}],labels:{home:'b',tamsui:'l',sanzhi:'l',shimen:'t',jinshan:'t',yehliu:'r',keelung:'r',songshan:'b'},minSpan:.12},
+ {n:8,date:'10/3',wd:'六',title:'北海岸：野柳・金山・基隆廟口',sub:'台鐵到基隆轉一班公車，沿海岸走到金山，晚餐收在廟口',stay:'待定',
+  map:{pts:['home','songshan','keelung','yehliu','jinshan'],legs:[{a:'home',b:'songshan',mode:'walk'},{a:'songshan',b:'keelung',mode:'tra'},{a:'keelung',b:'yehliu',mode:'bus'},{a:'yehliu',b:'jinshan',mode:'bus'},{a:'jinshan',b:'keelung',mode:'bus',via:['yehliu'],curve:.28},{a:'keelung',b:'songshan',mode:'tra',curve:-.14}],labels:{home:'t',songshan:'b',keelung:'r',yehliu:'b',jinshan:'t'},minSpan:.12},
   tl:[
-   {t:'08:00',i:'🚇',h:'從家搭捷運到淡水站（約 55 分）',move:1},
-   {t:'09:10',i:'🚌',h:'淡水站搭台灣好行皇冠北海岸線',move:1},
-   {t:'09:50',i:'🌊',h:'石門：富貴角燈塔、老梅海岸'},
-   {t:'11:30',i:'🍜',h:'金山老街：金包里鴨肉、芋圓',move:1},
-   {t:'13:30',i:'🚌',h:'往野柳',move:1},
-   {t:'14:00',i:'🪨',h:'野柳地質公園：女王頭、蕈狀岩、燭台石'},
-   {t:'16:30',i:'🚌',h:'往基隆',move:1},
-   {t:'17:15',i:'🍢',h:'基隆廟口夜市'},
+   {t:'08:45',i:'🚶',h:'走到松山車站',move:1},
+   {t:'09:05',i:'🚆',h:'松山 → 基隆（台鐵約 45 分，班次密、有座位）',move:1},
+   {t:'10:00',i:'🚌',h:'基隆車站轉基隆客運 790 往野柳（約 50 分）',move:1},
+   {t:'11:00',i:'🪨',h:'野柳地質公園：女王頭、蕈狀岩、燭台石'},
+   {t:'13:00',i:'🚌',h:'790 續往金山（同一條路線，約 20 分）',move:1},
+   {t:'13:30',i:'🍜',h:'金山老街午餐：金包里鴨肉、芋圓'},
+   {t:'15:30',i:'🚌',h:'790 原路回基隆（約 1 小時）',move:1},
+   {t:'16:45',i:'🌊',h:'基隆海洋廣場、正濱漁港彩色屋（有力氣再去）'},
+   {t:'17:30',i:'🍢',h:'基隆廟口夜市晚餐（就在車站旁）'},
    {t:'19:15',i:'🚆',h:'基隆 → 松山（台鐵約 45 分）',move:1},
-   {t:'20:15',i:'🏠',h:'走回家'}
+   {t:'20:15',i:'🏠',h:'走路回家'}
   ],cards:['northcoast'],
-  rain:'<b>先查班表</b>　台灣好行皇冠北海岸線約一小時一班，出門前務必抓好去回的班次時間，不然會在海邊乾等。<br><b>雨備</b>　全程戶外、海邊風大，下雨體感很冷；真的壞天氣就改走室內——淡水老街與紅毛城、或直接台鐵到基隆逛廟口與海洋廣場。'},
+  rain:'<b>步行與轉乘</b>　<b>全天只轉一次車</b>——台鐵到基隆，再搭 790 一條路線走完野柳與金山，回程原車返回基隆。790 尖峰 15–20 分一班、離峰 30–40 分，比走淡水那側的台灣好行（約一小時一班）好等得多；基隆廟口就在火車站旁邊，吃完走幾步就上車。<br><b>路線是改過的</b>　原本是從淡水搭台灣好行沿北海岸東行，但那條要先花 55 分鐘捷運到淡水、班次又稀；改走基隆側之後，出門就在松山上車、全程有座位。代價是少了石門富貴角那一段。<br><b>野柳提醒</b>　園區內是海蝕平台，地面高低不平、沒有遮蔭，防滑鞋與帽子帶著；女王頭一帶假日人多要排隊拍照。<br><b>雨備</b>　海邊風大、下雨體感冷；壞天氣就縮短成基隆一日——廟口、海洋廣場、陽明海洋文化藝術館都在車站附近。'},
  {n:9,date:'10/4',wd:'日',title:'大稻埕・剝皮寮 city walk',sub:'從迪化街走到萬華，傍晚中正紀念堂，晚上慶生',stay:'待定',
   map:{pts:['home','dadaocheng','bopiliao','longshan','cks'],legs:[{a:'home',b:'dadaocheng',mode:'metro'},{a:'dadaocheng',b:'bopiliao',mode:'metro'},{a:'bopiliao',b:'longshan',mode:'walk'},{a:'longshan',b:'cks',mode:'metro'},{a:'cks',b:'home',mode:'taxi'}],labels:{home:'l',dadaocheng:'t',bopiliao:'l',longshan:'b',cks:'b'},minSpan:.03},
   tl:[
@@ -703,7 +704,7 @@ const DAYS=[
    {t:'19:30',i:'🎂',h:'慶生晚餐（務必先訂位）'},
    {t:'21:30',i:'🚕',h:'計程車回家',move:1}
   ],cards:['dadaocheng','bopiliao','cks'],
-  rain:'<b>中正紀念堂是我加的</b>　你這天只講了大稻埕與剝皮寮，但中正紀念堂是必選之一，原本排在這天——剝皮寮走完往東兩站就到，順路，所以接在後面。不想要跟我說，拿掉這天會輕鬆很多。<br><b>兩廳院</b>　如果在 OPENTIX 訂到 10/4 的下午場，就把中正紀念堂提前、剝皮寮往後挪或改天。<br><b>雨備</b>　迪化街有騎樓、剝皮寮有紅磚拱廊、兩廳院室內，這天下雨影響最小。<br><b>提醒</b>　剝皮寮歷史街區週一休，10/4 是週日沒問題。'},
+  rain:'<b>步行與轉乘</b>　全程捷運，<b>轉乘兩次</b>（北門 → 龍山寺 → 中正紀念堂），三段都是同一條藍線或走幾步就到；迪化街、剝皮寮、自由廣場都是平地，但這天走的路不少，中間找間老屋咖啡坐一下再繼續。<br><b>中正紀念堂是我加的</b>　你這天只講了大稻埕與剝皮寮，但中正紀念堂是必選之一，原本排在這天——剝皮寮走完往東兩站就到，順路，所以接在後面。不想要跟我說，拿掉這天會輕鬆很多。<br><b>兩廳院</b>　如果在 OPENTIX 訂到 10/4 的下午場，就把中正紀念堂提前、剝皮寮往後挪或改天。<br><b>雨備</b>　迪化街有騎樓、剝皮寮有紅磚拱廊、兩廳院室內，這天下雨影響最小。<br><b>提醒</b>　剝皮寮歷史街區週一休，10/4 是週日沒問題。'},
  {n:10,date:'10/5',wd:'一',title:'台北 → 桃園 → 北京',sub:'中午的飛機，早上留一點緩衝',stay:'—',
   map:{pts:['home','taipeiStn','taoyuanHsr','tpe'],legs:[{a:'home',b:'taipeiStn',mode:'metro'},{a:'taipeiStn',b:'tpe',mode:'metro',via:['taoyuanHsr']}],labels:{home:'t',taipeiStn:'b',tpe:'b'},minSpan:.12},
   tl:[
@@ -714,7 +715,7 @@ const DAYS=[
    {t:'13:15',i:'✈',h:'桃園 → 北京首都（CA186）'},
    {t:'16:45',i:'🛬',h:'抵達北京首都'}
   ],cards:[],
-  rain:'<b>提醒</b>　10/5 在中國十一黃金週（10/1–7）內，桃園機場報到櫃檯與北京端入境都會排隊，抓 3 小時比較保險。'},
+  rain:'<b>步行與轉乘</b>　捷運到台北車站轉機場捷運，<b>轉乘一次</b>；台北車站的轉乘通道有點長，行李多的話抓寬鬆一點。<br><b>提醒</b>　10/5 在中國十一黃金週（10/1–7）內，桃園機場報到櫃檯與北京端入境都會排隊，抓 3 小時比較保險。'},
 ];
 
 /* ================= MAP ENGINE ================= */
@@ -892,12 +893,14 @@ function animateMap(svg){
 (function(){
   // 整趟的大路線。行程有 8 天在大台北，所以總覽圖框北台灣；
   // 9/30–10/2 的三天兩夜還沒選 A 或 B，選定後再把該方案的目的地加進來。
-  const cfg={pts:['tpe','home','jiufen','tamsui','yehliu','keelung'],
+  const cfg={pts:['tpe','home','jiufen','tamsui','yehliu','jinshan','keelung'],
     legs:[{a:'tpe',b:'home',mode:'metro',via:['taoyuanHsr','taipeiStn']},
       {a:'home',b:'jiufen',mode:'tra',via:['songshan','ruifang']},
-      {a:'home',b:'yehliu',mode:'bus',via:['tamsui','jinshan']},
-      {a:'yehliu',b:'keelung',mode:'bus'}],
-    labels:{tpe:'b',home:'b',jiufen:'r',tamsui:'l',yehliu:'t',keelung:'r'},
+      {a:'home',b:'tamsui',mode:'metro'},
+      {a:'home',b:'keelung',mode:'tra',via:['songshan']},
+      {a:'keelung',b:'yehliu',mode:'bus'},
+      {a:'yehliu',b:'jinshan',mode:'bus'}],
+    labels:{tpe:'b',home:'b',jiufen:'r',tamsui:'l',yehliu:'b',jinshan:'t',keelung:'r'},
     bbox:{la0:24.60,la1:25.40,lo0:121.00,lo1:122.20}};
   const el=document.getElementById('heroMap');
   el.innerHTML=buildMap(cfg,{big:true,aria:'全程路線總覽',W:1200,H:440}).replace('viewBox="0 0 1200 440"','viewBox="0 0 1200 440" preserveAspectRatio="xMidYMid meet"');
