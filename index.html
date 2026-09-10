@@ -938,7 +938,9 @@ function buildMap(cfg,opts={}){
     return ` data-zoom="${x.toFixed(1)} ${y.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}"`;
   };
   const pauseAttr=lg=>lg.pause?` data-pause="${lg.pause}"`:'';
-  const legs=cfg.legs.map((lg,i)=>{const M=MODE[lg.mode];return `<path class="leg" data-i="${i}"${zoomAttr(lg)}${pauseAttr(lg)} d="${legPath(lg,pr)}" fill="none" stroke="${M.c}" stroke-width="${M.w}" ${M.d?`stroke-dasharray="${M.d}"`:''} stroke-linecap="${M.cap||'round'}" stroke-linejoin="round"/>`;}).join('');
+  // leg.day：這段屬於哪一天。動畫播到下一天時，前一天的線轉灰、再前一天的淡出。
+  const dayAttr=lg=>lg.day?` data-day="${lg.day}"`:'';
+  const legs=cfg.legs.map((lg,i)=>{const M=MODE[lg.mode];return `<path class="leg" data-i="${i}"${zoomAttr(lg)}${pauseAttr(lg)}${dayAttr(lg)} d="${legPath(lg,pr)}" fill="none" stroke="${M.c}" stroke-width="${M.w}" ${M.d?`stroke-dasharray="${M.d}"`:''} stroke-linecap="${M.cap||'round'}" stroke-linejoin="round"/>`;}).join('');
   const order=[];cfg.legs.forEach((lg,i)=>{if(!order.includes(lg.a))order.push(lg.a);if(!order.includes(lg.b))order.push(lg.b);});
   cfg.pts.forEach(kk=>{if(!order.includes(kk))order.push(kk);});
   const mks=order.map(kk=>marker(kk,pr,(cfg.labels||{})[kk],opts.big,(cfg.kinds||{})[kk],(cfg.names||{})[kk])).join('');
@@ -974,7 +976,16 @@ function animateMap(svg){
   cancelAnimationFrame(svg._vbRaf||0);
   svg.setAttribute('viewBox',svg._vb0);
   if(reduce){legs.forEach(l=>l.style.opacity=1);mks.forEach(m=>m.style.opacity=1);return;}
-  legs.forEach(l=>{const len=l.getTotalLength();l.style.transition='none';l.style.strokeDasharray=l.getAttribute('stroke-dasharray')?null:len;l.style.strokeDashoffset=l.getAttribute('stroke-dasharray')?null:len;l.style.opacity=l.getAttribute('stroke-dasharray')?0:1;});
+  legs.forEach(l=>{const len=l.getTotalLength();l.style.transition='none';l.style.stroke='';l.style.strokeDasharray=l.getAttribute('stroke-dasharray')?null:len;l.style.strokeDashoffset=l.getAttribute('stroke-dasharray')?null:len;l.style.opacity=l.getAttribute('stroke-dasharray')?0:1;});
+  // 帶 data-day 的地圖會走「滾動視窗」：只有當天是彩色，前一天轉灰，更早的淡出。
+  // 天數用出現順序排名，所以 '9/30–10/2' 這種合併的區塊也算一天。
+  const dayList=[];legs.forEach(l=>{const d=l.dataset.day;if(d&&!dayList.includes(d))dayList.push(d);});
+  const rankOf=l=>dayList.indexOf(l.dataset.day);
+  const setState=(l,st)=>{
+    l.style.transition='stroke .6s ease, opacity .6s ease';
+    l.style.stroke=st==='past'?'#b1aa9c':'';
+    l.style.opacity=st==='gone'?0:st==='past'?.65:1;
+  };
   mks.forEach((m,i)=>{m.style.transition='none';m.style.opacity=i===0?1:0;});
   void svg.getBoundingClientRect();
   let t=120;
@@ -985,11 +996,19 @@ function animateMap(svg){
       else{l.style.transition='stroke-dashoffset '+(dur/1000)+'s ease-in-out';l.style.strokeDashoffset=0;}
       const z=l.dataset.zoom;
       if(z) tweenViewBox(svg, z==='reset'?svg._vb0.split(' ').map(Number):z.split(' ').map(Number), 900);
+      // 換日了才動——把昨天的轉灰、前天以前的收掉
+      const r=rankOf(l);
+      if(r>=0&&(i===0||legs[i-1].dataset.day!==l.dataset.day))
+        legs.slice(0,i).forEach(o=>{const ro=rankOf(o);if(ro>=0&&ro<r) setState(o,ro===r-1?'past':'gone');});
     },t);
     setTimeout(()=>{const m=mks[i+1];if(m){m.style.transition='opacity .35s';m.style.opacity=1;}},t+dur*0.85);
     t+=dur+120+(+l.dataset.pause||0);
   });
-  setTimeout(()=>mks.forEach(m=>{m.style.transition='opacity .3s';m.style.opacity=1;}),t+200);
+  // 收尾：全部亮回來，停在完整的總覽狀態
+  setTimeout(()=>{
+    mks.forEach(m=>{m.style.transition='opacity .3s';m.style.opacity=1;});
+    legs.forEach(l=>{if(rankOf(l)>=0) setState(l,'now');});
+  },t+200);
 }
 
 /* ================= RENDER ================= */
@@ -1004,31 +1023,31 @@ function animateMap(svg){
          'jiufen','keelung','yehliu','taichungHsr','sunmoonlake','xitou'],
     legs:[
       // 9/26 桃園機場 → 家（開車接機）
-      {a:'tpe',b:'home',mode:'drive',via:['banqiao','taipeiStn']},
+      {day:'9/26',a:'tpe',b:'home',mode:'drive',via:['banqiao','taipeiStn']},
       // 9/27 雙層觀光巴士紅線：家 → 國父紀念館 → 華山 → 中正紀念堂 → 台北 101 → 家
-      {a:'home',b:'cks',mode:'sightbus',via:['sysMemorial','zhongxiaofuxing','huashan']},
-      {a:'cks',b:'home',mode:'sightbus',via:['dongmen','daanPark','taipei101','cityHall'],curve:.12},
+      {day:'9/27',a:'home',b:'cks',mode:'sightbus',via:['sysMemorial','zhongxiaofuxing','huashan']},
+      {day:'9/27',a:'cks',b:'home',mode:'sightbus',via:['dongmen','daanPark','taipei101','cityHall'],curve:.12},
       // 9/28 故宮 → 北投 → 淡水
-      {a:'home',b:'palaceMuseum',mode:'metro',via:['taipeiStn','shilinStn']},
-      {a:'palaceMuseum',b:'tamsui',mode:'metro',via:['shilinStn','beitou']},
+      {day:'9/28',a:'home',b:'palaceMuseum',mode:'metro',via:['taipeiStn','shilinStn']},
+      {day:'9/28',a:'palaceMuseum',b:'tamsui',mode:'metro',via:['shilinStn','beitou']},
       // 9/29 九份看黃昏與夜景
-      {a:'home',b:'jiufen',mode:'bus',via:['ruifang']},
+      {day:'9/29',a:'home',b:'jiufen',mode:'bus',via:['ruifang']},
       // 9/30 南下——畫面跟著移到南投
-      {a:'home',b:'taichungHsr',mode:'hsr',via:['taipeiStn','banqiao','taoyuanHsr','hsinchuHsr'],
+      {day:'9/30–10/2',a:'home',b:'taichungHsr',mode:'hsr',via:['taipeiStn','banqiao','taoyuanHsr','hsinchuHsr'],
        zoom:{la0:23.60,la1:24.17,lo0:120.45,lo1:120.76}},
-      {a:'taichungHsr',b:'sunmoonlake',mode:'bus'},
-      {a:'sunmoonlake',b:'xitou',mode:'bus'},
-      {a:'xitou',b:'taichungHsr',mode:'bus',curve:.2,pause:1600},
+      {day:'9/30–10/2',a:'taichungHsr',b:'sunmoonlake',mode:'bus'},
+      {day:'9/30–10/2',a:'sunmoonlake',b:'xitou',mode:'bus'},
+      {day:'9/30–10/2',a:'xitou',b:'taichungHsr',mode:'bus',curve:.2,pause:1600},
       // 10/2 北返——畫面拉回台北
-      {a:'taichungHsr',b:'home',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao','taipeiStn'],curve:.1,zoom:'reset'},
+      {day:'9/30–10/2',a:'taichungHsr',b:'home',mode:'hsr',via:['hsinchuHsr','taoyuanHsr','banqiao','taipeiStn'],curve:.1,zoom:'reset'},
       // 10/3 北海岸：台鐵到基隆，客運走野柳、金山，經陽明山回台北
-      {a:'home',b:'keelung',mode:'tra',via:['songshan','nangang']},
-      {a:'keelung',b:'yehliu',mode:'bus'},
-      {a:'yehliu',b:'home',mode:'bus',via:['jinshan','shilinStn'],curve:.12},
+      {day:'10/3',a:'home',b:'keelung',mode:'tra',via:['songshan','nangang']},
+      {day:'10/3',a:'keelung',b:'yehliu',mode:'bus'},
+      {day:'10/3',a:'yehliu',b:'home',mode:'bus',via:['jinshan','shilinStn'],curve:.12},
       // 10/4 龍山寺・剝皮寮 → 大稻埕
-      {a:'home',b:'dadaocheng',mode:'metro',via:['taipeiStn','ximen','longshan']},
+      {day:'10/4',a:'home',b:'dadaocheng',mode:'metro',via:['taipeiStn','ximen','longshan']},
       // 10/5 家 → 桃園機場
-      {a:'home',b:'tpe',mode:'drive',via:['taipeiStn','banqiao'],curve:.14}],
+      {day:'10/5',a:'home',b:'tpe',mode:'drive',via:['taipeiStn','banqiao'],curve:.14}],
     // 點太密，總覽圖一律用短名（NAMES 的全名留給每日地圖）
     names:{home:'家',palaceMuseum:'故宮',beitou:'北投',dadaocheng:'大稻埕',
            keelung:'基隆',yehliu:'野柳',taichungHsr:'高鐵台中',xitou:'溪頭'},
