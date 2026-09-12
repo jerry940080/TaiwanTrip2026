@@ -20,6 +20,7 @@
 | `TEMPLATE_GUIDE.md` | 怎麼改資料、怎麼塞照片、怎麼部署 |
 | `CLAUDE.md` | 用 Claude Code 協作時的專案慣例 |
 | `tools/make_land.py` | 重生地圖底圖（台灣／日本／全球海岸線） |
+| `tools/make_poi.py` | 重生背景資訊層 `TOWNLINES`／`TOWNS`（鄉鎮區界與地名，可加村里層） |
 | `tools/check.py` | 改完資料跑一次，抓括號、key、座標的手滑 |
 | `tools/embed_images.py` | 把照片轉 base64 內嵌（離線也看得到） |
 | `reference/example-atami-izu.html` | 完整範例，抄格式時打開它看 |
