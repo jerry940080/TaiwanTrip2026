@@ -626,7 +626,7 @@ const CARDS={
   chips:['青青草原 08:00–17:00','門票 NT 200','綿羊秀 例假日 09:30／14:30','馬術秀 每日 10:45／15:45']},
  sightseeingBus:{name:'臺北市雙層觀光巴士',jp:'Taipei Sightseeing Bus',kind:'交通',short:'紅藍兩線，效期內無限上下車',wiki:['臺北市雙層觀光巴士'],
   text:'開放式頂層的雙層巴士，同一張票在效期內可無限次上下車。<b>紅線</b>從台北車站繞西門、萬華、龍山寺、中正紀念堂、永康街、大安森林公園、台北 101、市政府、國父紀念館、忠孝敦化、忠孝復興到華山，再回台北車站；<b>藍線</b>走北門、圓環、中山、晶華、北美館、圓山飯店、劍潭到士林官邸與故宮博物院。全車 57 席（上層 37 個露天座、10 個室內座，下層 9 席與 1 個無障礙座），車上有免費 WiFi、充電座與中英日韓泰五語導覽。<b>注意藍線只到故宮，不到淡水或北投。</b><br><br><b>票種</b>　4 小時票 300（限當天 18:00 前使用）、日間票 500（紅線 09:00–18:00、藍線 09:10–17:00）、夜間票 400（紅線 18:00–22:00）、1 日票 700、2 日票 1,200。<b>班距約 30–40 分</b>，比捷運疏，排行程要留等車時間。<br><b>購票</b>　官網 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">taipeisightseeing.com.tw</a> 可線上訂票，也能上車現買（收現金、信用卡與悠遊卡），上車掃 QR code。出發前再上官網對一次票價與時刻表。<br><b>當天查車到哪了</b>　市府的公車動態可以看<b>紅線的即時位置與到站時間</b>：<a href="https://ebus.gov.taipei/EBus/VsSimpleMap?routeid=0162003400&amp;gb=0" target="_blank" rel="noopener">臺北觀光巴士紅線路線圖</a>。班距 30–40 分，與其在站牌乾等，不如先看一下下一班還有多久。',
-  video:[{u:'https://www.youtube.com/watch?v=gUccLFloK8c',l:'搭乘體驗（影片拍的是<b>藍線</b>，我們搭的是紅線，但車輛與上層露天座是同一款）'}],
+  video:[{u:'https://www.youtube.com/watch?v=z1XSz7TgHFs',l:'<b>紅線</b>搭乘實錄——就是 9/27 要搭的這條，影片裡走到台北 101 與象山'}],
   chips:['4 小時票 300／日間票 500／夜間票 400','1 日票 700／2 日票 1,200','班距約 30–40 分','官網可線上訂票','紅線即時動態可查']},
  nantoucard:{name:'南投好行卡',jp:'Nantou Fun Pass',kind:'交通',short:'3 天無限搭台灣好行 6 條路線',wiki:[],
   text:'南投客運與台灣好行合作的交通卡，第一次上車嗶卡當天起算、連續三天無限次數搭乘六條指定路線：日月潭線（6670A–F 台中站⇄日月潭）、埔里線（6670H）、溪頭線（6683 台中站⇄溪頭）、清境線（6664／6659／6658 埔里⇄清境）、日月潭溪頭線（6801）、車埕線（6671）。在南投客運高鐵台中站服務櫃台取卡，三日期滿後可當一般悠遊卡繼續用。<b>注意清境線是從埔里發車</b>，台中過去要先到埔里轉車，單程約 2.5 小時。',
@@ -697,7 +697,7 @@ const DAYS=[
    {t:'19:10',i:'🛏',h:'飯店 check-in、放行李'},
    {t:'20:00',i:'🍜',h:'第一餐（待定）'}
   ],cards:[],
-  notes:{pack:'護照、台胞證、悠遊卡（機場或超商可買）、換好的台幣。',other:'連假傍晚國道 1 號往台北可能塞，順的話 50 分、塞起來抓 1.5 小時。落地當天只排進飯店、吃飯、休息。',rain:'全程在車上，下雨不影響。'}},
+  notes:{pack:'護照、悠遊卡（機場或超商可買）、換好的台幣。',other:'連假傍晚國道 1 號往台北可能塞，順的話 50 分、塞起來抓 1.5 小時。落地當天只排進飯店、吃飯、休息。',rain:'全程在車上，下雨不影響。'}},
  {n:2,date:'9/27',wd:'日',title:'國父紀念館・雙層巴士紅線',sub:'上午到國父紀念館，下午搭紅線繞一圈，傍晚回家烤肉',stay:'茹曦酒店',
   map:{pts:['illume','home','sysMemorial','songyan','huashan','cks','taipei101','zhongxiaodunhua','zhongxiaofuxing','taipeiStn','ximen','xiaonanmen','longshan','dongmen','daanPark','daan','cityHall'],
    legs:[{a:'illume',b:'sysMemorial',mode:'bus'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'sysMemorial',mode:'walk',curve:.3},{a:'sysMemorial',b:'huashan',mode:'sightbus',via:['zhongxiaodunhua','zhongxiaofuxing']},{a:'huashan',b:'cks',mode:'sightbus',via:['taipeiStn','ximen','xiaonanmen','longshan']},{a:'cks',b:'taipei101',mode:'sightbus',via:['dongmen','daanPark','daan']},{a:'taipei101',b:'sysMemorial',mode:'sightbus',via:['cityHall']},{a:'sysMemorial',b:'home',mode:'bus',curve:.25},{a:'home',b:'illume',mode:'drive',curve:.22}],
