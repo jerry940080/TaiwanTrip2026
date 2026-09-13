@@ -1428,8 +1428,14 @@ daysEl.innerHTML=DAYS.map(d=>`<section class="day" id="day${d.n}">
    兩張圖用同一份 cfg，路線、顏色、線型都跟手繪版一致。
    ★ 這一層是「加分項」：Leaflet 或圖磚載不進來（離線、被防火牆擋、CDN 掛掉）
      就完全不動，畫面維持原本的手繪 SVG。所以不會有開天窗的風險。 */
-const TILE_URL='https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-const TILE_ATTR='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+// 圖磚來源依序試，前一個沒生出圖磚就換下一個，全都失敗才退回手繪圖。
+// 都是免申請金鑰的來源——CARTO 的免費圖磚已經改成要 API key，整張圖會蓋浮水印。
+const TILES=[
+ {name:'NLSC',url:'https://wmts.nlsc.gov.tw/wmts/EMAP/default/GoogleMapsCompatible/{z}/{y}/{x}',
+  opt:{maxZoom:19,attribution:'&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank" rel="noopener">內政部國土測繪中心</a>'}},
+ {name:'OSM',url:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  opt:{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'}}
+];
 const SIDE={t:'top',b:'bottom',l:'left',r:'right'};
 
 function legLatLngs(lg){
@@ -1450,8 +1456,6 @@ function legLatLngs(lg){
 function realMap(cfg,el){
   const bbox=cfg.bbox||bboxOf(cfg.pts,cfg.minSpan||.05);
   const map=L.map(el,{scrollWheelZoom:false,zoomControl:true,attributionControl:true});
-  const tiles=L.tileLayer(TILE_URL,{attribution:TILE_ATTR,subdomains:'abcd',maxZoom:19,detectRetina:true});
-  tiles.addTo(map);
   map.fitBounds([[bbox.la0,bbox.lo0],[bbox.la1,bbox.lo1]]);
   L.control.scale({imperial:false,position:'bottomleft'}).addTo(map);
   cfg.legs.forEach(lg=>{
@@ -1468,7 +1472,16 @@ function realMap(cfg,el){
       .bindTooltip((cfg.names&&cfg.names[k])||name,
         {permanent:true,direction:SIDE[(cfg.labels||{})[k]]||'right',className:'rlab',offset:[0,0]});
   });
-  return {map,tiles};
+  return map;
+}
+// 依序試每個圖磚來源：4 秒內生不出一張圖磚就換下一個，全部失敗回傳 false
+function tryTiles(map,i,onOK,onFail){
+  if(i>=TILES.length) return onFail();
+  const src=TILES[i];
+  const layer=L.tileLayer(src.url,src.opt).addTo(map);
+  let done=false;
+  layer.once('tileload',()=>{ if(!done){done=true; onOK(src);} });
+  setTimeout(()=>{ if(!done){ done=true; map.removeLayer(layer); tryTiles(map,i+1,onOK,onFail); } },4000);
 }
 // 圖磚載進來才切換過去；等不到就安靜地留在手繪圖
 function upgradeMaps(){
@@ -1476,15 +1489,14 @@ function upgradeMaps(){
   document.querySelectorAll('.mapcard[data-cfg]').forEach(mc=>{
     const cfg=MAPCFG[+mc.dataset.cfg], host=mc.querySelector('.rmap');
     if(!cfg||!host) return;
-    let inst=null, ok=false;
+    let inst=null;
     const build=()=>{
       if(inst||!host.offsetWidth) return;
       try{ inst=realMap(cfg,host); }catch(e){ return; }
-      inst.tiles.once('tileload',()=>{
-        ok=true; mc.classList.add('real'); host.removeAttribute('aria-hidden');
-        const btn=mc.querySelector('.mapmode'); if(btn) btn.hidden=false;
-      });
-      setTimeout(()=>{ if(!ok&&inst){ inst.map.remove(); inst=null; host.innerHTML=''; } },8000);
+      tryTiles(inst,0,
+        ()=>{ mc.classList.add('real'); host.removeAttribute('aria-hidden');
+              const btn=mc.querySelector('.mapmode'); if(btn) btn.hidden=false; },
+        ()=>{ if(inst){ inst.remove(); inst=null; host.innerHTML=''; } });
     };
     // 捲到附近才建，不然十張地圖一開頁就同時抓圖磚
     new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){build();o.disconnect();}})},
@@ -1493,7 +1505,7 @@ function upgradeMaps(){
     if(btn) btn.addEventListener('click',()=>{
       const real=mc.classList.toggle('real');
       btn.textContent=real?'手繪路線圖':'真實地圖';
-      if(real&&inst) inst.map.invalidateSize();
+      if(real&&inst) inst.invalidateSize();
     });
   });
 }
