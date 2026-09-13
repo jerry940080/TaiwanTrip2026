@@ -69,6 +69,10 @@
 
    # 只有幾張、想維持單檔可攜時才用 base64 內嵌（省略 --out）
    python3 tools/embed_images.py index.html jiufen=1.jpg,2.jpg   # 覆蓋，第一張=封面
+
+   # 分組：卡片裡再切分頁，用 | 分組、組名和檔案之間用 :
+   python3 tools/embed_images.py index.html --out assets/img \
+       "beitou=瀧乃湯:a.jpg,b.jpg|春天酒店大眾池:c.jpg"
    ```
    截圖先裁掉浮水印／Google 鏡頭圖示（常在底部 8–9%）。工具會自動縮 1200 寬、轉 JPEG q82。
 6. **檢查**：`python3 tools/check.py`，沒問題再開瀏覽器看一次。
@@ -93,6 +97,24 @@ notes:{
 一天控制在 500 字以內；超過就代表有東西該搬去卡片或砍掉。
 
 舊的 `rain:'一整段文字'` 仍然支援（`reference/` 的範例還在用），但新的日子請一律用 `notes`。
+
+### 卡片裡的照片分頁
+
+一張卡片的照片如果本來就分成幾類（例如「北投溫泉」底下有五家不同的湯屋），
+用分組把它們切成分頁，模態框會在照片下方長出一排按鈕，點了跳到該組第一張，
+左右翻頁時按鈕也會跟著亮。組名就是分頁的標題。
+
+`IMG` 的值因此有三種形狀，引擎都吃：
+
+```js
+IMG={
+  cks:['assets/img/cks-1.jpg','assets/img/cks-2.jpg'],            // 一般相簿
+  beitou:[{t:'瀧乃湯',u:['assets/img/beitou-2.jpg', …]}, …],        // 分組，t 是分頁標題
+  foo:'assets/img/foo-1.jpg'                                       // 只有一張
+}
+```
+
+只有一組（或沒有組名）時分頁列不會出現。**不要手動改 `IMG`**，用工具的分組語法產生。
 
 ## 地圖的背景資訊層
 

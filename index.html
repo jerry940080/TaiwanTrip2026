@@ -212,6 +212,14 @@ footer p{max-width:70ch}
 .modal-ph .dots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:6px}
 .modal-ph .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 .modal-ph .dots i.on{background:#fff;width:18px;border-radius:4px}
+/* 照片分頁：IMG 分組時（原圖資料夾裡還有子資料夾）用子資料夾名稱當標題 */
+.modal-tabs{display:flex;gap:6px;padding:10px 22px 0;overflow-x:auto;scrollbar-width:none}
+.modal-tabs::-webkit-scrollbar{display:none}
+.modal-tabs button{flex:none;border:1px solid var(--rule);background:#fff;border-radius:999px;padding:6px 13px;font:inherit;font-size:13px;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.modal-tabs button:hover{border-color:var(--ai);color:var(--ai)}
+.modal-tabs button[aria-selected="true"]{background:var(--ai);border-color:var(--ai);color:#fff}
+.modal-tabs button:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
+@media (max-width:640px){.modal-tabs{padding:10px 16px 0}}
 @media (prefers-reduced-motion:reduce){.modal-ph .track{transition:none}}
 .modal-ph .fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:56px;color:rgba(38,41,46,.25);background:repeating-linear-gradient(135deg,var(--paper2) 0 10px,#e6dfd0 10px 20px)}
 .modal-bd{padding:14px 22px 18px}
@@ -411,7 +419,7 @@ footer p{max-width:70ch}
   </div>
 </section>
 
-<div class="modal" id="modal" hidden><div class="modal-bg"></div><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mTitle"><button type="button" class="modal-x" aria-label="關閉">×</button><div class="modal-ph" id="mPh"></div><div class="modal-bd"><div class="kind" id="mKind"></div><h3 id="mTitle"></h3><div class="jp" id="mJp"></div><p id="mText"></p><div class="chips" id="mChips"></div></div><div class="modal-video" id="mVideo"></div></div></div>
+<div class="modal" id="modal" hidden><div class="modal-bg"></div><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mTitle"><button type="button" class="modal-x" aria-label="關閉">×</button><div class="modal-ph" id="mPh"></div><div class="modal-tabs" id="mTabs" role="tablist" hidden></div><div class="modal-bd"><div class="kind" id="mKind"></div><h3 id="mTitle"></h3><div class="jp" id="mJp"></div><p id="mText"></p><div class="chips" id="mChips"></div></div><div class="modal-video" id="mVideo"></div></div></div>
 <footer><div class="wrap">
   <p>本頁為行程懶人包模板骨架，行程內容尚未填入；時間與費用皆為估算，實際以官方公告為準。景點照片在沒有自備圖時透過中文維基百科／Wikimedia Commons 載入，需連網才會顯示；海岸線與縣市界資料來自內政部國土測繪資料（g0v/twgeojson），台北捷運路網取自 leoluyi/taipei_mrt 並簡化；捷運路網只在台北尺度的地圖上顯示。台北地圖上的「家」以西松高中（松山區健康路 325 巷）標示，為落腳點的概略位置。</p>
 </div></footer>
@@ -601,7 +609,7 @@ const CARDS={
   text:'1913 年落成的北投溫泉公共浴場，當年是東亞最大的公共浴場，1998 年整修後成為博物館。一樓的<b>羅馬式大浴池</b>有彩繪玻璃窗，二樓是日式榻榻米大廳與望樓，和洋混搭的空間本身就是展品。<b>免費參觀</b>，館內要脫鞋、走木地板。<br><br><b>週一及國定例假日休館</b>——行程排在 9/29（週二平日），兩個條件都不中，<b>有開</b>。從北投圖書館走過去只要 2 分鐘，兩棟就在北投公園裡對望。',
   chips:['免費','週一及國定例假日休館','9/29 週二有開','要脫鞋，走木地板']},
  beitou:{name:'北投溫泉',jp:'Beitou',kind:'景點',short:'地熱谷、溫泉博物館與湯屋',wiki:['北投溫泉','北投溫泉博物館'],
-  text:'台北市區內的溫泉區，新北投站一出來就是北投公園，沿著北投溪往上依序是木造的北投圖書館、日治時期公共浴場改建的溫泉博物館、免費的露天大眾池，最上頭是冒著白煙的地熱谷。想好好泡的話沿路很多湯屋，一小時計費。從士林搭捷運只要 12 分鐘，是最省時的下午行程。溫泉博物館公告「週一及國定例假日休館」，<b>行程改到 9/29（週二平日）之後兩個條件都不中，博物館有開</b>，可以和圖書館、地熱谷串成一條走。',
+  text:'台北市區內的溫泉區，新北投站一出來就是北投公園，沿著北投溪往上依序是木造的北投圖書館、日治時期公共浴場改建的溫泉博物館、免費的露天大眾池，最上頭是冒著白煙的地熱谷。想好好泡的話沿路很多湯屋，一小時計費——<b>照片分頁可以逐家看</b>：北投公園露天溫泉浴池（最便宜的公共大眾池）、瀧乃湯（日治時期就在的百年浴場）、春天酒店、北投老爺、水美溫泉會館。從士林搭捷運只要 12 分鐘，是最省時的下午行程。溫泉博物館公告「週一及國定例假日休館」，<b>行程改到 9/29（週二平日）之後兩個條件都不中，博物館有開</b>，可以和圖書館、地熱谷串成一條走。',
   chips:['地熱谷 08:00–18:00','溫泉博物館 9/29 有開','四個點走路都在十分鐘內','捷運新北投站']},
  palaceMuseum:{name:'國立故宮博物院',jp:'National Palace Museum',kind:'景點',short:'翠玉白菜與肉形石所在',wiki:['國立故宮博物院'],
   text:'收藏近 70 萬件宋元明清宮廷文物，常設展逛下來約 2–3 小時。鎮館的翠玉白菜與肉形石偶爾會外借或輪換，出發前先上官網確認在不在館內。平常只有週一休館，行程排在 9/29（週二）正常開館，不必再管連假特別開館的公告。',
@@ -699,7 +707,7 @@ const CARDS={
 };
 
 /* ── 6. IMG：照片資料區。保持 {} 就好，之後用 tools/embed_images.py 把照片轉 base64 塞進來。 */
-const IMG={cks:['assets/img/cks-1.jpg','assets/img/cks-2.jpg','assets/img/cks-3.jpg'],taipei101:['assets/img/taipei101-1.jpg','assets/img/taipei101-2.jpg','assets/img/taipei101-3.jpg'],beitouLib:['assets/img/beitouLib-1.jpg','assets/img/beitouLib-2.jpg','assets/img/beitouLib-3.jpg','assets/img/beitouLib-4.jpg'],sightseeingBus:['assets/img/sightseeingBus-1.jpg','assets/img/sightseeingBus-2.jpg'],xiangshanVC:['assets/img/xiangshanVC-1.jpg','assets/img/xiangshanVC-2.jpg'],sysMemorial:['assets/img/sysMemorial-1.jpg','assets/img/sysMemorial-2.jpg'],rongxuan:['assets/img/rongxuan-1.jpg','assets/img/rongxuan-2.jpg','assets/img/rongxuan-3.jpg'],palaceMuseum:['assets/img/palaceMuseum-1.jpg','assets/img/palaceMuseum-2.jpg'],dyropeway:'assets/img/dyropeway-1.jpg',chaojing:['assets/img/chaojing-1.jpg','assets/img/chaojing-2.jpg','assets/img/chaojing-3.jpg'],huashan:['assets/img/huashan-1.jpg','assets/img/huashan-2.jpg','assets/img/huashan-3.jpg'],songyan:['assets/img/songyan-1.jpg','assets/img/songyan-2.jpg','assets/img/songyan-3.jpg'],iocean:['assets/img/iocean-1.jpg','assets/img/iocean-2.jpg','assets/img/iocean-3.jpg','assets/img/iocean-4.jpg'],sunmoonlake:['assets/img/sunmoonlake-1.jpg','assets/img/sunmoonlake-2.jpg','assets/img/sunmoonlake-3.jpg'],smlAccess:'assets/img/smlAccess-1.jpg',beitouMuseum:['assets/img/beitouMuseum-1.jpg','assets/img/beitouMuseum-2.jpg','assets/img/beitouMuseum-3.jpg'],beitou:['assets/img/beitou-1.jpg','assets/img/beitou-2.jpg','assets/img/beitou-3.jpg','assets/img/beitou-4.jpg','assets/img/beitou-5.jpg'],jiufen:['assets/img/jiufen-1.jpg','assets/img/jiufen-2.jpg','assets/img/jiufen-3.jpg','assets/img/jiufen-4.jpg'],bopiliao:['assets/img/bopiliao-1.jpg','assets/img/bopiliao-2.jpg','assets/img/bopiliao-3.jpg'],dadaocheng:['assets/img/dadaocheng-1.jpg','assets/img/dadaocheng-2.jpg','assets/img/dadaocheng-3.jpg'],xitouGuide:'assets/img/xitouGuide-1.jpg',xitou:['assets/img/xitou-1.jpg','assets/img/xitou-2.jpg','assets/img/xitou-3.jpg'],daxuepool:['assets/img/daxuepool-1.jpg','assets/img/daxuepool-2.jpg'],xitouShenmu:['assets/img/xitouShenmu-1.jpg','assets/img/xitouShenmu-2.jpg'],xitouSkywalk:'assets/img/xitouSkywalk-1.jpg',raohe:['assets/img/raohe-1.jpg','assets/img/raohe-2.jpg'],hongbin:['assets/img/hongbin-1.jpg','assets/img/hongbin-2.jpg','assets/img/hongbin-3.jpg','assets/img/hongbin-4.jpg'],shenao:['assets/img/shenao-1.jpg','assets/img/shenao-2.jpg','assets/img/shenao-3.jpg']};
+const IMG={"cks":["assets/img/cks-1.jpg","assets/img/cks-2.jpg","assets/img/cks-3.jpg"],"taipei101":["assets/img/taipei101-1.jpg","assets/img/taipei101-2.jpg","assets/img/taipei101-3.jpg"],"beitouLib":["assets/img/beitouLib-1.jpg","assets/img/beitouLib-2.jpg","assets/img/beitouLib-3.jpg","assets/img/beitouLib-4.jpg"],"sightseeingBus":["assets/img/sightseeingBus-1.jpg","assets/img/sightseeingBus-2.jpg"],"xiangshanVC":["assets/img/xiangshanVC-1.jpg","assets/img/xiangshanVC-2.jpg"],"sysMemorial":["assets/img/sysMemorial-1.jpg","assets/img/sysMemorial-2.jpg"],"rongxuan":["assets/img/rongxuan-1.jpg","assets/img/rongxuan-2.jpg","assets/img/rongxuan-3.jpg"],"palaceMuseum":["assets/img/palaceMuseum-1.jpg","assets/img/palaceMuseum-2.jpg"],"dyropeway":"assets/img/dyropeway-1.jpg","chaojing":["assets/img/chaojing-1.jpg","assets/img/chaojing-2.jpg","assets/img/chaojing-3.jpg"],"huashan":["assets/img/huashan-1.jpg","assets/img/huashan-2.jpg","assets/img/huashan-3.jpg"],"songyan":["assets/img/songyan-1.jpg","assets/img/songyan-2.jpg","assets/img/songyan-3.jpg"],"iocean":["assets/img/iocean-1.jpg","assets/img/iocean-2.jpg","assets/img/iocean-3.jpg","assets/img/iocean-4.jpg"],"sunmoonlake":["assets/img/sunmoonlake-1.jpg","assets/img/sunmoonlake-2.jpg","assets/img/sunmoonlake-3.jpg"],"smlAccess":"assets/img/smlAccess-1.jpg","beitouMuseum":["assets/img/beitouMuseum-1.jpg","assets/img/beitouMuseum-2.jpg","assets/img/beitouMuseum-3.jpg"],"beitou":[{"t":"北投公園露天溫泉浴池","u":["assets/img/beitou-1.jpg"]},{"t":"瀧乃湯","u":["assets/img/beitou-2.jpg","assets/img/beitou-3.jpg","assets/img/beitou-4.jpg"]},{"t":"春天酒店大眾池","u":["assets/img/beitou-5.jpg","assets/img/beitou-6.jpg","assets/img/beitou-7.jpg","assets/img/beitou-8.jpg"]},{"t":"北投老爺酒店大眾池","u":["assets/img/beitou-9.jpg","assets/img/beitou-10.jpg"]},{"t":"水美溫泉會館","u":["assets/img/beitou-11.jpg","assets/img/beitou-12.jpg"]}],"jiufen":["assets/img/jiufen-1.jpg","assets/img/jiufen-2.jpg","assets/img/jiufen-3.jpg","assets/img/jiufen-4.jpg"],"bopiliao":["assets/img/bopiliao-1.jpg","assets/img/bopiliao-2.jpg","assets/img/bopiliao-3.jpg"],"dadaocheng":["assets/img/dadaocheng-1.jpg","assets/img/dadaocheng-2.jpg","assets/img/dadaocheng-3.jpg"],"xitouGuide":"assets/img/xitouGuide-1.jpg","xitou":[{"t":"園區","u":["assets/img/xitou-1.jpg","assets/img/xitou-2.jpg","assets/img/xitou-3.jpg"]},{"t":"大學池","u":["assets/img/xitou-4.jpg","assets/img/xitou-5.jpg"]},{"t":"神木","u":["assets/img/xitou-6.jpg","assets/img/xitou-7.jpg"]},{"t":"空中走廊","u":["assets/img/xitou-8.jpg"]}],"daxuepool":["assets/img/daxuepool-1.jpg","assets/img/daxuepool-2.jpg"],"xitouShenmu":["assets/img/xitouShenmu-1.jpg","assets/img/xitouShenmu-2.jpg"],"xitouSkywalk":"assets/img/xitouSkywalk-1.jpg","raohe":["assets/img/raohe-1.jpg","assets/img/raohe-2.jpg"],"hongbin":["assets/img/hongbin-1.jpg","assets/img/hongbin-2.jpg","assets/img/hongbin-3.jpg","assets/img/hongbin-4.jpg"],"shenao":["assets/img/shenao-1.jpg","assets/img/shenao-2.jpg","assets/img/shenao-3.jpg"]};
 
 /* ── 7. DAYS：每天一個物件。下面兩天是「格式示範」，行程細節確定後整段換掉。
       {n:第幾天, date:'2/10', wd:'三', title:'A → B', sub:'副標一句', stay:'今晚飯店',
@@ -1264,8 +1272,19 @@ const strip=document.getElementById('strip');
 strip.innerHTML='<a href="#pre">行前</a><a href="#options">候選</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#tickets">車票・訂票</a><a href="#food">美食・行李</a>';
 
 // days
+// IMG[id] 可以是三種形狀：單一路徑、路徑陣列，或分組 [{t:'瀧乃湯',u:[...]}]。
+// 分組是給「原圖資料夾裡還有子資料夾」的卡片用的，t 就是子資料夾名稱。
+function imgGroups(id){
+  const v=IMG[id];
+  if(!v) return [];
+  const a=Array.isArray(v)?v:[v];
+  return (a.length&&typeof a[0]==='object')
+    ? a.map(g=>({t:g.t,u:[].concat(g.u)})).filter(g=>g.u.length)
+    : [{t:'',u:a}];
+}
+function imgList(id){ return imgGroups(id).flatMap(g=>g.u); }
 function imgsHTML(c,id){
-  const list=Array.isArray(IMG[id])?IMG[id]:IMG[id]?[IMG[id]]:[];
+  const list=imgList(id);
   if(!list.length) return `<img alt="${c.name}" loading="lazy" data-wiki="${(c.wiki||[]).join('|')}">`;
   return `<img alt="${c.name}" class="ok" src="${list[0]}">`+(list.length>1?`<span class="cnt">${list.length} 張</span>`:'');
 }
@@ -1358,10 +1377,18 @@ const modal=document.getElementById('modal');
 function openCard(id){
   const c=CARDS[id];if(!c)return;
   const card=document.querySelector(`.card[data-card="${id}"]`);
-  const srcs=Array.isArray(IMG[id])?IMG[id]:IMG[id]?[IMG[id]]:[...card.querySelectorAll('.ph img')].map(i=>i.currentSrc||i.src).filter(Boolean);
+  const srcs=IMG[id]?imgList(id):[...card.querySelectorAll('.ph img')].map(i=>i.currentSrc||i.src).filter(Boolean);
   const ph=document.getElementById('mPh');
   ph.innerHTML=srcs.length?`<div class="track">${srcs.map(u=>`<div class="sl"><img class="bg" src="${u}" alt="" aria-hidden="true"><img class="main" src="${u}" alt="${c.name}"></div>`).join('')}</div>`+(srcs.length>1?`<button type="button" class="nav prev" aria-label="上一張">‹</button><button type="button" class="nav next" aria-label="下一張">›</button><div class="dots">${srcs.map((_,i)=>`<i${i?'':' class="on"'}></i>`).join('')}</div>`:''):`<div class="fb">${c.name.slice(0,2)}</div>`;
   ph.dataset.i=0;ph.dataset.n=srcs.length;
+  // 分頁列：只有分組超過一組時才出現，按鈕跳到該組第一張
+  const groups=imgGroups(id).filter(g=>g.t);
+  const tabs=document.getElementById('mTabs');
+  if(groups.length>1){
+    let at=0;
+    tabs.innerHTML=groups.map(g=>{const h=`<button type="button" role="tab" data-i="${at}" aria-selected="${at===0}">${g.t}</button>`;at+=g.u.length;return h;}).join('');
+    tabs.hidden=false;
+  }else{tabs.innerHTML='';tabs.hidden=true;}
   document.getElementById('mKind').textContent=c.kind;
   document.getElementById('mTitle').textContent=c.name;
   document.getElementById('mJp').textContent=c.jp||'';
@@ -1375,14 +1402,25 @@ function openCard(id){
 }
 function ytId(u){if(!u)return'';const m=String(u).match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(u)?u:'');}
 function ytStart(u){const m=String(u).match(/[?&#](?:t|start)=(\d+)(?:s)?(?:&|$)|[?&#]t=(?:(\d+)m)?(\d+)s/);if(!m)return 0;if(m[1])return +m[1];return (+(m[2]||0))*60+(+(m[3]||0));}
-function closeModal(){document.getElementById('mVideo').innerHTML='';modal.hidden=true;document.body.style.overflow='';const f=document.querySelector(`.card[data-card="${modal.dataset.from}"]`);if(f)f.focus();}
-function slide(d){
+function closeModal(){document.getElementById('mVideo').innerHTML='';const t=document.getElementById('mTabs');t.innerHTML='';t.hidden=true;modal.hidden=true;document.body.style.overflow='';const f=document.querySelector(`.card[data-card="${modal.dataset.from}"]`);if(f)f.focus();}
+// d 是相對位移；give an absolute index via goto()
+function slide(d){ goto(((+document.getElementById('mPh').dataset.i)+d+ +document.getElementById('mPh').dataset.n)% +document.getElementById('mPh').dataset.n); }
+function goto(i){
   const ph=document.getElementById('mPh');const n=+ph.dataset.n;if(n<2)return;
-  const i=((+ph.dataset.i)+d+n)%n;ph.dataset.i=i;
+  ph.dataset.i=i;
   ph.querySelector('.track').style.transform=`translateX(-${i*100}%)`;
+  // 分頁列跟著走：選取「起始索引 ≤ 目前」裡最後那一個
+  const tabs=[...document.querySelectorAll('#mTabs button')];
+  if(tabs.length){
+    let on=tabs[0];
+    tabs.forEach(b=>{if(+b.dataset.i<=i) on=b;});
+    tabs.forEach(b=>b.setAttribute('aria-selected', b===on));
+  }
   ph.querySelectorAll('.dots i').forEach((el,k)=>el.classList.toggle('on',k===i));
 }
 document.addEventListener('click',e=>{
+  const tab=e.target.closest('#mTabs button');
+  if(tab){goto(+tab.dataset.i);return;}
   if(e.target.closest('.modal .nav')){slide(e.target.closest('.nav').classList.contains('next')?1:-1);return;}
   const card=e.target.closest('.card[data-card]');if(card){openCard(card.dataset.card);return;}
   if(e.target.closest('.modal-x')||e.target.classList.contains('modal-bg'))closeModal();

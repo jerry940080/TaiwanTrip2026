@@ -25,6 +25,16 @@ python3 tools/embed_images.py index.html --out assets/img \
   +jiufen=原圖3.jpg                 # 追加
 ```
 
+原圖資料夾裡還有子資料夾時（例如 `北投溫泉/` 底下分成五家湯屋），
+用分組語法讓卡片裡再切分頁，組名就是分頁標題：
+
+```bash
+python3 tools/embed_images.py index.html --out assets/img \
+  "beitou=瀧乃湯:瀧乃湯/a.jpg,瀧乃湯/b.jpg|春天酒店大眾池:春天酒店大眾池/c.jpg"
+```
+
+目前有分頁的兩張卡片：**北投溫泉**（5 家湯屋、12 張）、**溪頭自然教育園區**（園區／大學池／神木／空中走廊、8 張）。
+
 浮水印要自己先裁掉（`松菸-倉庫展場` 那張原圖左下角有 roundTAIWANround，已裁掉下方 22%）。
 
 ## 還沒有照片的卡片
