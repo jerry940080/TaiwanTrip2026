@@ -99,12 +99,15 @@ td b{font-weight:500}
 .money .big{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ai)}
 .money .lab{font-size:12.5px;color:var(--ink3)}
 .todo li{list-style:none;display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--rule);font-size:14px}
-.todo .d{flex:none;width:118px;font-weight:500;color:var(--ink3)}
+.todo .d{flex:none;width:96px;align-self:flex-start;text-align:center;padding:2px 6px;border-radius:999px;
+  font-size:12.5px;font-weight:600;line-height:1.5;color:var(--ink3);background:rgba(38,41,46,.07)}
 /* 狀態三色：綠＝已經處理完、紅＝要馬上做、藍＝不急或非必要。
+   純文字上色在 14px 細體下太淡，看不出差別，所以加一層淡底色。
    .ok 這個名字給照片用掉了，所以已完成用 .done。 */
-.todo .d.done,td.done{color:var(--matsu)}
-.todo .d.now{color:var(--shu)}
-.todo .d.later{color:var(--ai)}
+.todo .d.done{color:#1f6b45;background:rgba(47,122,88,.15)}
+.todo .d.now{color:#a8341f;background:rgba(200,69,46,.15)}
+.todo .d.later{color:#264a79;background:rgba(43,76,126,.12)}
+td.done{color:var(--matsu);font-weight:600}
 
 /* ---------- day ---------- */
 .day{padding:52px 0 36px;border-top:1px solid var(--rule)}
