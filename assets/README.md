@@ -1,35 +1,33 @@
-# assets — 放原始圖片的地方
+# assets — 原始圖片
 
-把照片／導覽圖丟進這個資料夾（GitHub 網頁版可以直接拖拉上傳），
-再跑 `tools/embed_images.py` 把它們轉成 base64 塞進 `index.html` 的 `IMG`。
+- `assets/` 這一層放**使用者提供的原圖**（未縮放），當備份。
+- `assets/img/` 是 `tools/embed_images.py --out` 產生的**縮圖**（1200 寬、JPEG q82），
+  就是頁面實際載入的檔案，檔名固定是 `<卡片 key>-<序號>.jpg`。
 
-嵌進去之後，那張卡片就不會再去抓維基百科的圖（`imgsHTML()` 只在 `IMG[key]`
-是空的時候才產生 `data-wiki`）。原圖留在這裡當備份，不影響頁面大小。
+`index.html` 的 `IMG` 存的是 `assets/img/xxx-1.jpg` 這種相對路徑。
+引擎不管值是相對路徑還是 base64 data URI，都直接當 `<img src>` 用。
 
-## 已經嵌進 index.html 的
+## 為什麼不內嵌 base64
 
-| key | 檔案 | 用在哪 |
-|---|---|---|
-| `sysMemorial` | `國父紀念館-外觀.webp`（封面）、`國父紀念館-儀隊.webp` | 9/27 |
-| `songyan` | `松菸-園區入口.webp`（封面）、`松菸-廣場與誠品.webp`、`松菸-倉庫展場.webp`、`松菸-夜間市集.webp` | 9/27 |
-| `sightseeingBus` | `巴士-外觀.webp`（封面）、`巴士-上層座位.webp` | 9/27 |
+75 張照片轉成 base64 是 15.7 MB，`index.html` 會變成 18 MB。
+單檔 HTML 的內容全部內嵌，**整份下載完之前頁面都是白的**，手機用行動網路開會等很久。
+改成外部檔案之後 `index.html` 回到 320 KB，圖片靠 `<img loading="lazy">` 邊捲邊載。
 
-`松菸-倉庫展場.webp` 已裁掉下方 22%（原圖左下角有 roundTAIWANround 浮水印）。
+只有幾張圖、又想要單檔可攜（例如寄給別人）的話，省略 `--out` 就會走 base64。
 
-## 還缺的兩張
-
-| key | 內容 | 用在哪 |
-|---|---|---|
-| `xitouGuide` | 溪頭園區官方導覽圖 | 10/1 |
-| `smlAccess` | 日月潭無障礙路線圖 | 9/30 |
-
-檔名隨意，指令裡對應得上就好：
+## 換圖／補圖
 
 ```bash
 pip install pillow   # 只需一次
-python3 tools/embed_images.py index.html \
-  sysMemorial=assets/國父紀念館.jpg,assets/儀隊交接.jpg \
-  songyan=assets/松菸入口.jpg,assets/誠品松菸.jpg
+python3 tools/embed_images.py index.html --out assets/img \
+  jiufen=原圖1.jpg,原圖2.jpg        # 覆蓋，第一張是卡片封面
+python3 tools/embed_images.py index.html --out assets/img \
+  +jiufen=原圖3.jpg                 # 追加
 ```
 
-第一張是卡片封面。`+key=檔案` 是追加而不是覆蓋。
+浮水印要自己先裁掉（`松菸-倉庫展場` 那張原圖左下角有 roundTAIWANround，已裁掉下方 22%）。
+
+## 還沒有照片的卡片
+
+象山、貓空、陽明山、十分（以上都在候選區，未排入行程）、淡水、
+南投好行卡、溪頭導覽電動車、草悟道——這些目前仍以維基百科的圖當暫代。

@@ -63,8 +63,12 @@
 4. **HTML 區塊**：行前一頁看懂（住宿表）、車票與費用、訂票時程、美食與行李，直接改表格文字。
 5. **照片**：
    ```bash
+   # 照片多的時候用外部檔案（現在的做法）：IMG 存相對路徑，頁面才不會肥
+   python3 tools/embed_images.py index.html --out assets/img jiufen=1.jpg,2.jpg
+   python3 tools/embed_images.py index.html --out assets/img +jiufen=3.jpg   # 追加
+
+   # 只有幾張、想維持單檔可攜時才用 base64 內嵌（省略 --out）
    python3 tools/embed_images.py index.html jiufen=1.jpg,2.jpg   # 覆蓋，第一張=封面
-   python3 tools/embed_images.py index.html +jiufen=3.jpg        # 追加
    ```
    截圖先裁掉浮水印／Google 鏡頭圖示（常在底部 8–9%）。工具會自動縮 1200 寬、轉 JPEG q82。
 6. **檢查**：`python3 tools/check.py`，沒問題再開瀏覽器看一次。

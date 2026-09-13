@@ -1,6 +1,10 @@
 # CLAUDE.md
 
-2026 台灣行程懶人包。單檔 HTML（`index.html`），部署在 GitHub Pages。
+2026 台灣行程懶人包。`index.html` 一個檔案裝所有內容與程式，照片放在 `assets/img/`，部署在 GitHub Pages。
+
+> 照片原本是 base64 內嵌成單檔，但累積到 75 張時 `index.html` 會變成 18 MB——
+> 全部下載完之前整頁都是白的，手機用行動網路開會等很久。現在改成外部檔案配
+> `<img loading="lazy">`，頁面回到 320 KB，圖片邊捲邊載。
 
 ## 最重要的規則
 
@@ -30,7 +34,11 @@
   紫 `#6f5aa0`（捷運／纜車）、黃 `#d9a21b`（客運）。
 - **新增地點**：先在 `P` 加座標，再在 `NAMES` 給顯示名與類型，最後才在 `DAYS`／`CARDS` 引用。
   座標請用實際查得的值，不要憑印象填。
-- **照片**：不要手動貼 base64，一律用 `python3 tools/embed_images.py index.html key=a.jpg,b.jpg`。
+- **照片**：不要手動改 `IMG`，一律用工具。照片多用外部檔案（現在的做法）：
+  `python3 tools/embed_images.py index.html --out assets/img key=a.jpg,b.jpg`；
+  只有幾張、想維持單檔可攜時才省略 `--out` 走 base64 內嵌。
+  `IMG` 的值不管是 data URI 還是相對路徑，引擎都直接當 `src` 用，不必改程式。
+  原圖留一份在 `assets/`（工具會另外輸出縮圖到 `assets/img/`）。
 
 ## 改完要檢查
 
