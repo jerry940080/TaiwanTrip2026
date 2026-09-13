@@ -281,7 +281,7 @@ footer p{max-width:70ch}
       <tr><th>選項</th><th>必選</th><th>需時</th><th>限制與備註</th><th>目前排在</th></tr>
       <tr><td><b>故宮</b></td><td>✔</td><td>3–4 小時</td><td class="mute">平常週一休館；9/29 是週二，正常開館</td><td>9/29 上午</td></tr>
       <tr><td><b>九份</b></td><td>✔</td><td>傍晚起半天</td><td class="mute">去程 1062 松山直達；<b>10/3 日落 17:40</b>，要看黃昏須 15:45 出發。回程走 788 到瑞芳轉台鐵；<b>週六人最多</b></td><td>10/3 傍晚</td></tr>
-      <tr><td><b>國父紀念館</b></td><td>✔</td><td>約 1 小時</td><td class="mute">整點儀隊交接；走到松菸 10 分鐘</td><td>9/27 上午</td></tr>
+      <tr><td><b>國父紀念館</b></td><td>✔</td><td>約 1 小時</td><td class="mute"><b>館內整修至 2026 第 4 季、儀隊交接暫停</b>；戶外園區照常開放，走到松菸 10 分鐘</td><td>9/27 上午</td></tr>
       <tr><td><b>中正紀念堂</b></td><td>✔</td><td>半天</td><td class="mute">想看表演要先在 OPENTIX 訂票；紅線有停靠</td><td>9/27 下午（紅線）</td></tr>
       <tr><td>台北 101・四四南村</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">紅線終點站，時間來不及可以直接跳過</td><td>9/27 傍晚（紅線）</td></tr>
       <tr><td>華山文創園區</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">紅線有停靠，紅磚廠房平地好走</td><td>9/27 下午（紅線）</td></tr>
@@ -361,7 +361,8 @@ footer p{max-width:70ch}
           <li><span class="d">立刻</span><span>跟<b>旬日覓覓</b>約好 10/1 到溪頭公車站的接送時間，以及 10/2 回公車站的接送</span></li>
           <li><span class="d">出發前</span><span>查 9/30 的日月潭遊湖船航班與<b>纜車最後上站時間</b>；水社的電動輔助自行車要不要先預約</span></li>
           <li><span class="d">若有需要</span><span>無障礙版本要提前預約：<b>水社–伊達邵無障礙遊艇需預約</b>；臺中–日月潭無障礙公車<b>只在假日行駛</b>，9/30 是週三用不到</span></li>
-          <li><span class="d">圖檔待補</span><span>三組圖片還沒進 repo：<b>溪頭園區導覽圖</b>、<b>日月潭無障礙路線圖</b>、<b>雙層觀光巴士照片</b>。把檔案加到專案裡再跑一次就會塞進對應卡片：<br><code>python3 tools/embed_images.py index.html xitouGuide=溪頭導覽圖.png smlAccess=日月潭無障礙.png sightseeingBus=巴士外觀.jpg,上層座位.jpg</code></span></li>
+          <li><span class="d">出發前</span><span><b>查國父紀念館是否已完工開館</b>——整修預計 2026 第 4 季完工，我們 9/27 到訪還在工期內，若提前開放就能看到整點的儀隊交接（<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>）</span></li>
+          <li><span class="d">圖檔待補</span><span>三組圖片還沒進 repo：<b>溪頭園區導覽圖</b>、<b>日月潭無障礙路線圖</b>、<b>雙層觀光巴士照片</b>。把檔案加到專案裡再跑一次就會塞進對應卡片：<br><code>python3 tools/embed_images.py index.html xitouGuide=溪頭導覽圖.png smlAccess=日月潭無障礙.png sightseeingBus=巴士外觀.jpg,上層座位.jpg sysMemorial=國父紀念館.jpg,儀隊交接.jpg</code></span></li>
           <li><span class="d">越早越好</span><span>訂 10/4（日）晚上的慶生餐廳——週日晚上熱門餐廳位子難搶，蛋糕與包廂需求訂位時一起提</span></li>
           <li><span class="d">越早越好</span><span>OPENTIX 查 10/4 兩廳院有沒有想看的下午場，有就先訂</span></li>
           <li><span class="d">越早越好</span><span>雙層觀光巴士 9/27 日間票：上 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">官網</a> 線上訂票（也可上車現買，但連假上層露天座會滿）</span></li>
@@ -615,9 +616,10 @@ const CARDS={
  huashan:{name:'華山1914文化創意產業園區',jp:'Huashan 1914',kind:'景點',short:'日治酒廠改造的紅磚廠房聚落',wiki:['華山1914文化創意產業園區'],
   text:'前身是 1914 年的日本芳釀社酒造工場，後來的台北酒廠，1987 年停產後閒置，整區的紅磚廠房、煙囪與四連棟保留下來改成文創園區。現在有展覽、獨立書店、選物店、電影院與餐廳，戶外草地常有市集。園區腹地平坦好走，逛一圈約一小時；雙層觀光巴士紅線在這裡設站。',
   chips:['戶外園區全日・免費','館內展覽依各展資訊','捷運忠孝新生站步行 5 分']},
- sysMemorial:{name:'國父紀念館',jp:'Sun Yat-sen Memorial Hall',kind:'景點',short:'翠湖借景 101、整點儀隊交接',wiki:['國立國父紀念館'],
-  text:'1972 年落成的黃瓦大屋頂建築，館內有孫中山紀念展與藝廊，大廳的三軍儀隊交接每整點一次。館外中山公園的翠湖是拍台北 101 倒影的經典角度，傍晚散步的人很多。走到松菸只要 10 分鐘，適合排在同一天。',
-  chips:['09:00–18:00','免費','捷運國父紀念館站 4 號出口']},
+ sysMemorial:{name:'國父紀念館',jp:'Sun Yat-sen Memorial Hall',kind:'景點',short:'翠湖借景 101；館內整修中，以園區為主',wiki:['國立國父紀念館'],
+  text:'1972 年落成的黃瓦大屋頂建築。館外<b>中山公園的翠湖是拍台北 101 倒影的經典角度</b>，也是這天的重點；走到松菸只要 10 分鐘，適合排在同一天。<br><br><b>⚠ 館內正在整修</b>　「大會堂暨周邊設施升級工程」<b>自 2024/2/26 起施工，預計 2026 年第 4 季完工</b>，範圍包含大會堂、<b>大廳</b>、展場與典藏庫房。施工期間<b>館內不對外開放</b>，也就是<b>大廳的三軍儀隊交接（原本每整點一次）看不到</b>；<b>戶外的中山文化園區照常開放</b>。<br>我們 9/27 到訪時還在工期內（2026 第 3 季），所以這天請以翠湖與園區為主。<b>但完工時間很接近，出發前務必上<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>看最新公告</b>——若提前開館，儀隊交接是每整點一次（09:00–17:00）。',
+  video:[{u:'https://www.youtube.com/watch?v=A1QjZs8CZxY',l:'園區導覽（2019 年拍攝，當時館內還開放，可以看到整修前的樣子）'}],
+  chips:['戶外園區照常開放','館內整修至 2026 第 4 季','儀隊交接暫停，出發前查官網','免費・捷運國父紀念館站 4 號出口']},
  songyan:{name:'松山文創園區',jp:'Songshan Cultural and Creative Park',kind:'景點',short:'老菸廠改造的設計聚落',wiki:['松山文創園區'],
   text:'1937 年的松山菸廠改建，保留了製菸工廠的長廊、巴洛克花園與生態池，現在是設計展覽、選物店與咖啡的聚落，旁邊接著誠品生活松菸店，逛街與伴手禮一次解決。',
   chips:['園區 08:00–22:00','室內館舍 09:00–18:00','免費入園']},
@@ -705,7 +707,7 @@ const DAYS=[
    labels:{illume:'t',home:'r',sysMemorial:'b',songyan:'t',huashan:'t',cks:'b',taipei101:'b',taipeiStn:'t',ximen:'l',xiaonanmen:'t',longshan:'b',dongmen:'t',daanPark:'b',daan:'t',zhongxiaodunhua:'b',zhongxiaofuxing:'t',cityHall:'t'},minSpan:.03},
   tl:[
    {t:'09:30',i:'🚌',h:'從飯店搭公車到國父紀念館（約 1.8 公里、15 分）',move:1},
-   {t:'10:00',i:'🏛',h:'國父紀念館：翠湖拍 101、整點儀隊交接'},
+   {t:'10:00',i:'🏛',h:'國父紀念館：翠湖拍 101 倒影、中山公園散步（<b>館內整修中，儀隊交接暫停</b>）'},
    {t:'11:00',i:'🛍',h:'松菸、誠品生活松菸（走路 10 分，就在隔壁）'},
    {t:'12:30',i:'🍽',h:'附近午餐（松菸、市府路一帶選擇多）'},
    {t:'13:30',i:'🎫',h:'回國父紀念館站上紅線，買日間票 NT 500'},
@@ -721,7 +723,7 @@ const DAYS=[
    {t:'20:00',i:'🌕',h:'賞月'},
    {t:'21:30',i:'🚕',h:'回茹曦酒店（約 1.9 公里，叫車 10 分或公車 15 分）',move:1}
   ],cards:['sightseeingBus','sysMemorial','songyan','huashan','cks','taipei101'],
-  notes:{pack:'<b>薄外套或雨具</b>——雙層巴士上層是露天座，全車 57 席裡室內只有 10 席。',tickets:'雙層觀光巴士<b>紅線日間票 NT 500</b>（09:00–18:00 無限上下車）。可上 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">官網</a>線上訂，也能上車現買（現金／信用卡／悠遊卡，上車掃 QR code）。',book:'<b>中秋烤肉食材前一天先買好</b>，當天很搶手。',other:'<ul><li><b>班距約 30–40 分</b>，上表是「不用等車」的理想值。當天用市府公車動態查<a href="https://ebus.gov.taipei/EBus/VsSimpleMap?routeid=0162003400&amp;gb=0" target="_blank" rel="noopener">紅線即時到站</a>，不用在站牌乾等。</li><li><b>來不及就砍台北 101</b>——它排在最後，坐在車上繞回國父紀念館就好。</li><li>飯店到國父紀念館搭公車（約 1.8 公里）；捷運要轉兩次車，不划算。</li><li><b>晚上烤肉在家，不在飯店</b>，賞月後再叫車回飯店（約 10 分）。</li></ul>',rain:'華山、中正紀念堂主堂、101 商場、松菸都有室內，主要影響的是坐上層的體驗。'}},
+  notes:{pack:'<b>薄外套或雨具</b>——雙層巴士上層是露天座，全車 57 席裡室內只有 10 席。',tickets:'雙層觀光巴士<b>紅線日間票 NT 500</b>（09:00–18:00 無限上下車）。可上 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">官網</a>線上訂，也能上車現買（現金／信用卡／悠遊卡，上車掃 QR code）。',book:'<b>中秋烤肉食材前一天先買好</b>，當天很搶手。',other:'<ul><li><b>國父紀念館館內整修中</b>（2024/2 起，預計 2026 第 4 季完工），<b>儀隊交接暫停</b>，戶外中山公園照常開放——這天以翠湖與園區為主。完工時間很近，出發前查一下<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>。</li><li><b>班距約 30–40 分</b>，上表是「不用等車」的理想值。當天用市府公車動態查<a href="https://ebus.gov.taipei/EBus/VsSimpleMap?routeid=0162003400&amp;gb=0" target="_blank" rel="noopener">紅線即時到站</a>，不用在站牌乾等。</li><li><b>來不及就砍台北 101</b>——它排在最後，坐在車上繞回國父紀念館就好。</li><li>飯店到國父紀念館搭公車（約 1.8 公里）；捷運要轉兩次車，不划算。</li><li><b>晚上烤肉在家，不在飯店</b>，賞月後再叫車回飯店（約 10 分）。</li></ul>',rain:'華山、中正紀念堂主堂、101 商場、松菸都有室內，主要影響的是坐上層的體驗。'}},
  {n:3,date:'9/28',wd:'一',title:'深澳線・八斗子潮境',sub:'捷運兩站接台鐵到瑞芳，換深澳線到最靠海的車站，走完潮境一圈',stay:'茹曦酒店',
   map:{cap:'全日路線：台北小巨蛋 → 松山 → 瑞芳 → 深澳線',
    pts:['xiaojudan','songshan','ruifang','badouzi'],
