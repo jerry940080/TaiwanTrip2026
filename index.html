@@ -213,6 +213,13 @@ footer p{max-width:70ch}
 .modal-ph .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 .modal-ph .dots i.on{background:#fff;width:18px;border-radius:4px}
 /* 照片分頁：IMG 分組時（原圖資料夾裡還有子資料夾）用子資料夾名稱當標題 */
+/* 標題連到官網：平常看起來就是標題，hover 才顯出是連結 */
+#mTitle a{color:inherit;text-decoration:none}
+#mTitle a:hover{color:var(--ai);text-decoration:underline;text-underline-offset:4px}
+#mTitle a:focus-visible{outline:2px solid var(--ai);outline-offset:3px;border-radius:3px}
+#mTitle .ext{margin-left:7px;font-size:.62em;vertical-align:middle;color:var(--ink2);font-weight:500}
+#mTitle a:hover .ext{color:var(--ai)}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .modal-tabs{display:flex;gap:6px;padding:10px 22px 0;overflow-x:auto;scrollbar-width:none}
 .modal-tabs::-webkit-scrollbar{display:none}
 .modal-tabs button{flex:none;border:1px solid var(--rule);background:#fff;border-radius:999px;padding:6px 13px;font:inherit;font-size:13px;color:var(--ink2);cursor:pointer;white-space:nowrap}
@@ -588,7 +595,7 @@ const NAMES={
              text:'展開後的完整介紹（2–4 句）',
              chips:['開放時間','費用','交通']},                   */
 const CARDS={
- taipei101:{name:'台北 101',jp:'Taipei 101',kind:'景點',short:'89 樓觀景台與世界最快電梯之一',wiki:['台北101'],
+ taipei101:{name:'台北 101',jp:'Taipei 101',kind:'景點',url:'https://www.taipei-101.com.tw/tw/',short:'89 樓觀景台與世界最快電梯之一',wiki:['台北101'],
   text:'2004–2010 年間的世界第一高樓，89 樓室內觀景台與 91 樓戶外觀景台看得到整個台北盆地，天氣好連基隆嶼都看得見。電梯 37 秒直達 89 樓。塔內的風阻尼器是全球最大的可見式阻尼球。地下樓層是美食街，午餐在這裡解決很方便。',
   chips:['觀景台 11:00–21:00','全票 NT 600','捷運台北 101／世貿站']},
  xiangshan:{name:'象山親山步道',jp:'Xiangshan Trail',kind:'景點',video:['https://www.youtube.com/watch?v=SB9SDt3EVFA'],short:'拍 101 的經典角度，來回約 1.5 小時',wiki:['象山 (臺北市)'],
@@ -603,19 +610,19 @@ const CARDS={
  tamsui:{name:'淡水',jp:'Tamsui',kind:'景點',short:'老街、紅毛城與漁人碼頭夕陽',wiki:['淡水區','紅毛城'],
   text:'淡水河出海口的老鎮，捷運淡水線終點。中正路老街吃阿給與魚丸，往上走是 1644 年荷蘭人建的紅毛城與英國領事館官邸，河岸的金色水岸步道一路可走到漁人碼頭看情人橋與夕陽。從士林搭捷運約 25 分鐘。<br><br><b>目前沒有排進行程</b>——9/29 下午原本是「淡水或北投」二選一，現在定為北投。要換回淡水的話就是吃掉那個下午；<b>但淡水腹地大、點跟點之間要走不少路</b>，北投四個點都在十分鐘腳程內，這是當初選北投的原因。',
   chips:['未排入行程','老街全日','紅毛城 09:30–17:00・NT 80','捷運淡水站']},
- beitouLib:{name:'臺北市立圖書館 北投分館',jp:'Beitou Public Library',kind:'景點',short:'藏在北投公園樹林裡的木造綠建築',wiki:['臺北市立圖書館北投分館'],
+ beitouLib:{name:'臺北市立圖書館 北投分館',jp:'Beitou Public Library',kind:'景點',url:'https://bobbytravel.tw/beitou-library/',short:'藏在北投公園樹林裡的木造綠建築',wiki:['臺北市立圖書館北投分館'],
   text:'2006 年落成的木構造圖書館，屋頂鋪太陽能板、斜屋頂把雨水導入回收系統，是台灣第一座拿到鑽石級綠建築標章的公共圖書館，也常被列進世界最美圖書館的名單。整棟藏在北投公園的老樹之間，陽台面著北投溪，光線從木格柵漏進來，是那種會讓人想坐下來待一下午的地方。館內請放輕聲量，部分區域禁止攝影。',
   chips:['週日一 09:00–17:00','週二–六 08:30–21:00','捷運新北投站步行 3 分']},
- beitouMuseum:{name:'北投溫泉博物館',jp:'Beitou Hot Spring Museum',kind:'景點',short:'日治公共浴場改建，和洋混搭的市定古蹟',wiki:['北投溫泉博物館'],
+ beitouMuseum:{name:'北投溫泉博物館',jp:'Beitou Hot Spring Museum',kind:'景點',url:'https://hotspringmuseum.taipei/',short:'日治公共浴場改建，和洋混搭的市定古蹟',wiki:['北投溫泉博物館'],
   text:'1913 年落成的北投溫泉公共浴場，當年是東亞最大的公共浴場，1998 年整修後成為博物館。一樓的<b>羅馬式大浴池</b>有彩繪玻璃窗，二樓是日式榻榻米大廳與望樓，和洋混搭的空間本身就是展品。<b>免費參觀</b>，館內要脫鞋、走木地板。<br><br><b>週一及國定例假日休館</b>——行程排在 9/29（週二平日），兩個條件都不中，<b>有開</b>。從北投圖書館走過去只要 2 分鐘，兩棟就在北投公園裡對望。',
   chips:['免費','週一及國定例假日休館','9/29 週二有開','要脫鞋，走木地板']},
  beitou:{name:'北投溫泉',jp:'Beitou',kind:'景點',short:'地熱谷、溫泉博物館與湯屋',wiki:['北投溫泉','北投溫泉博物館'],
   text:'台北市區內的溫泉區，新北投站一出來就是北投公園，沿著北投溪往上依序是木造的北投圖書館、日治時期公共浴場改建的溫泉博物館、免費的露天大眾池，最上頭是冒著白煙的地熱谷。想好好泡的話沿路很多湯屋，一小時計費——<b>照片分頁可以逐家看</b>：北投公園露天溫泉浴池（最便宜的公共大眾池）、瀧乃湯（日治時期就在的百年浴場）、春天酒店、北投老爺、水美溫泉會館。從士林搭捷運只要 12 分鐘，是最省時的下午行程。溫泉博物館公告「週一及國定例假日休館」，<b>行程改到 9/29（週二平日）之後兩個條件都不中，博物館有開</b>，可以和圖書館、地熱谷串成一條走。',
   chips:['地熱谷 08:00–18:00','溫泉博物館 9/29 有開','四個點走路都在十分鐘內','捷運新北投站']},
- palaceMuseum:{name:'國立故宮博物院',jp:'National Palace Museum',kind:'景點',short:'翠玉白菜與肉形石所在',wiki:['國立故宮博物院'],
+ palaceMuseum:{name:'國立故宮博物院',jp:'National Palace Museum',kind:'景點',url:'https://www.npm.gov.tw/',short:'翠玉白菜與肉形石所在',wiki:['國立故宮博物院'],
   text:'收藏近 70 萬件宋元明清宮廷文物，常設展逛下來約 2–3 小時。鎮館的翠玉白菜與肉形石偶爾會外借或輪換，出發前先上官網確認在不在館內。平常只有週一休館，行程排在 9/29（週二）正常開館，不必再管連假特別開館的公告。',
   chips:['09:00–17:00','NT 350','士林站轉紅 30／304 公車']},
- jiufen:{name:'九份老街',jp:'Jiufen',kind:'景點',short:'山城階梯、茶樓與夜燈籠',wiki:['九份'],
+ jiufen:{name:'九份老街',jp:'Jiufen',kind:'景點',url:'https://bobbytravel.tw/jiufen/',short:'山城階梯、茶樓與夜燈籠',wiki:['九份'],
   text:'依山而建的舊採金聚落，豎崎路的石階兩側是茶樓與小吃，黃昏點燈後最有味道。行程排在 10/3（週六），是九份全週最熱鬧也最擠的時段，要有心理準備。從瑞芳車站搭基隆客運或計程車上山約 15 分。',
   chips:['老街全日開放','茶樓約 NT 300／人','瑞芳站轉公車 15 分']},
  shifen:{name:'十分老街・天燈',jp:'Shifen',kind:'景點',short:'鐵道邊放天燈，走幾步是十分瀑布',wiki:['十分老街','十分瀑布'],
@@ -627,28 +634,28 @@ const CARDS={
  yangming:{name:'陽明山國家公園',jp:'Yangmingshan',kind:'景點',short:'擎天崗草原、小油坑硫氣孔與竹子湖',wiki:['陽明山國家公園','擎天崗'],
   text:'從台北市區搭公車就能到的火山地形國家公園。小油坑看得到還在冒煙的硫氣孔與噴氣口，擎天崗是一片開闊的高地草原（注意野化水牛，保持距離），竹子湖在海芋與繡球花季之外仍有田園步道與野菜餐廳。山上比市區低 3–5 度、天氣變化快，帶件外套。',
   chips:['園區全日・免費','劍潭站紅 5／台北車站 260 公車','秋天午後常起霧']},
- huashan:{name:'華山1914文化創意產業園區',jp:'Huashan 1914',kind:'景點',short:'日治酒廠改造的紅磚廠房聚落',wiki:['華山1914文化創意產業園區'],
+ huashan:{name:'華山1914文化創意產業園區',jp:'Huashan 1914',kind:'景點',url:'https://www.huashan1914.com/w/huashan1914/index',short:'日治酒廠改造的紅磚廠房聚落',wiki:['華山1914文化創意產業園區'],
   text:'前身是 1914 年的日本芳釀社酒造工場，後來的台北酒廠，1987 年停產後閒置，整區的紅磚廠房、煙囪與四連棟保留下來改成文創園區。現在有展覽、獨立書店、選物店、電影院與餐廳，戶外草地常有市集。園區腹地平坦好走，逛一圈約一小時；雙層觀光巴士紅線在這裡設站。',
   chips:['戶外園區全日・免費','館內展覽依各展資訊','捷運忠孝新生站步行 5 分']},
- sysMemorial:{name:'國父紀念館',jp:'Sun Yat-sen Memorial Hall',kind:'景點',short:'翠湖借景 101；館內整修中，以園區為主',wiki:['國立國父紀念館'],
+ sysMemorial:{name:'國父紀念館',jp:'Sun Yat-sen Memorial Hall',kind:'景點',url:'https://www.yatsen.gov.tw/',short:'翠湖借景 101；館內整修中，以園區為主',wiki:['國立國父紀念館'],
   text:'1972 年落成的黃瓦大屋頂建築。館外<b>中山公園的翠湖是拍台北 101 倒影的經典角度</b>，也是這天的重點；走到松菸只要 10 分鐘，適合排在同一天。<br><br><b>⚠ 館內正在整修</b>　「大會堂暨周邊設施升級工程」<b>自 2024/2/26 起施工，預計 2026 年第 4 季完工</b>，範圍包含大會堂、<b>大廳</b>、展場與典藏庫房。施工期間<b>館內不對外開放</b>，也就是<b>大廳的三軍儀隊交接（原本每整點一次）看不到</b>；<b>戶外的中山文化園區照常開放</b>。<br>我們 9/27 到訪時還在工期內（2026 第 3 季），所以這天請以翠湖與園區為主。<b>但完工時間很接近，出發前務必上<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>看最新公告</b>——若提前開館，儀隊交接是每整點一次（09:00–17:00）。',
   video:[{u:'https://www.youtube.com/watch?v=A1QjZs8CZxY',l:'園區導覽（2019 年拍攝，當時館內還開放，可以看到整修前的樣子）'}],
   chips:['戶外園區照常開放','館內整修至 2026 第 4 季','儀隊交接暫停，出發前查官網','免費・捷運國父紀念館站 4 號出口']},
- songyan:{name:'松山文創園區',jp:'Songshan Cultural and Creative Park',kind:'景點',short:'老菸廠改造的設計聚落',wiki:['松山文創園區'],
+ songyan:{name:'松山文創園區',jp:'Songshan Cultural and Creative Park',kind:'景點',url:'https://www.songshanculturalpark.org/',short:'老菸廠改造的設計聚落',wiki:['松山文創園區'],
   text:'1937 年的松山菸廠改建，2001 年被指定為台北市市定古蹟，2011 年轉型成文創園區。保留了製菸工廠的長廊、巴洛克花園與生態池，現在是設計展覽、選物店與咖啡的聚落。<br><br><b>戶外園區免費、隨時可逛</b>（08:00–22:00），室內館舍 09:00–18:00；<b>旁邊的誠品生活松菸是 11:00–22:00</b>，比園區晚開，9/27 我們 11:00 到剛好。展覽多半另外收費，當期檔期看<a href="https://www.songshanculturalpark.org/" target="_blank" rel="noopener">官網</a>。走到國父紀念館只要 10 分鐘。',
   video:[{u:'https://www.youtube.com/watch?v=WbkB0VtMIUI',l:'園區介紹'}],
   chips:['園區 08:00–22:00・免費','室內館舍 09:00–18:00','誠品生活松菸 11:00–22:00','展覽多半另外收費']},
  qingjing:{name:'清境農場',jp:'Qingjing Farm',kind:'景點',short:'海拔 1,750 公尺的高山草原與綿羊秀',wiki:['清境農場'],
   text:'合歡山下的高山牧場，青青草原上放牧綿羊，假日有綿羊秀與馬術秀；高空觀景步道沿稜線架設，天氣好看得到中央山脈稜線。海拔約 1,750 公尺，比平地低 10 度以上，十月上山要帶外套。台中出發車程單程約 2–2.5 小時，山路彎多，會暈車的先吃藥。',
   chips:['青青草原 08:00–17:00','門票 NT 200','綿羊秀 例假日 09:30／14:30','馬術秀 每日 10:45／15:45']},
- sightseeingBus:{name:'臺北市雙層觀光巴士',jp:'Taipei Sightseeing Bus',kind:'交通',short:'紅藍兩線，效期內無限上下車',wiki:['臺北市雙層觀光巴士'],
+ sightseeingBus:{name:'臺北市雙層觀光巴士',jp:'Taipei Sightseeing Bus',kind:'交通',url:'https://taipeisightseeing.com.tw/',short:'紅藍兩線，效期內無限上下車',wiki:['臺北市雙層觀光巴士'],
   text:'開放式頂層的雙層巴士，同一張票在效期內可無限次上下車。<b>紅線</b>從台北車站繞西門、萬華、龍山寺、中正紀念堂、永康街、大安森林公園、台北 101、市政府、國父紀念館、忠孝敦化、忠孝復興到華山，再回台北車站；<b>藍線</b>走北門、圓環、中山、晶華、北美館、圓山飯店、劍潭到士林官邸與故宮博物院。全車 57 席（上層 37 個露天座、10 個室內座，下層 9 席與 1 個無障礙座），車上有免費 WiFi、充電座與中英日韓泰五語導覽。<b>注意藍線只到故宮，不到淡水或北投。</b><br><br><b>票種</b>　4 小時票 300（限當天 18:00 前使用）、日間票 500（紅線 09:00–18:00、藍線 09:10–17:00）、夜間票 400（紅線 18:00–22:00）、1 日票 700、2 日票 1,200。<b>班距約 30–40 分</b>，比捷運疏，排行程要留等車時間。<br><b>購票</b>　官網 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">taipeisightseeing.com.tw</a> 可線上訂票，也能上車現買（收現金、信用卡與悠遊卡），上車掃 QR code。出發前再上官網對一次票價與時刻表。<br><b>當天查車到哪了</b>　市府的公車動態可以看<b>紅線的即時位置與到站時間</b>：<a href="https://ebus.gov.taipei/EBus/VsSimpleMap?routeid=0162003400&amp;gb=0" target="_blank" rel="noopener">臺北觀光巴士紅線路線圖</a>。班距 30–40 分，與其在站牌乾等，不如先看一下下一班還有多久。',
   video:[{u:'https://www.youtube.com/watch?v=z1XSz7TgHFs',l:'<b>紅線</b>搭乘實錄——就是 9/27 要搭的這條，影片裡走到台北 101 與象山'}],
   chips:['4 小時票 300／日間票 500／夜間票 400','1 日票 700／2 日票 1,200','班距約 30–40 分','官網可線上訂票','紅線即時動態可查']},
- hongbin:{name:'日月潭鴻賓大飯店',jp:'Hong Bin Hotel',kind:'住宿',short:'9/30 住這裡，就在水社商圈內',wiki:[],
+ hongbin:{name:'日月潭鴻賓大飯店',jp:'Hong Bin Hotel',kind:'住宿',url:'https://www.apollo-resort-hotel.com.tw/tw/index.html',short:'9/30 住這裡，就在水社商圈內',wiki:[],
   text:'9/30 晚上的住宿，位在<b>水社商圈</b>裡（名勝街一帶），<b>走路幾分鐘就到水社碼頭</b>——中午先寄放行李再出門搭船，下午玩完回來入住，不用拖著行李上船。<br><br>周邊就是水社的餐廳與商店街，晚餐走出門就有；隔天早上搭 6801 往溪頭的站牌也在附近。',
   chips:['9/30 一晚','水社商圈內','走路幾分鐘到水社碼頭','中午可先寄放行李']},
- raohe:{name:'饒河街觀光夜市',jp:'Raohe Street Night Market',kind:'夜市',short:'台鐵松山站出站就是',wiki:['饒河街觀光夜市'],
+ raohe:{name:'饒河街觀光夜市',jp:'Raohe Street Night Market',kind:'夜市',url:'https://supertaste.tvbs.com.tw/hot/356346',short:'台鐵松山站出站就是',wiki:['饒河街觀光夜市'],
   text:'全長約 600 公尺的直線型夜市，兩頭各有一個牌樓，<b>台鐵松山站出站走幾步就到</b>，逛起來不會迷路。招牌是入口的<b>福州世祖胡椒餅</b>（現烤，常要排隊）、藥燉排骨、東發號油飯。旁邊就是<b>松山慈祐宮</b>，再走過去是彩虹橋。<br><br>10/3 從九份下山搭台鐵回松山，出站剛好收在這裡；<b>但週六晚上是最擠的時候</b>，21:00 前後人最多，累的話直接搭捷運回飯店就好。',
   chips:['約 17:00–24:00','台鐵／捷運松山站出站即到','胡椒餅、藥燉排骨','週六晚上最擠']},
  nantoucard:{name:'南投好行卡',jp:'Nantou Fun Pass',kind:'交通',short:'3 天無限搭台灣好行 6 條路線',wiki:[],
@@ -660,10 +667,10 @@ const CARDS={
  smlAccess:{name:'日月潭無障礙路線圖',jp:'Accessible Routes Map',kind:'導覽圖',short:'官方無障礙路線，含需預約的項目',wiki:[],
   text:'日月潭國家風景區管理處發的無障礙旅遊建議路線圖，點開放大看。圖上把六種無障礙方式標成不同顏色。<br><br><b>要注意兩個限制</b>：<br>①「臺中–日月潭 台灣好行無障礙公車」標的是<b>需預約、假日行駛</b>——<b>9/30 是星期三，不是假日</b>，所以那班無障礙公車那天大概沒有；我們搭的是一般的 6670A–F。<br>②「水社–伊達邵無障礙遊艇」<b>需預約</b>，不是現場排隊就有。<br><br><b>圖上看得到的實用資訊</b>：<b>水社碼頭、玄光寺碼頭、伊達邵碼頭</b>三個碼頭都有無障礙設施，而且<b>遊艇航線是水社 → 玄光寺 → 伊達邵</b>，中間會停玄光寺（想加一站可以在那裡下船）。日月潭纜車站與九族文化村站兩端都有無障礙設施與無障礙停車。向山遊客中心那邊有<b>無障礙電動輪椅充電區</b>。向山遊客中心與水社都註明「部分班次行駛」。<br><br>另外還有「遊湖無障礙巴士」與「向山自行車步道（水社–向山）」兩條，剛好就是我們 9/30 下午用的那兩段。',
   chips:['臺中–日月潭無障礙公車：需預約・假日行駛','水社–伊達邵無障礙遊艇：需預約','遊艇航線 水社→玄光寺→伊達邵','向山有電動輪椅充電區']},
- dyropeway:{name:'日月潭纜車',jp:'Sun Moon Lake Ropeway',kind:'交通',short:'空中跨過山稜，看整片湖面',wiki:['日月潭纜車'],
+ dyropeway:{name:'日月潭纜車',jp:'Sun Moon Lake Ropeway',kind:'交通',url:'https://www.ropeway.com.tw/',short:'空中跨過山稜，看整片湖面',wiki:['日月潭纜車'],
   text:'伊達邵與九族文化村之間的空中纜車，全長 1.877 公里，跨過兩道山稜。車廂爬到最高點時整片日月潭在腳下攤開，是從水面看不到的角度。伊達邵站在碼頭往東北的坡上，走上去約 10 分鐘。<b>強風或雷雨會停駛</b>，出發前看一下天氣。',
   chips:['伊達邵站走上坡約 10 分','全長 1.877 公里','強風／雷雨停駛','最後上站時間要查']},
- xiangshanVC:{name:'向山遊客中心',jp:'Xiangshan Visitor Center',kind:'景點',short:'清水模建築與眺望平台，環潭自行車道上',wiki:['向山遊客中心'],
+ xiangshanVC:{name:'向山遊客中心',jp:'Xiangshan Visitor Center',kind:'景點',url:'https://www.sunmoonlake.gov.tw/Attractions/Attractions?a=20&amp;id=78',short:'清水模建築與眺望平台，環潭自行車道上',wiki:['向山遊客中心'],
   text:'日本建築師團紀彥設計的清水模建築，兩片弧形屋頂往湖面斜下去，中間框出一整片潭景。旁邊的向山眺望平台伸出湖上，是拍日月潭的熱門角度。<b>從水社騎環潭自行車道約 3.3 公里、平緩好騎，單趟約 20 分鐘</b>；這條自行車道被 CNN 評為世界級路線。室內有展示與咖啡，下雨天也能待。',
   chips:['09:00–17:00','免費','水社騎車約 20 分・3.3 公里','室內，雨天可去']},
  daxuepool:{name:'大學池',jp:'Daxue Pond',kind:'景點',short:'竹拱橋與柳杉倒影，溪頭的招牌',wiki:['溪頭自然教育園區'],
@@ -681,7 +688,7 @@ const CARDS={
  xitouSkywalk:{name:'空中走廊',jp:'Sky Walk',kind:'景點',short:'離地 22 公尺的樹冠層棧道',wiki:[],
   text:'架在柳杉林裡的高架棧道，全長約 180 公尺、<b>離地最高 22.6 公尺</b>，走在上面等於站在樹冠層，看出去是一整片杉林的頂端。海拔 1,285 公尺，是園區裡最高的一站。<br><br>棧道本身平緩好走，<b>但風雨大時會封閉</b>；走完從這裡一路下坡到大學池，是這天唯一需要自己走的路段。',
   chips:['全長約 180 公尺・離地 22.6 公尺','海拔 1,285 公尺・園區最高','風雨大會封閉','棧道平緩，設有 AED']},
- xitou:{name:'溪頭自然教育園區',jp:'Xitou',kind:'景點',short:'柳杉林、大學池與空中走廊',wiki:['溪頭自然教育園區'],
+ xitou:{name:'溪頭自然教育園區',jp:'Xitou',kind:'景點',url:'https://www.exfo.ntu.edu.tw/xitou/',short:'柳杉林、大學池與空中走廊',wiki:['溪頭自然教育園區'],
   text:'台大實驗林場，海拔約 1,150 公尺，滿山柳杉與孟宗竹，十月上山早晚涼、常有霧氣。招牌是大學池的竹拱橋、離地二十多公尺的空中走廊，還有樹齡兩千多年的紅檜神木。園區步道平緩好走，慢慢逛約 3–4 小時；園區外的妖怪村與綠光小屋竹林可以順路。',
   chips:['07:00–17:00','全票 NT 220','台中站 6683 直達約 1.5–2 小時']},
  sunmoonlake:{name:'日月潭',jp:'Sun Moon Lake',kind:'景點',short:'環潭遊船、纜車與伊達邵部落',wiki:['日月潭'],
@@ -690,19 +697,19 @@ const CARDS={
  shenao:{name:'深澳線・八斗子潮境',jp:"Shen'ao Line / Badouzi",kind:'一日遊',short:'瑞芳搭支線到海邊，走完潮境一圈',wiki:['深澳線','潮境公園'],
   text:'台鐵深澳線是瑞芳岔出去的一條 4 公里支線，只有海科館與八斗子兩站，跟平溪線共用列車。<b>八斗子站被稱為「最靠海的車站」</b>——月台外就是望海巷海灣，出站直接走進海邊。<br><br>下車後這一圈的順序：望海巷跨海景觀橋 → 平浪橋（潮境公園唯一的入口，一座橘紅色小橋，卡在長潭里漁港與望海巷漁港中間）→ 潮境公園（鸚鵡螺溜滑梯、大草坪、海蝕平台）→ 環保復育公園（舊垃圾山整成的草坡，往西北看基隆嶼）→ 潮境智能海洋館（室內，空橋餐廳可以邊看海邊吃）→ 長潭里漁港潮間帶 → 容軒步道（0.5 公里上到觀景平台，八斗子漁港、海科館、潮境公園一次收進來）→ 海科館站搭車回瑞芳。<b>全程步行約 2.5 公里。</b>',
   chips:['瑞芳→海科館 4 公里・約 10 分','單程 NT 15／來回 NT 28','班距約 1 小時，要查時刻表','步行約 2.5 公里']},
- iocean:{name:'潮境智能海洋館',jp:'i OCEAN',kind:'景點',short:'七米大海缸與沉浸式 VR，空橋看海吃飯',wiki:[],
+ iocean:{name:'潮境智能海洋館',jp:'i OCEAN',kind:'景點',url:'https://www.nmmst.gov.tw/chhtml/index',short:'七米大海缸與沉浸式 VR，空橋看海吃飯',wiki:[],
   text:'海科館在潮境園區的新館，室內水族館加互動展。招牌是七米高的大海缸，還有沉浸式海洋 VR 與海底世界直播。<b>空橋上有景觀餐廳</b>，一邊看潮境的海一邊吃，是這一圈裡唯一能好好坐下來吃飯又不怕天氣的地方。<br><br><b>週一固定休館</b>（暑假七、八月例外），<b>但逢國定假日連續假期照常開館</b>——9/28 是中秋連假最後一天，照規則會開，出發前請自己再對一次官網。營業 09:00–17:00，<b>最後售票 16:00</b>——這條路線把海洋館排在中午，時間上很安全。',
   chips:['09:00–17:00（最後售票 16:00）','全票 300／學生兒童 250／未滿 6 歲免費','週一休館，但連假照常開（9/28 需確認）','基隆市中正區北寧路 369 巷 61 號']},
- chaojing:{name:'潮境公園',jp:'Chaojing Park',kind:'景點',short:'鸚鵡螺溜滑梯、大草坪與海蝕平台',wiki:['潮境公園'],
+ chaojing:{name:'潮境公園',jp:'Chaojing Park',kind:'景點',url:'https://www.taiwan.net.tw/m1.aspx?sNo=0001016&amp;id=A12-00359',short:'鸚鵡螺溜滑梯、大草坪與海蝕平台',wiki:['潮境公園'],
   text:'八斗子半島東側的濱海公園，本來是垃圾傾倒場，整治後變成一片面海草坪。前面是望海巷海灣與番仔澳灣岬，後面可以望到九份與基隆山。<b>唯一的入口是平浪橋</b>那座橘紅色小橋。地標是鸚鵡螺造型的溜滑梯，海邊有海蝕平台可以看潮間帶。與環保復育公園、八斗子海濱公園相連，可以一路走過去。',
   chips:['免費・全天開放','海邊風大，外套與帽子','草坪與步道平緩，海蝕平台濕滑']},
- rongxuan:{name:'容軒步道',jp:'Rongxuan Trail',kind:'步道',short:'0.5 公里上觀景平台，360 度海景',wiki:[],
+ rongxuan:{name:'容軒步道',jp:'Rongxuan Trail',kind:'步道',url:'https://bobowin.blog/rong-xuan-trail/',short:'0.5 公里上觀景平台，360 度海景',wiki:[],
   text:'海科館旁的一條短步道，登山口在北寧路 446 巷 51 號旁，全長約 0.5 公里，上到<b>容軒園區觀景平台</b>。平台視野開闊，八斗子漁港、海科館、潮境公園、望海巷海灣一次收進來，天氣好連九份與基隆山都看得到。<b>是階梯步道，不是平路</b>——腳力不夠或天熱的話可以只走到半路的第一個平台，或者直接跳過這一段、提早去海科館站等車。',
   chips:['約 0.5 公里・單程 15–20 分','免費','階梯步道，有上下坡']},
  maokong:{name:'貓空',jp:'Maokong',kind:'景點',short:'纜車上山，茶館看台北夜景',wiki:['貓空','貓空纜車'],
   text:'搭貓空纜車從動物園站上山約 20 分鐘，水晶車廂的地板是透明的。山上是老茶區，指南宮與茶館沿山路散開，傍晚上去邊喝茶邊看台北盆地夜景最划算。纜車週一通常停駛保養（遇國定假日照常營運、順延次日），出發前先查當天有沒有開。',
   chips:['纜車 09:00–21:00','單程 NT 70–120','捷運動物園站轉纜車']},
- cks:{name:'中正紀念堂',jp:'Chiang Kai-shek Memorial Hall',kind:'景點',short:'自由廣場、兩廳院與衛兵交接',wiki:['中正紀念堂'],
+ cks:{name:'中正紀念堂',jp:'Chiang Kai-shek Memorial Hall',kind:'景點',url:'https://www.cksmh.gov.tw/',short:'自由廣場、兩廳院與衛兵交接',wiki:['中正紀念堂'],
   text:'1980 年落成，白牆藍瓦的主體坐落在自由廣場一端，兩側是國家戲劇院與國家音樂廳，園區綠地開闊很好散步。主堂內設有展廳。衛兵交接的形式與地點近年有過調整，想看的話出發前查一下當天的場次與位置。兩廳院的節目在 OPENTIX 售票，10/4 是週日、下午場機率高，看中了要提早訂。',
   chips:['園區 05:00–24:00','主堂 09:00–18:00','兩廳院演出需先訂票']}
 };
@@ -1393,7 +1400,10 @@ function openCard(id){
     tabs.hidden=false;
   }else{tabs.innerHTML='';tabs.hidden=true;}
   document.getElementById('mKind').textContent=c.kind;
-  document.getElementById('mTitle').textContent=c.name;
+  // 卡片有 url 就把標題做成官網連結（沒有就維持純文字）
+  document.getElementById('mTitle').innerHTML=c.url
+    ? `<a href="${c.url}" target="_blank" rel="noopener">${c.name}<span class="ext" aria-hidden="true">↗</span><span class="sr">（開啟官網，另開分頁）</span></a>`
+    : c.name;
   document.getElementById('mJp').textContent=c.jp||'';
   document.getElementById('mText').innerHTML=c.text;   // 卡片說明允許 <b>／<a>，內容都寫在本檔內
   document.getElementById('mChips').innerHTML=(c.chips||[]).map(x=>`<span>${x}</span>`).join('');
