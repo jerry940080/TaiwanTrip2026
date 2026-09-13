@@ -362,7 +362,7 @@ footer p{max-width:70ch}
           <li><span class="d">出發前</span><span>查 9/30 的日月潭遊湖船航班與<b>纜車最後上站時間</b>；水社的電動輔助自行車要不要先預約</span></li>
           <li><span class="d">若有需要</span><span>無障礙版本要提前預約：<b>水社–伊達邵無障礙遊艇需預約</b>；臺中–日月潭無障礙公車<b>只在假日行駛</b>，9/30 是週三用不到</span></li>
           <li><span class="d">出發前</span><span><b>查國父紀念館是否已完工開館</b>——整修預計 2026 第 4 季完工，我們 9/27 到訪還在工期內，若提前開放就能看到整點的儀隊交接（<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>）</span></li>
-          <li><span class="d">圖檔待補</span><span>三組圖片還沒進 repo：<b>溪頭園區導覽圖</b>、<b>日月潭無障礙路線圖</b>、<b>雙層觀光巴士照片</b>。把檔案加到專案裡再跑一次就會塞進對應卡片：<br><code>python3 tools/embed_images.py index.html xitouGuide=溪頭導覽圖.png smlAccess=日月潭無障礙.png sightseeingBus=巴士外觀.jpg,上層座位.jpg sysMemorial=國父紀念館.jpg,儀隊交接.jpg</code></span></li>
+          <li><span class="d">圖檔待補</span><span>三組圖片還沒進 repo：<b>溪頭園區導覽圖</b>、<b>日月潭無障礙路線圖</b>、<b>雙層觀光巴士照片</b>。把檔案加到專案裡再跑一次就會塞進對應卡片：<br><code>python3 tools/embed_images.py index.html xitouGuide=溪頭導覽圖.png smlAccess=日月潭無障礙.png sightseeingBus=巴士外觀.jpg,上層座位.jpg sysMemorial=國父紀念館.jpg,儀隊交接.jpg songyan=松菸入口.jpg,誠品松菸.jpg,市集.jpg,倉庫展場.jpg</code></span></li>
           <li><span class="d">越早越好</span><span>訂 10/4（日）晚上的慶生餐廳——週日晚上熱門餐廳位子難搶，蛋糕與包廂需求訂位時一起提</span></li>
           <li><span class="d">越早越好</span><span>OPENTIX 查 10/4 兩廳院有沒有想看的下午場，有就先訂</span></li>
           <li><span class="d">越早越好</span><span>雙層觀光巴士 9/27 日間票：上 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">官網</a> 線上訂票（也可上車現買，但連假上層露天座會滿）</span></li>
@@ -621,8 +621,9 @@ const CARDS={
   video:[{u:'https://www.youtube.com/watch?v=A1QjZs8CZxY',l:'園區導覽（2019 年拍攝，當時館內還開放，可以看到整修前的樣子）'}],
   chips:['戶外園區照常開放','館內整修至 2026 第 4 季','儀隊交接暫停，出發前查官網','免費・捷運國父紀念館站 4 號出口']},
  songyan:{name:'松山文創園區',jp:'Songshan Cultural and Creative Park',kind:'景點',short:'老菸廠改造的設計聚落',wiki:['松山文創園區'],
-  text:'1937 年的松山菸廠改建，保留了製菸工廠的長廊、巴洛克花園與生態池，現在是設計展覽、選物店與咖啡的聚落，旁邊接著誠品生活松菸店，逛街與伴手禮一次解決。',
-  chips:['園區 08:00–22:00','室內館舍 09:00–18:00','免費入園']},
+  text:'1937 年的松山菸廠改建，2001 年被指定為台北市市定古蹟，2011 年轉型成文創園區。保留了製菸工廠的長廊、巴洛克花園與生態池，現在是設計展覽、選物店與咖啡的聚落。<br><br><b>戶外園區免費、隨時可逛</b>（08:00–22:00），室內館舍 09:00–18:00；<b>旁邊的誠品生活松菸是 11:00–22:00</b>，比園區晚開，9/27 我們 11:00 到剛好。展覽多半另外收費，當期檔期看<a href="https://www.songshanculturalpark.org/" target="_blank" rel="noopener">官網</a>。走到國父紀念館只要 10 分鐘。',
+  video:[{u:'https://www.youtube.com/watch?v=WbkB0VtMIUI',l:'園區介紹'}],
+  chips:['園區 08:00–22:00・免費','室內館舍 09:00–18:00','誠品生活松菸 11:00–22:00','展覽多半另外收費']},
  qingjing:{name:'清境農場',jp:'Qingjing Farm',kind:'景點',short:'海拔 1,750 公尺的高山草原與綿羊秀',wiki:['清境農場'],
   text:'合歡山下的高山牧場，青青草原上放牧綿羊，假日有綿羊秀與馬術秀；高空觀景步道沿稜線架設，天氣好看得到中央山脈稜線。海拔約 1,750 公尺，比平地低 10 度以上，十月上山要帶外套。台中出發車程單程約 2–2.5 小時，山路彎多，會暈車的先吃藥。',
   chips:['青青草原 08:00–17:00','門票 NT 200','綿羊秀 例假日 09:30／14:30','馬術秀 每日 10:45／15:45']},
@@ -708,7 +709,7 @@ const DAYS=[
   tl:[
    {t:'09:30',i:'🚌',h:'從飯店搭公車到國父紀念館（約 1.8 公里、15 分）',move:1},
    {t:'10:00',i:'🏛',h:'國父紀念館：翠湖拍 101 倒影、中山公園散步（<b>館內整修中，儀隊交接暫停</b>）'},
-   {t:'11:00',i:'🛍',h:'松菸、誠品生活松菸（走路 10 分，就在隔壁）'},
+   {t:'11:00',i:'🛍',h:'松菸、誠品生活松菸（走路 10 分，就在隔壁；<b>誠品 11:00 才開</b>，不用更早到）'},
    {t:'12:30',i:'🍽',h:'附近午餐（松菸、市府路一帶選擇多）'},
    {t:'13:30',i:'🎫',h:'回國父紀念館站上紅線，買日間票 NT 500'},
    {t:'13:50',i:'🚌',h:'紅線 → 華山（經忠孝敦化、忠孝復興）',move:1},
