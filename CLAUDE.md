@@ -11,11 +11,14 @@
 **改資料，不動引擎。** `index.html` 分成三層：
 
 1. 第一段 `<script>`：底圖資料層——`LAND`（台灣縣市界）、`METRO`（台北捷運路網）、
-   `TOWNLINES`／`TOWNS`（雙北基隆的區界與區名）、`COUNTIES`（縣市名）、`STATIONS`（捷運站點）。
-   只有換目的地或想改精細度時才動，用 `tools/make_land.py` 重生 LAND。
+   `TOWNLINES`／`TOWNS`（雙北基隆的區界與區名）、`COUNTIES`（縣市名）、`STATIONS`（捷運站點）、
+   `POIS`（路線附近的周邊地標）。只有換目的地或想改精細度時才動：
+   LAND 用 `tools/make_land.py`、TOWNLINES／TOWNS 用 `tools/make_poi.py`、POIS 用 `tools/make_pois.py`。
 2. 第二段 `<script>` 開頭到 `/* ===== MAP ENGINE ===== */` 之前：**資料區**，日常修改都在這裡。
-3. `MAP ENGINE` / `RENDER` / `PHOTOS` 三段：引擎，除非要加新功能否則不要改。
+3. `MAP ENGINE` / `REAL MAP` / `RENDER` / `PHOTOS` 四段：引擎，除非要加新功能否則不要改。
    例外：`RENDER` 區開頭的 hero overview `cfg` 是首頁總覽圖的資料，該改。
+   `REAL MAP` 是疊在手繪圖上的 Leaflet 真實地圖，圖磚載不到會自動退回手繪圖；
+   動這一段前先看 `TEMPLATE_GUIDE.md` 的「真實地圖底圖」，CSS 選擇器有兩個坑。
 
 ## 資料區順序
 

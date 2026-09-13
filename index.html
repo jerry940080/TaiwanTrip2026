@@ -18,6 +18,9 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>台灣 10 天 9 夜 旅のしおり｜2026.9.26–10.5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://basemaps.cartocdn.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -130,11 +133,28 @@ td.done{color:var(--matsu);font-weight:600}
 .maps.stack{position:static}
 @media (max-width:860px){.maps{position:static}}
 .mapcap{padding:9px 14px 0;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--ink2)}
-.mapcard svg{display:block;width:100%;height:auto}
+.mapwrap>svg{display:block;width:100%;height:auto}
 .mapfoot{display:flex;flex-wrap:wrap;gap:6px 14px;padding:9px 14px;border-top:1px solid var(--rule);font-size:12px;color:var(--ink2);align-items:center}
 .mapfoot .lg{display:inline-flex;align-items:center;gap:6px}
 .mapfoot .lg i{display:inline-block;width:22px;height:0;border-top:3px solid}
 .mapcard.plain .poi{display:none}
+/* ── 真實地圖（Leaflet）──
+   疊在手繪 SVG 上，但只有「圖磚真的載進來了」才顯示；離線、被防火牆擋、
+   CDN 掛掉的情況下完全不動，畫面維持原本的手繪圖，不會開天窗。
+   rmap 放在 mapwrap 裡面（不是整張卡），尺寸就等於 SVG 的尺寸，
+   Leaflet 一開始就拿得到寬高，不必事後 invalidateSize 補救。 */
+.mapwrap{position:relative}
+.rmap{position:absolute;inset:0;z-index:0;background:var(--paper2)}
+.mapcard.real .rmap{z-index:1}
+.mapcard.real>.mapwrap>svg{visibility:hidden}
+/* 簡化／重播是手繪圖的功能，切到真實地圖就沒有意義 */
+.mapcard.real .poitog,.mapcard.real .replay{display:none}
+.rmap .leaflet-container{font:inherit;background:#eee}
+.rmap .leaflet-control-attribution{font-size:10px;background:rgba(255,255,255,.75)}
+.rmap .rlab{background:none;border:0;box-shadow:none;padding:0;font-size:11.5px;font-weight:600;
+  color:#26292e;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}
+.rmap .rlab::before{display:none}
+.mapfoot .mapmode{margin-left:auto}
 .mapfoot button{margin-left:auto;border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:3px 11px;font:inherit;font-size:12px;color:var(--ink2);cursor:pointer}
 .mapfoot button~button{margin-left:0}
 .mapfoot button:hover{background:#fff;color:var(--ink)}
@@ -1360,8 +1380,15 @@ function notesHTML(o){
 }
 // 一張地圖卡：可帶 cap 當小標題（同一天放兩張圖時用來分「全日路線」與「步行段」）
 function mapCard(m,key,aria){
-  return `<div class="mapcard" data-day="${key}">${m.cap?`<div class="mapcap">${m.cap}</div>`:''}${buildMap(m,{aria})}<div class="mapfoot">${legendOf(m)}<button type="button" class="poitog" aria-pressed="false">簡化</button><button type="button" class="replay">重播路線</button></div></div>`;
+  // 手繪 SVG 一定畫，真實地圖（Leaflet）疊在上面；圖磚載不進來就自動退回手繪圖。
+  MAPCFG.push(m);
+  return `<div class="mapcard" data-day="${key}" data-cfg="${MAPCFG.length-1}">${m.cap?`<div class="mapcap">${m.cap}</div>`:''}`
+    +`<div class="mapwrap"><div class="rmap" aria-hidden="true"></div>${buildMap(m,{aria})}</div>`
+    +`<div class="mapfoot">${legendOf(m)}<button type="button" class="poitog" aria-pressed="false">簡化</button>`
+    +`<button type="button" class="replay">重播路線</button>`
+    +`<button type="button" class="mapmode" hidden>手繪路線圖</button></div></div>`;
 }
+const MAPCFG=[];   // mapCard 把每張圖的設定存起來，真實地圖那層再拿去畫一次
 // 地圖＋時刻表＋雨備＋卡片。o 可以是一個 DAYS 項目，也可以是一個 plans 方案。
 // o.map2：第二張地圖。景點集中在幾百公尺內的日子，一張圖畫不開，就用第二張放大的步行圖。
 function bodyHTML(o,key,aria){
@@ -1395,6 +1422,83 @@ daysEl.innerHTML=DAYS.map(d=>`<section class="day" id="day${d.n}">
   </div>
 </section>`).join('');
 
+
+/* ===== REAL MAP ===== 真實地圖底圖（Leaflet + CARTO Positron 圖磚）
+   手繪圖畫的是「行程順序」，真實地圖畫的是「地形」——湖、河、道路、街名。
+   兩張圖用同一份 cfg，路線、顏色、線型都跟手繪版一致。
+   ★ 這一層是「加分項」：Leaflet 或圖磚載不進來（離線、被防火牆擋、CDN 掛掉）
+     就完全不動，畫面維持原本的手繪 SVG。所以不會有開天窗的風險。 */
+const TILE_URL='https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+const TILE_ATTR='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+const SIDE={t:'top',b:'bottom',l:'left',r:'right'};
+
+function legLatLngs(lg){
+  const keys=[lg.a,...(lg.via||[]),lg.b];
+  const pts=keys.map(k=>P[k]);
+  if(pts.length>2 || !lg.curve) return pts;
+  // 同段來回的回程會帶 curve，手繪版是在螢幕座標上彎；這裡換算回經緯度，
+  // 兩張圖才會彎向同一邊。k=cos(lat) 補經度在高緯度被壓縮的比例。
+  const [a,b]=pts, k=Math.cos((a[0]+b[0])/2*Math.PI/180);
+  const mla=(a[0]+b[0])/2, mlo=(a[1]+b[1])/2;
+  const dla=b[0]-a[0], dlo=b[1]-a[1];
+  const cla=mla-dlo*k*lg.curve, clo=mlo+dla*lg.curve/k;
+  const out=[];
+  for(let i=0;i<=24;i++){const t=i/24,u=1-t;
+    out.push([u*u*a[0]+2*u*t*cla+t*t*b[0], u*u*a[1]+2*u*t*clo+t*t*b[1]]);}
+  return out;
+}
+function realMap(cfg,el){
+  const bbox=cfg.bbox||bboxOf(cfg.pts,cfg.minSpan||.05);
+  const map=L.map(el,{scrollWheelZoom:false,zoomControl:true,attributionControl:true});
+  const tiles=L.tileLayer(TILE_URL,{attribution:TILE_ATTR,subdomains:'abcd',maxZoom:19,detectRetina:true});
+  tiles.addTo(map);
+  map.fitBounds([[bbox.la0,bbox.lo0],[bbox.la1,bbox.lo1]]);
+  L.control.scale({imperial:false,position:'bottomleft'}).addTo(map);
+  cfg.legs.forEach(lg=>{
+    const M=MODE[lg.mode];
+    L.polyline(legLatLngs(lg),{color:M.c,weight:M.w+.6,opacity:.95,
+      dashArray:M.d?M.d.split(' ').map(n=>n*1.6).join(' '):null,
+      lineCap:M.cap||'butt',lineJoin:'round'}).addTo(map);
+  });
+  cfg.pts.forEach(k=>{
+    const [name,kind]=NAMES[k]||[k,'spot'];
+    const K=KIND[(cfg.kinds&&cfg.kinds[k])||kind];
+    L.circleMarker(P[k],{radius:K.r*.9,color:'#fff',weight:2,fillColor:K.c,fillOpacity:1})
+      .addTo(map)
+      .bindTooltip((cfg.names&&cfg.names[k])||name,
+        {permanent:true,direction:SIDE[(cfg.labels||{})[k]]||'right',className:'rlab',offset:[0,0]});
+  });
+  return {map,tiles};
+}
+// 圖磚載進來才切換過去；等不到就安靜地留在手繪圖
+function upgradeMaps(){
+  if(typeof L==='undefined') return;
+  document.querySelectorAll('.mapcard[data-cfg]').forEach(mc=>{
+    const cfg=MAPCFG[+mc.dataset.cfg], host=mc.querySelector('.rmap');
+    if(!cfg||!host) return;
+    let inst=null, ok=false;
+    const build=()=>{
+      if(inst||!host.offsetWidth) return;
+      try{ inst=realMap(cfg,host); }catch(e){ return; }
+      inst.tiles.once('tileload',()=>{
+        ok=true; mc.classList.add('real'); host.removeAttribute('aria-hidden');
+        const btn=mc.querySelector('.mapmode'); if(btn) btn.hidden=false;
+      });
+      setTimeout(()=>{ if(!ok&&inst){ inst.map.remove(); inst=null; host.innerHTML=''; } },8000);
+    };
+    // 捲到附近才建，不然十張地圖一開頁就同時抓圖磚
+    new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){build();o.disconnect();}})},
+      {rootMargin:'300px'}).observe(mc);
+    const btn=mc.querySelector('.mapmode');
+    if(btn) btn.addEventListener('click',()=>{
+      const real=mc.classList.toggle('real');
+      btn.textContent=real?'手繪路線圖':'真實地圖';
+      if(real&&inst) inst.map.invalidateSize();
+    });
+  });
+}
+if(document.readyState==='complete') upgradeMaps();
+else window.addEventListener('load',upgradeMaps);
 
 // animate day maps on scroll + replay
 document.querySelectorAll('.mapcard').forEach(mc=>{
