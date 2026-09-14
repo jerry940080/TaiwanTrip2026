@@ -121,7 +121,14 @@ td.done{color:var(--matsu);font-weight:600}
 .day-head .t .sub{color:var(--ink2);font-size:14px;margin-top:4px}
 .day-head .stay{margin-left:auto;background:#fff;border:1px solid var(--rule);border-left:4px solid var(--shu);border-radius:8px;padding:8px 14px;font-size:13.5px;line-height:1.45}
 .day-head .stay .lab{color:var(--ink3);font-size:12px}
-@media (max-width:640px){.day-head .stay{margin-left:0;width:100%}}
+/* 同行者。樣式跟「今晚住」一樣，換藍色左邊條區分；有 .stay 時它排在前面 */
+.day-head .who{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--ai);border-radius:8px;padding:8px 14px;font-size:13.5px;line-height:1.45}
+.day-head .who+.stay{margin-left:0}
+.day-head .who{margin-left:auto}
+.day-head .who .lab{color:var(--ink3);font-size:12px}
+.day-head .who .note{color:var(--ink3);font-size:12px;white-space:nowrap}
+@media (max-width:860px){.day-head .who,.day-head .stay{margin-left:0}}
+@media (max-width:640px){.day-head .stay,.day-head .who{margin-left:0;width:100%}}
 .day-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start}
 @media (max-width:860px){.day-body{grid-template-columns:1fr}}
 .mapcard{position:sticky;top:64px;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
@@ -302,6 +309,21 @@ footer p{max-width:70ch}
        但<b>九晚都住飯店</b>，台北七晚在茹曦酒店（松山區敦化北路 100 號），每天的地圖都從飯店出發、回到飯店；家只在 9/27 晚上烤肉時會回去。行程分成三段：<b>連假段（9/26–9/29）</b>在台北與近郊（9/27 信義區與雙層巴士、晚上在家烤肉；<b>9/28 整天到八斗子潮境</b>；9/29 傍晚上九份），
        <b>中段（9/30–10/2）</b>南下日月潭與溪頭三天兩夜（<b>已定案，住宿與日月潭／溪頭兩張套票都已訂</b>），<b>收尾段（10/3–10/4）</b>回台北走故宮與北投、大稻埕與剝皮寮，
        順便採買，<b>最後一晚在丰禾台北南京東店慶生（已訂位）</b>。要注意 9/25–9/28 是中秋連假，抵達後前三天各地都會擠；<b>跨縣市的長途移動排在 9/30 之後</b>，9/28 的八斗子雖然出台北，但走的是宜蘭線往瑞芳，不在連假回堵的方向上。</p>
+    <h3>同行者</h3>
+    <table>
+      <tr><th>日期</th><th>行程</th><th>同行</th></tr>
+      <tr><td>9/26（六）</td><td class="mute">桃園接機 → 台北</td><td><b>吳老弟</b>・<b>Nick</b></td></tr>
+      <tr><td>9/27（日）</td><td class="mute">國父紀念館・雙層巴士紅線・烤肉</td><td><b>吳老媽</b>・<b>吳老爸</b>・<b>Nick</b><span class="mute"> — 三位裡面來兩位</span></td></tr>
+      <tr><td>9/28（一）</td><td class="mute">深澳線・八斗子潮境</td><td><b>吳老弟</b>・<b>吳老媽</b>・<b>吳老爸</b></td></tr>
+      <tr><td>9/29（二）</td><td class="mute">九份黃昏與點燈</td><td><b>吳老媽</b>・<b>吳老爸</b></td></tr>
+      <tr><td>9/30–10/2</td><td class="mute">日月潭・溪頭 三天兩夜</td><td><b>吳老媽</b>・<b>吳老爸</b><span class="mute"> — 三天都是同一組</span></td></tr>
+      <tr><td>10/3（六）</td><td class="mute">故宮・北投</td><td><b>吳老弟</b>・<b>吳老媽</b><span class="mute">（可跟 Ariel 換）</span>・<b>吳老爸</b><span class="mute">（可跟 Nick 換）</span></td></tr>
+      <tr><td>10/4（日）</td><td class="mute">大稻埕・剝皮寮・慶生</td><td><b>吳老弟</b>・<b>吳老媽</b>・<b>吳老爸</b></td></tr>
+      <tr><td>10/5（一）</td><td class="mute">台北 → 桃園 → 北京</td><td><b>吳老爸</b>・<b>吳老媽</b></td></tr>
+    </table>
+    <p class="mute" style="margin-top:8px">每一天的區塊上方也各自標了當天的同行者。
+      <b>吳老媽與吳老爸是全程都在的兩位</b>；吳老弟在 9/26、9/28、10/3、10/4 四天，
+      Nick 在 9/26 確定、9/27 是三選二、10/3 可與吳老爸互換，Ariel 只在 10/3 有可能與吳老媽互換。</p>
     <h3>住宿</h3>
         <table>
           <tr><th>日期</th><th>地區</th><th>住哪</th><th>備註</th></tr>
@@ -760,7 +782,7 @@ const IMG={"cks":["assets/img/cks-1.jpg","assets/img/cks-2.jpg","assets/img/cks-
        cards:['cardKey'],
        rain:'<b>雨備</b>　...'}                      // 可省略                                        */
 const DAYS=[
- {n:1,date:'9/26',wd:'六',title:'北京 → 桃園 → 台北',sub:'下午落地，開車接機直接回家；中秋連假第二天',stay:'茹曦酒店',
+ {n:1,date:'9/26',wd:'六',title:'北京 → 桃園 → 台北',sub:'下午落地，開車接機直接回家；中秋連假第二天',stay:'茹曦酒店',who:'吳老弟・Nick',
   map:{pts:['tpe','illume'],legs:[{a:'tpe',b:'illume',mode:'drive',via:['taipeiStn']}],labels:{tpe:'b',illume:'t'},minSpan:.12},
   tl:[
    {t:'13:55',i:'✈',h:'北京首都 → 桃園（CA189）'},
@@ -771,7 +793,7 @@ const DAYS=[
    {t:'20:00',i:'🍜',h:'第一餐（待定）'}
   ],cards:[],
   notes:{pack:'護照、悠遊卡（機場或超商可買）、換好的台幣。',other:'連假傍晚國道 1 號往台北可能塞，順的話 50 分、塞起來抓 1.5 小時。落地當天只排進飯店、吃飯、休息。',rain:'全程在車上，下雨不影響。'}},
- {n:2,date:'9/27',wd:'日',title:'國父紀念館・雙層巴士紅線',sub:'上午到國父紀念館，下午搭紅線繞一圈，傍晚回家烤肉',stay:'茹曦酒店',
+ {n:2,date:'9/27',wd:'日',title:'國父紀念館・雙層巴士紅線',sub:'上午到國父紀念館，下午搭紅線繞一圈，傍晚回家烤肉',stay:'茹曦酒店',who:'吳老媽・吳老爸・Nick <span class="note">三位裡面來兩位</span>',
   map:{pts:['illume','home','sysMemorial','songyan','huashan','cks','taipei101','zhongxiaodunhua','zhongxiaofuxing','taipeiStn','ximen','xiaonanmen','longshan','dongmen','daanPark','daan','cityHall'],
    legs:[{a:'illume',b:'sysMemorial',mode:'bus'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'sysMemorial',mode:'walk',curve:.3},{a:'sysMemorial',b:'huashan',mode:'sightbus',via:['zhongxiaodunhua','zhongxiaofuxing']},{a:'huashan',b:'cks',mode:'sightbus',via:['taipeiStn','ximen','xiaonanmen','longshan']},{a:'cks',b:'taipei101',mode:'sightbus',via:['dongmen','daanPark','daan']},{a:'taipei101',b:'sysMemorial',mode:'sightbus',via:['cityHall']},{a:'sysMemorial',b:'home',mode:'bus',curve:.25},{a:'home',b:'illume',mode:'drive',curve:.22}],
    kinds:{taipeiStn:'bus',ximen:'bus',longshan:'bus'},
@@ -795,7 +817,7 @@ const DAYS=[
    {t:'21:30',i:'🚕',h:'回茹曦酒店（約 1.9 公里，叫車 10 分或公車 15 分）',move:1}
   ],cards:['sightseeingBus','sysMemorial','songyan','huashan','cks','taipei101'],
   notes:{pack:'<b>薄外套或雨具</b>——雙層巴士上層是露天座，全車 57 席裡室內只有 10 席。',tickets:'雙層觀光巴士<b>紅線日間票 NT 500</b>（09:00–18:00 無限上下車）。可上 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">官網</a>線上訂，也能上車現買（現金／信用卡／悠遊卡，上車掃 QR code）。',book:'<b>中秋烤肉食材前一天先買好</b>，當天很搶手。',other:'<ul><li><b>國父紀念館館內整修中</b>（2024/2 起，預計 2026 第 4 季完工），<b>儀隊交接暫停</b>，戶外中山公園照常開放——這天以翠湖與園區為主。完工時間很近，出發前查一下<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>。</li><li><b>班距約 30–40 分</b>，上表是「不用等車」的理想值。當天用市府公車動態查<a href="https://ebus.gov.taipei/EBus/VsSimpleMap?routeid=0162003400&amp;gb=0" target="_blank" rel="noopener">紅線即時到站</a>，不用在站牌乾等。</li><li><b>來不及就砍台北 101</b>——它排在最後，坐在車上繞回國父紀念館就好。</li><li>飯店到國父紀念館搭公車（約 1.8 公里）；捷運要轉兩次車，不划算。</li><li><b>晚上烤肉在家，不在飯店</b>，賞月後再叫車回飯店（約 10 分）。</li></ul>',rain:'華山、中正紀念堂主堂、101 商場、松菸都有室內，主要影響的是坐上層的體驗。'}},
- {n:3,date:'9/28',wd:'一',title:'深澳線・八斗子潮境',sub:'捷運兩站接台鐵到瑞芳，換深澳線到最靠海的車站，走完潮境一圈',stay:'茹曦酒店',
+ {n:3,date:'9/28',wd:'一',title:'深澳線・八斗子潮境',sub:'捷運兩站接台鐵到瑞芳，換深澳線到最靠海的車站，走完潮境一圈',stay:'茹曦酒店',who:'吳老弟・吳老媽・吳老爸',
   map:{cap:'全日路線：台北小巨蛋 → 松山 → 瑞芳 → 深澳線',
    pts:['xiaojudan','songshan','ruifang','badouzi'],
    legs:[{a:'xiaojudan',b:'songshan',mode:'metro',via:['njsm']},
@@ -839,7 +861,7 @@ const DAYS=[
    {t:'18:15',i:'🚇',h:'捷運 松山 → 台北小巨蛋，走回飯店',move:1}
   ],cards:['shenao','chaojing','iocean','rongxuan'],
   notes:{pack:'<b>外套與帽子</b>（八斗子是迎風面，十月已有東北季風）、<b>防滑鞋</b>（海蝕平台與潮間帶濕滑）。',tickets:'深澳線瑞芳→海科館單程 NT 15、來回 NT 28；兩站都是無人站，<b>刷悠遊卡進出</b>或在瑞芳先買票。潮境智能海洋館全票 NT 300。',book:'潮境智能海洋館可先線上買票避免排隊（<b>最後售票 16:00</b>）。',other:'<ul><li><b>深澳線班距約 1 小時</b>，跟平溪線共用列車。上表的 10:10、16:10 是估值，<b>出發前務必上台鐵查當天班次</b>——錯過一班等一小時。</li><li><b>海洋館週一休館，但連假照常開</b>。9/28 是中秋連假最後一天，照規則會開，但這是二手資料，<b>請自己再對一次官網</b>——這天只有它是室內的。</li><li>全天步行約 2.5 公里，最花力氣的是<b>容軒步道</b>（0.5 公里階梯）。<b>走不動可整段跳過</b>，從長潭里直接走 400 公尺到海科館站。</li></ul>',rain:'大半在戶外海邊，壞天氣就改成室內：海洋館可待 2–3 小時，旁邊的海科館主題館（另外收費）也是室內，兩館加瑞芳老街撐得住一天，戶外那幾個點全部跳過。'}},
- {n:4,date:'9/29',wd:'二',title:'九份：黃昏與點燈',sub:'白天養足體力，傍晚直達上山看日落轉點燈，下山搭火車回松山；週二平日，人潮比週末少很多',stay:'茹曦酒店',
+ {n:4,date:'9/29',wd:'二',title:'九份：黃昏與點燈',sub:'白天養足體力，傍晚直達上山看日落轉點燈，下山搭火車回松山；週二平日，人潮比週末少很多',stay:'茹曦酒店',who:'吳老媽・吳老爸',
   map:{pts:['illume','raohe','jiufen','ruifang'],legs:[{a:'illume',b:'raohe',mode:'metro',via:['njsm']},{a:'raohe',b:'jiufen',mode:'bus',via:['ruifang']},{a:'jiufen',b:'ruifang',mode:'bus',curve:.28},{a:'ruifang',b:'raohe',mode:'tra'},{a:'raohe',b:'illume',mode:'metro',via:['njsm'],curve:.25}],labels:{illume:'t',raohe:'b',jiufen:'r',ruifang:'t'},minSpan:.05},
   tl:[
    {t:'上午',i:'😴',h:'睡飽、飯店吃早餐——這天重頭戲在晚上，白天別排滿'},
@@ -858,7 +880,7 @@ const DAYS=[
    {t:'21:30',i:'🚇',h:'捷運松山 → 台北小巨蛋，走回飯店',move:1}
   ],cards:['jiufen','raohe'],
   notes:{pack:'<b>外套</b>（九份靠海有風，入夜比市區低好幾度）、<b>防滑鞋</b>（豎崎路是連續石階、晚上濕滑）、小手電筒或手機照明。',tickets:'1062 與 788 刷悠遊卡即可；瑞芳→松山台鐵可現場買或刷卡。',other:'<ul><li><b>15:45 出發，不是 17:00</b>。9/29 日落 17:44，1062 車程 70–80 分；17:00 才走要 18:10 才到，日落已經過了。</li><li><b>9/29 是星期二，不是週末</b>——九份人潮比週六少很多，1062 通常坐得到位子。真的想確保有座就改搭台鐵到瑞芳（可訂對號座）再轉公車上山 15 分。</li><li>回程走 <b>788</b> 到瑞芳轉台鐵，不要賭 1062 末班。788 <b>平日行駛到 22:00</b>，9/29 正好適用這張班表。825（假日至 16:20）與 827（平日至 17:00）傍晚都已收班。</li><li>老街店家約 20:00 起陸續打烊，拍點燈要趁 18:00–19:30；走基山街比豎崎路好走。</li></ul>',rain:'九份本來就常起霧下雨，看不到夕陽的機率不低；躲進茶樓看雨中燈籠另有味道，行程不用改。'}},
- {n:5,date:'9/30',wd:'三',title:'台北 → 台中 → 日月潭',sub:'高鐵接台灣好行進日月潭，下午遊湖船、纜車與環潭自行車',stay:'日月潭鴻賓大飯店',
+ {n:5,date:'9/30',wd:'三',title:'台北 → 台中 → 日月潭',sub:'高鐵接台灣好行進日月潭，下午遊湖船、纜車與環潭自行車',stay:'日月潭鴻賓大飯店',who:'吳老媽・吳老爸',
   map:{cap:'全日路線：台北 → 高鐵台中 → 日月潭',
    pts:['taipeiStn','taichungHsr','shuishe'],
    legs:[{a:'taipeiStn',b:'taichungHsr',mode:'hsr',via:['banqiao','taoyuanHsr','hsinchuHsr']},
@@ -894,7 +916,7 @@ const DAYS=[
    {t:'19:30',i:'🛏',h:'鴻賓大飯店 check-in'}
   ],cards:['smlAccess','nantoucard','sunmoonlake','dyropeway','xiangshanVC','hongbin'],
   notes:{pack:'遊湖船與纜車在戶外，<b>防曬與薄外套</b>；騎自行車那段建議穿好走的鞋。',tickets:'<b>高鐵台北→台中要先訂對號座</b>（唯一還沒訂的）。<b>日月潭套票與日月潭溪頭套票都已經訂好</b>——今天的 6670A–F、遊湖船、纜車與遊湖巴士都在裡面。下高鐵先到 1 樓第 5 出入口的南投客運櫃台（07:30–18:00）把票兌換、蓋好日期再上車。',book:'今天要預約的只有一件：<b>水社的電動輔助自行車</b>——問車行要不要先訂。船票、纜車票與遊湖巴士都在已訂好的日月潭套票裡，現場換票就好。',other:'<ul><li><b>三個時間要自己對</b>：6670 的發車時間（上表 09:30 是估值）、遊湖船是固定航班、<b>纜車最後上站時間</b>。</li><li>行李先寄放鴻賓再出門，下午玩完直接回來入住。</li><li>遊艇中途停<b>玄光寺</b>，想多一站可以在那裡下船再搭下一班。</li><li>伊達邵碼頭到纜車站是一段上坡（約 10 分），碼頭邊有接駁車可問。</li><li>水社→向山約 3.3 公里、平緩的環潭自行車道，單趟約 20 分。</li></ul>',rain:'遊湖船可能停航、纜車強風也會停。備案：向山遊客中心（室內）、涵碧樓步道、文武廟，或直接在飯店休息——第一天不用硬撐。'}},
- {n:6,date:'10/1',wd:'四',title:'日月潭 → 溪頭',sub:'上午移動到溪頭，下午用園區電動車跳過爬坡，走神木、空中走廊與大學池',stay:'旬日覓覓（溪頭）',
+ {n:6,date:'10/1',wd:'四',title:'日月潭 → 溪頭',sub:'上午移動到溪頭，下午用園區電動車跳過爬坡，走神木、空中走廊與大學池',stay:'旬日覓覓（溪頭）',who:'吳老媽・吳老爸',
   map:{cap:'全日路線：日月潭 → 溪頭',
    pts:['shuishe','xitouGate'],
    legs:[{a:'shuishe',b:'xitouGate',mode:'bus',via:['shuili']}],
@@ -930,7 +952,7 @@ const DAYS=[
    {t:'19:00',i:'🛏',h:'回旬日覓覓休息'}
   ],cards:['xitouGuide','xitou','xitoucart','xitouShenmu','xitouSkywalk','daxuepool','xunri'],
   notes:{pack:'溪頭海拔 1,100–1,300 公尺，<b>早晚涼、常有霧氣，外套一定要帶</b>。',tickets:'<b>溪頭入園券與 6801 車票都在日月潭溪頭套票裡</b>，今天不必再買票（園區全票原價 NT 220、07:00–17:00）。',book:'<b>導覽解說電動車已預訂</b>（NT 1,400/hr、限四人、049-2612210）。出發前再跟車行確認三件事：用多久、<b>能不能只買單程</b>（空中走廊之後自己走下坡）、空中走廊下車點到林間遊憩場怎麼走。另外跟<b>旬日覓覓</b>約好到公車站的接送時間。',other:'<ul><li><b>10/1 的 6801 是整趟行程最關鍵的接點</b>，日月潭往溪頭班次不多，<b>09:00 必須用實際班表對過</b>；沒接上就得自己轉水里，或當天改住日月潭。請最早確認。</li><li>電動車把上坡全部跳過，<b>步行只有下坡那 2.5 公里</b>。官方步道分級的三條挑戰級路線（森林浴、登山、賞鳥步道）我們都沒有走到。</li><li><b>大學池也有官方電動車接駁站</b>，16:00 走不動可以在那裡叫車，不必再走出園。</li><li>AED 在空中走廊、大學池販賣部、神木販賣部、服務中心，都在路線上。園區全面禁菸。</li><li>園區 17:00 關，16:30 走到第二售票處剛好，不要拖。</li></ul>',rain:'溪頭常有霧雨，霧中的柳杉林反而最好看。<b>空中走廊風雨大時會封閉</b>——真的關了就把電動車的時間全放在神木區，再慢慢走大學池。'}},
- {n:7,date:'10/2',wd:'五',title:'溪頭 → 台中 → 台北',sub:'睡飽再走，中午前退房；抵達高鐵台中站後決定要不要繞去草悟道',stay:'茹曦酒店',
+ {n:7,date:'10/2',wd:'五',title:'溪頭 → 台中 → 台北',sub:'睡飽再走，中午前退房；抵達高鐵台中站後決定要不要繞去草悟道',stay:'茹曦酒店',who:'吳老媽・吳老爸',
   plans:[
    {tag:'A',t:'直接回台北',sub:'累了就不繞，下午就到家',stay:'茹曦酒店',stayLab:'今晚住',
     map:{cap:'全日路線：溪頭 → 高鐵台中 → 台北',
@@ -987,7 +1009,7 @@ const DAYS=[
      rain:'綠園道是戶外，下雨就退到室內：勤美誠品綠園道、科博館（另外收費）、國美館（免費）都在走得到的範圍。真的不想淋雨就直接執行方案 A。'}}],
   pick:'<b>差別只有一件事：晚三個半小時回台北。</b><br><b>A 直接回</b>　15:30 就進飯店，前兩天走得多，這樣收尾最輕鬆。<br><b>B 加碼草悟道</b>　19:00 回到飯店。草悟道本身很好走（平地、有遮蔭、想走多少走多少），但<b>前後要多花快兩小時在高鐵台中站與市區之間來回</b>，而且當天已經先坐了 2 小時客運下山。<br><b>我的建議</b>　訂<b>自由座</b>，把決定權留到當天——在高鐵台中站下車時看大家的狀態，有力氣就搭 365 進市區，沒力氣就直接上車。這是唯一不用提前決定的做法。',
   tl:[],cards:[]},
- {n:8,date:'10/3',wd:'六',title:'故宮・北投',sub:'故宮留久一點慢慢看，下午沿淡水信義線往北泡湯',stay:'茹曦酒店',
+ {n:8,date:'10/3',wd:'六',title:'故宮・北投',sub:'故宮留久一點慢慢看，下午沿淡水信義線往北泡湯',stay:'茹曦酒店',who:'吳老弟・吳老媽 <span class="note">可跟 Ariel 換</span>・吳老爸 <span class="note">可跟 Nick 換</span>',
   map:{pts:['illume','shilinStn','palaceMuseum','beitou','beitouLib','hell'],legs:[{a:'illume',b:'shilinStn',mode:'metro',via:['taipeiStn']},{a:'shilinStn',b:'palaceMuseum',mode:'bus'},{a:'palaceMuseum',b:'shilinStn',mode:'bus',curve:.3},{a:'shilinStn',b:'beitou',mode:'metro'},{a:'beitou',b:'beitouLib',mode:'walk'},{a:'beitouLib',b:'hell',mode:'walk'},{a:'beitou',b:'illume',mode:'metro',via:['shilinStn','taipeiStn'],curve:.18}],labels:{illume:'b',shilinStn:'r',palaceMuseum:'r',beitou:'b',beitouLib:'l',hell:'t'},minSpan:.06},
   tl:[
    {t:'09:00',i:'🚇',h:'從飯店搭捷運往士林站（小巨蛋→中山轉淡水信義線，約 30 分）',move:1},
@@ -1002,7 +1024,7 @@ const DAYS=[
    {t:'19:30',i:'🚇',h:'捷運回飯店',move:1}
   ],cards:['palaceMuseum','beitouLib','beitouMuseum','beitou'],
   notes:{tickets:'故宮全票 NT 350。',book:'選北投要泡湯的話，熱門湯屋建議先訂。',other:'<ul><li><b>10/3 是一般的週六</b>：故宮週一休館、週六正常開館；溫泉博物館公告「週一及國定例假日休館」，10/3 不是國定假日，照公告有開——<b>但這條比原本排週二時多一層不確定，出發前再確認一次</b>。北投圖書館週六 08:30–21:00，比週二還晚關。</li><li><b>週六故宮人比平日多</b>，09:00 一開館就進去最舒服，熱門展廳晚一點會排隊。</li><li>北投四個點（圖書館、溫泉博物館、地熱谷、湯屋）<b>走路都在十分鐘內</b>，是全程最省腳力的下午。</li><li>去程轉乘兩次：小巨蛋→中山轉淡水信義線→士林，再轉紅 30／304 公車上故宮。</li><li>故宮留 3–4 小時，這天只排一個重點加一個下午行程，不趕。</li></ul>',rain:'全天都有室內可躲：故宮全程室內，北投的圖書館、溫泉博物館與湯屋都不怕雨。'}},
- {n:9,date:'10/4',wd:'日',title:'大稻埕・剝皮寮 city walk',sub:'白天兩個老街區，傍晚回家休息，晚上慶生',stay:'茹曦酒店',
+ {n:9,date:'10/4',wd:'日',title:'大稻埕・剝皮寮 city walk',sub:'白天兩個老街區，傍晚回家休息，晚上慶生',stay:'茹曦酒店',who:'吳老弟・吳老媽・吳老爸',
   map:{pts:['illume','dadaocheng','bopiliao','longshan'],legs:[{a:'illume',b:'dadaocheng',mode:'metro',via:['njfx','taipeiStn']},{a:'dadaocheng',b:'bopiliao',mode:'metro'},{a:'bopiliao',b:'longshan',mode:'walk'},{a:'longshan',b:'illume',mode:'metro',via:['taipeiStn','njfx']}],labels:{illume:'l',dadaocheng:'t',bopiliao:'l',longshan:'b'},minSpan:.03},
   tl:[
    {t:'10:00',i:'🚇',h:'捷運到北門站，走進迪化街',move:1},
@@ -1017,7 +1039,7 @@ const DAYS=[
    {t:'21:30',i:'🚕',h:'回飯店（同樣是捷運 2 站，或直接叫車約 10 分）'}
   ],cards:['dadaocheng','bopiliao','fengher'],
   notes:{book:'<b>慶生晚餐已訂：丰禾 台北南京東店</b>（南京東路二段 146 號 2F，02-2507-6808）。出發前再跟餐廳確認一次<b>蛋糕與包廂</b>，以及當天的到店時間。',other:'<ul><li>這天減量了，<b>傍晚就能回飯店休息換衣服</b>再出門慶生。</li><li>回程二選一：捷運西門轉車約 30 分，或叫車約 20 分，走了一整天累的話就搭車。</li><li>餐廳就在南京東路上，<b>從飯店搭捷運兩站</b>（小巨蛋→南京復興→松江南京），不必特地提早出門。</li><li>剝皮寮週一休，10/4 是週日沒問題。</li></ul>',rain:'迪化街整條有騎樓、剝皮寮有拱廊，下雨影響不大。'}},
- {n:10,date:'10/5',wd:'一',title:'台北 → 桃園 → 北京',sub:'開車或叫車直達機場，中午的飛機',stay:'—',
+ {n:10,date:'10/5',wd:'一',title:'台北 → 桃園 → 北京',sub:'開車或叫車直達機場，中午的飛機',stay:'—',who:'吳老爸・吳老媽',
   map:{pts:['illume','tpe'],legs:[{a:'illume',b:'tpe',mode:'drive',via:['taipeiStn']}],labels:{illume:'t',tpe:'b'},minSpan:.12},
   tl:[
    {t:'08:30',i:'🍳',h:'早餐、整理行李'},
@@ -1407,6 +1429,7 @@ daysEl.innerHTML=DAYS.map(d=>`<section class="day" id="day${d.n}">
     <div class="day-head">
       <div class="num"><small>Day</small>${d.n}</div>
       <div class="t"><h2>${d.date}（${d.wd}）${d.title}</h2><div class="sub">${d.sub}</div></div>
+      ${d.who?`<div class="who"><div class="lab">同行</div>${d.who}</div>`:''}
       <div class="stay"><div class="lab">今晚住</div>${d.stay}</div>
     </div>
     ${d.plans
