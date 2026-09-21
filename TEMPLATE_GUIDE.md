@@ -355,54 +355,79 @@ who:'吳老媽・吳老爸・Nick <span class="note">三位裡面來兩位</span
 `python3 tools/check.py` 會比對兩個檔案的日期、星期、住宿。它**不會**檢查 `steps` 的內容，
 所以行程時間有動的時候，記得自己對一次。
 
+
 ---
 
 ## 紙本版 `台灣行程.docx`
 
-從 `index.html` 自動產生的 Word 檔，給長輩列印當筆記用。內容跟完整版一樣，只是版面換成 A4。
+給長輩列印當筆記用。**不是重新排版的文字，是把 `index.html` 的畫面切成一頁一張貼進 Word**——
+版面、照片、地圖、顏色都跟螢幕上看到的一樣。
 
 ```bash
-NODE_PATH=<playwright 位置> node tools/shoot_maps.js   # 只有地圖改了才要跑
-python3 tools/make_docx.py                             # 預設輸出 台灣行程.docx
-python3 tools/make_docx.py --no-maps --out 草稿.docx    # 不含地圖，檔案小很多
+NODE_PATH=<playwright 位置> node tools/shoot_pages.js   # 整頁截圖 + 算切點
+python3 tools/make_docx.py                              # 切圖並打包成 docx
 ```
 
-### 三個檔案各做什麼
+`assets/print/` 是產生出來的東西，沒有進版控，每次都要重跑這兩步。
 
-| 檔案 | 做什麼 |
+### 為什麼渲染寬度是 680px
+
+**渲染寬度決定印出來的字多大。** 圖是等比例縮到 A4 的 19cm 寬，所以渲染得愈窄，
+同一個字在紙上就愈大：
+
+| 渲染寬度 | 內文 15px 印出來 |
 |---|---|
-| `tools/jsdata.py` | 把 `index.html` 的 JS 物件實字（`DAYS`、`CARDS`）讀成 Python 資料。**不是通用 JS parser**，只認這份檔案用到的語法 |
-| `tools/shoot_maps.js` | 用 Playwright 把每天的手繪地圖截成 `assets/print/dayN.png`（2 倍解析度，動畫先跑完） |
-| `tools/make_docx.py` | 只用標準庫直接寫 OOXML 打包成 `.docx`，**不必裝 python-docx** |
+| 1240px | 6.5pt ← 長輩看不到 |
+| 900px | 9.0pt |
+| **680px** | **11.9pt** ← 現在用這個 |
+| 620px | 13.0pt |
 
-### 版面
+680px 還有一個好處：在 860px 斷點以下，`.pre`、`.day-body`、`.maps` 都會變成單欄，
+本來就比較適合紙本。再窄就會掉進 640px 的手機版面，反而鬆散。
 
-A4、邊界 1.8cm、內文 13pt（比網頁大一級）、微軟正黑體。封面 → 同行者與住宿 → 每天一頁
-（大標、今晚住、地圖、時刻表、提醒）→ 訂票 → 車票 → 出發前確認 → 行李 → 三頁空白筆記。
+### 切頁怎麼切
 
-`MAP_W`／`MAP_H1`／`MAP_H2` 控制地圖大小。**改這幾個數字會連動總頁數**，一天有兩張圖時
-用 `MAP_H2`（矮一點）才塞得進同一頁。
+不是固定高度切下去，不然標題、照片、表格的一列都會被剖成兩半。`shoot_pages.js` 做兩件事：
 
-### 寫 OOXML 踩過的坑
+1. **收集不可以切開的東西**（`.day-head`、`.mapcard`、`.ph`、`tr`、`li`、`p`、`h1`–`h3`…），
+   任何落在它們內部的切點直接淘汰。
+2. **優先切在「新的一天開始」的位置**，讓每天從新的一頁開頭。但如果這樣會讓前一頁
+   填不到 55%，就退回一般切點——不然會印出大半張空白的紙。
 
-這四個都不會讓 XML 變成不合法，但 Word 會直接拒收整份檔案，或印出來很醜：
+目前 30 頁，平均填滿約 91%。
 
-1. **`w:pPr` 的子元素有固定順序**：`keepLines` → `pageBreakBefore` → `pBdr` → `shd` →
-   `spacing` → `ind` → `jc`。順序錯了 Word 開不起來（LibreOffice 也會說 source file could not be loaded）。
-2. **不要用「只有分頁符號的空段落」換頁**。前一頁剛好填滿時，那個段落自己會佔掉一整頁，
-   印出來就是一張全白的紙。改成把 `<w:pageBreakBefore/>` 掛在下一段的 `pPr` 上。
-3. **表格後面那個空段落**同理。兩張表之間需要它隔開，但後面接分頁時要拿掉。
-4. **連續的空段落不能拿來畫筆記橫線**——Word 會把「框線相同的相鄰段落」合併成一個大框，
-   十六條線會變成一個框。要用表格，只開 `bottom` 與 `insideH`。
+### 圖片格式是逐頁挑的
+
+每頁 PNG 與 JPEG 各存一次、留比較小的那個。整頁都是字的頁面顏色少，**PNG 反而比 JPEG 小**；
+有照片的頁面則是 JPEG 小很多。兩種印出來都看不出差別。現在 30 頁裡 15 頁 PNG、15 頁 JPEG，
+總共約 11 MB。
+
+### 截圖前要先處理的事
+
+`shoot_pages.js` 裡有一段是把「只有在螢幕上才有意義」的東西藏掉或定格，改版面時要跟著維護：
+
+- 置頂導覽列 `nav.strip`——不藏的話每一片都會重複出現
+- `.poitog`、`.replay`、`.bigver`、頁尾的 Word 下載連結
+- 地圖的路線動畫要直接跳到最後一格（`strokeDasharray`、`opacity`）
+- **照片是 lazy load 的**，要先整頁捲過一遍並等 `onload`，不然截到的是空白
+- 載不到的照片（維基百科那幾張）整格藏掉，免得留一個灰框
+
+### 沙箱裡看不到的東西
+
+這台機器連不到圖磚伺服器與維基百科，所以截出來的是：
+
+- **手繪地圖**，不是疊在上面的真實地圖圖磚（`REAL MAP` 那層退回手繪版）
+- **24 張照片裡有 3 張是空的**（那幾張是即時向維基百科要的），已經整格藏掉
+
+在看得到網路的機器上重跑，這兩個就會是真的內容。
 
 ### 怎麼檢查
 
-沙箱裡用 LibreOffice 轉 PDF 再看：
+用 LibreOffice 轉 PDF 再逐頁看：
 
 ```bash
 soffice -env:UserInstallation=file:///tmp/lo --headless --norestore \
         --convert-to pdf --outdir /tmp/pdf 台灣行程.docx
-pdftotext -layout /tmp/pdf/台灣行程.pdf -   # 逐頁看內容，找出「只有頁碼」的空白頁
 ```
 
 `libreoffice-core` 單獨裝是**打不開 .docx 的**（會報 source file could not be loaded，
