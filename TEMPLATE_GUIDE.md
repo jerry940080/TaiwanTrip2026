@@ -354,3 +354,56 @@ who:'吳老媽・吳老爸・Nick <span class="note">三位裡面來兩位</span
 
 `python3 tools/check.py` 會比對兩個檔案的日期、星期、住宿。它**不會**檢查 `steps` 的內容，
 所以行程時間有動的時候，記得自己對一次。
+
+---
+
+## 紙本版 `台灣行程.docx`
+
+從 `index.html` 自動產生的 Word 檔，給長輩列印當筆記用。內容跟完整版一樣，只是版面換成 A4。
+
+```bash
+NODE_PATH=<playwright 位置> node tools/shoot_maps.js   # 只有地圖改了才要跑
+python3 tools/make_docx.py                             # 預設輸出 台灣行程.docx
+python3 tools/make_docx.py --no-maps --out 草稿.docx    # 不含地圖，檔案小很多
+```
+
+### 三個檔案各做什麼
+
+| 檔案 | 做什麼 |
+|---|---|
+| `tools/jsdata.py` | 把 `index.html` 的 JS 物件實字（`DAYS`、`CARDS`）讀成 Python 資料。**不是通用 JS parser**，只認這份檔案用到的語法 |
+| `tools/shoot_maps.js` | 用 Playwright 把每天的手繪地圖截成 `assets/print/dayN.png`（2 倍解析度，動畫先跑完） |
+| `tools/make_docx.py` | 只用標準庫直接寫 OOXML 打包成 `.docx`，**不必裝 python-docx** |
+
+### 版面
+
+A4、邊界 1.8cm、內文 13pt（比網頁大一級）、微軟正黑體。封面 → 同行者與住宿 → 每天一頁
+（大標、今晚住、地圖、時刻表、提醒）→ 訂票 → 車票 → 出發前確認 → 行李 → 三頁空白筆記。
+
+`MAP_W`／`MAP_H1`／`MAP_H2` 控制地圖大小。**改這幾個數字會連動總頁數**，一天有兩張圖時
+用 `MAP_H2`（矮一點）才塞得進同一頁。
+
+### 寫 OOXML 踩過的坑
+
+這四個都不會讓 XML 變成不合法，但 Word 會直接拒收整份檔案，或印出來很醜：
+
+1. **`w:pPr` 的子元素有固定順序**：`keepLines` → `pageBreakBefore` → `pBdr` → `shd` →
+   `spacing` → `ind` → `jc`。順序錯了 Word 開不起來（LibreOffice 也會說 source file could not be loaded）。
+2. **不要用「只有分頁符號的空段落」換頁**。前一頁剛好填滿時，那個段落自己會佔掉一整頁，
+   印出來就是一張全白的紙。改成把 `<w:pageBreakBefore/>` 掛在下一段的 `pPr` 上。
+3. **表格後面那個空段落**同理。兩張表之間需要它隔開，但後面接分頁時要拿掉。
+4. **連續的空段落不能拿來畫筆記橫線**——Word 會把「框線相同的相鄰段落」合併成一個大框，
+   十六條線會變成一個框。要用表格，只開 `bottom` 與 `insideH`。
+
+### 怎麼檢查
+
+沙箱裡用 LibreOffice 轉 PDF 再看：
+
+```bash
+soffice -env:UserInstallation=file:///tmp/lo --headless --norestore \
+        --convert-to pdf --outdir /tmp/pdf 台灣行程.docx
+pdftotext -layout /tmp/pdf/台灣行程.pdf -   # 逐頁看內容，找出「只有頁碼」的空白頁
+```
+
+`libreoffice-core` 單獨裝是**打不開 .docx 的**（會報 source file could not be loaded，
+跟檔案本身無關），要有 `libreoffice-writer`。
