@@ -151,8 +151,12 @@ td.done{color:var(--matsu);font-weight:600}
    rmap 放在 mapwrap 裡面（不是整張卡），尺寸就等於 SVG 的尺寸，
    Leaflet 一開始就拿得到寬高，不必事後 invalidateSize 補救。 */
 .mapwrap{position:relative}
+/* 手繪 SVG 要自己定位，否則它是「非定位的行內元素」，繪製順序在
+   position:absolute 的 .rmap 之前——圖磚載不到時會被 .rmap 的底色整片蓋掉，
+   變成一張空白的圖。踩過一次，改動這幾行前先想清楚繪製順序。 */
+.mapwrap>svg{position:relative;z-index:1}
 .rmap{position:absolute;inset:0;z-index:0;background:var(--paper2)}
-.mapcard.real .rmap{z-index:1}
+.mapcard.real .rmap{z-index:2}
 .mapcard.real>.mapwrap>svg{visibility:hidden}
 /* 簡化／重播是手繪圖的功能，切到真實地圖就沒有意義 */
 .mapcard.real .poitog,.mapcard.real .replay{display:none}
@@ -306,14 +310,14 @@ footer p{max-width:70ch}
   <div class="wrap">
     <h2>行前一頁看懂</h2>
     <p class="lead">9/26 下午落地桃園，10/5 中午飛回北京，機票已訂。台北<b>九晚都住飯店</b>，其中七晚在茹曦酒店（松山區敦化北路 100 號），每天的地圖都從飯店出發、回到飯店；
-       只有 9/27 晚上烤肉會回家一趟。行程分成三段：<b>連假段（9/26–9/29）</b>在台北與近郊（9/27 信義區與雙層巴士、晚上在家烤肉；<b>9/28 整天到八斗子潮境</b>；9/29 傍晚上九份），
+       只有 9/27 晚上烤肉會回家一趟。行程分成三段：<b>連假段（9/26–9/29）</b>在台北與近郊（9/27 萬華與信義區、晚上在家烤肉；<b>9/28 整天到八斗子潮境</b>；9/29 傍晚上九份），
        <b>中段（9/30–10/2）</b>南下日月潭與溪頭三天兩夜（<b>已定案，住宿與日月潭／溪頭兩張套票都已訂</b>），<b>收尾段（10/3–10/4）</b>回台北走故宮與北投、大稻埕與剝皮寮，
        順便採買，<b>最後一晚在丰禾台北南京東店慶生（已訂位）</b>。要注意 9/25–9/28 是中秋連假，抵達後前三天各地都會擠；<b>跨縣市的長途移動排在 9/30 之後</b>，9/28 的八斗子雖然出台北，但走的是宜蘭線往瑞芳，不在連假回堵的方向上。</p>
     <h3>同行者</h3>
     <table>
       <tr><th>日期</th><th>行程</th><th>同行</th></tr>
       <tr><td>9/26（六）</td><td class="mute">桃園接機 → 台北</td><td><b>吳老弟</b>・<b>Nick</b></td></tr>
-      <tr><td>9/27（日）</td><td class="mute">國父紀念館・雙層巴士紅線・烤肉</td><td><b>吳老媽</b>・<b>吳老爸</b>・<b>Nick</b><span class="mute"> — 三位裡面來兩位</span></td></tr>
+      <tr><td>9/27（日）</td><td class="mute">龍山寺・剝皮寮・中正紀念堂・信義區・烤肉</td><td><b>老姊</b>・<b>姊夫</b></td></tr>
       <tr><td>9/28（一）</td><td class="mute">深澳線・八斗子潮境</td><td><b>吳老弟</b>・<b>吳老媽</b>・<b>吳老爸</b></td></tr>
       <tr><td>9/29（二）</td><td class="mute">九份黃昏與點燈</td><td><b>吳老媽</b>・<b>吳老爸</b></td></tr>
       <tr><td>9/30–10/2</td><td class="mute">日月潭・溪頭 三天兩夜</td><td><b>吳老媽</b>・<b>吳老爸</b><span class="mute"> — 三天都是同一組</span></td></tr>
@@ -327,12 +331,11 @@ footer p{max-width:70ch}
     <div class="one" style="margin-top:12px;border-left:4px solid var(--ai);background:#fff;border-radius:8px;padding:12px 16px">
       <b>累了就留在飯店休息，不用勉強。</b>　除了 <b>9/30–10/2 的三天兩夜</b>（那三天在南投，住宿與車票綁在一起，中途退出比較麻煩）之外，
       <b>其餘每一天都可以當天決定不出門、留在茹曦酒店休息</b>，行程不必照表走完。
-      台北這幾天都是從飯店出發、回到飯店，<b>少一個人不影響其他人的路線</b>，也不會有票或訂位作廢的問題
-      （只有 9/27 的雙層巴士是按人買票，其他幾天的台鐵、捷運、公車都是刷悠遊卡上車）。
+      台北這幾天都是從飯店出發、回到飯店，<b>少一個人不影響其他人的路線</b>，也不會有票或訂位作廢的問題——台北這幾天的台鐵、捷運、公車全都是刷悠遊卡上車，沒有一天要先買票。
       三天兩夜那三天也可以在飯店多睡、晚一點再出門——只是不建議整天不動，因為住宿一晚換一個地方。
     </div>
     <p class="mute" style="margin-top:10px">每一天的區塊上方也各自標了當天的同行者。
-      吳老弟在 9/26、9/28、10/3、10/4 四天；Nick 在 9/26、10/3 確定，9/27 是三位裡面來兩位；Ariel 只有 10/3。</p>
+      吳老弟在 9/26、9/28、10/3、10/4 四天；Nick 在 9/26 與 10/3；老姊與姊夫只有 9/27；Ariel 只有 10/3。</p>
     <h3>住宿</h3>
         <table>
           <tr><th>日期</th><th>地區</th><th>住哪</th><th>備註</th></tr>
@@ -355,21 +358,19 @@ footer p{max-width:70ch}
       <tr><th>景點</th><th>必選</th><th>需時</th><th>限制與備註</th><th>排在</th></tr>
       <tr><td><b>故宮</b></td><td>✔</td><td>3–4 小時</td><td class="mute">平常週一休館；10/3 是週六，正常開館，但人比平日多</td><td>10/3 上午</td></tr>
       <tr><td><b>九份</b></td><td>✔</td><td>傍晚起半天</td><td class="mute">去程 1062 松山直達；<b>9/29 日落 17:44</b>，要看黃昏須 15:45 出發。回程走 788 到瑞芳轉台鐵；<b>週二平日人較少</b></td><td>9/29 傍晚</td></tr>
-      <tr><td><b>國父紀念館</b></td><td>✔</td><td>約 1 小時</td><td class="mute"><b>館內整修至 2026 第 4 季、儀隊交接暫停</b>；戶外園區照常開放，走到松菸 10 分鐘</td><td>9/27 上午</td></tr>
-      <tr><td><b>中正紀念堂</b></td><td>✔</td><td>半天</td><td class="mute">園區散步為主（<b>戲劇院與音樂廳的演出不看</b>）；紅線有停靠</td><td>9/27 下午（紅線）</td></tr>
-      <tr><td>台北 101・四四南村</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">紅線終點站，時間來不及可以直接跳過</td><td>9/27 傍晚（紅線）</td></tr>
-      <tr><td>華山文創園區</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">紅線有停靠，紅磚廠房平地好走</td><td>9/27 下午（紅線）</td></tr>
+      <tr><td>國父紀念館・松菸</td><td class="mute">二選一</td><td>約 1 小時</td><td class="mute"><b>國父紀念館館內整修至 2026 第 4 季、儀隊交接暫停</b>，戶外園區照常開放；兩者走路 10 分鐘，<b>9/27 傍晚與台北 101 二選一</b></td><td>9/27 傍晚（或不去）</td></tr>
+      <tr><td><b>中正紀念堂</b></td><td>✔</td><td>半天</td><td class="mute">園區散步為主（<b>戲劇院與音樂廳的演出不看</b>）；捷運中正紀念堂站出口即到</td><td>9/27 下午</td></tr>
+      <tr><td>台北 101・四四南村</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">中正紀念堂搭淡水信義線 5 站直達；<b>與松菸二選一</b></td><td>9/27 傍晚</td></tr>
+      <tr><td class="mute">華山文創園區</td><td class="mute">可加</td><td>約 1 小時</td><td class="mute">9/27 改走萬華與信義之後就順路不到了；要去得另外排（捷運忠孝新生站）</td><td class="mute">未排入</td></tr>
       <tr><td>饒河街夜市</td><td class="mute">—</td><td>約 1 小時</td><td class="mute">台鐵松山站出站就是，九份回來剛好收在這裡</td><td>9/29 晚上</td></tr>
-      <tr><td>松菸</td><td class="mute">可換</td><td>約 1 小時</td><td class="mute">緊鄰國父紀念館，順路</td><td>9/27 傍晚</td></tr>
       <tr><td>北投</td><td class="mute">—</td><td>半天</td><td class="mute">從士林只要 4 站；圖書館、溫泉博物館、地熱谷、湯屋都在十分鐘腳程內</td><td>10/3 下午</td></tr>
       <tr><td>深澳線・八斗子潮境</td><td class="mute">可換</td><td>一整天</td><td class="mute">捷運 1 站接台鐵到瑞芳，換深澳線到最靠海的車站；兩次轉車都在同一站體內</td><td>9/28 全天</td></tr>
       <tr><td>大稻埕・剝皮寮</td><td class="mute">—</td><td>大半天</td><td class="mute">剝皮寮週一休，10/4 是週日沒問題</td><td>10/4 白天</td></tr>
-      <tr><td><b>雙層觀光巴士 紅線</b></td><td class="mute">交通</td><td>下午半天</td><td class="mute">日間票 NT 500；只搭紅線這一趟，<b>藍線不搭</b></td><td>9/27 下午</td></tr>
     </table>
-    <h3 style="margin-top:24px">雙層觀光巴士怎麼搭</h3>
-    <p class="one" style="margin:0">9/27 下午那一趟，一次串起華山、中正紀念堂、台北 101 與國父紀念館，
-       <b>買日間票 NT 500 就好</b>（不必買 2 日票 NT 1,200）。<b>藍線（故宮、士林官邸）已確定不搭</b>，
-       10/3 的故宮改搭捷運到士林再轉紅 30／304 公車上山。上層是露天座，十月天氣與下雨要納入考慮。</p>
+    <h3 style="margin-top:24px">9/27 怎麼走</h3>
+    <p class="one" style="margin:0">全程捷運，不搭觀光巴士。小巨蛋會合後往西到萬華（龍山寺、剝皮寮），午餐後往中正紀念堂，
+       傍晚再往信義區——<b>四個點都在捷運站出口旁邊，轉車都在西門一站解決</b>，中正紀念堂到台北 101 甚至不用轉車。
+       傍晚那格<b>台北 101 與松菸二選一</b>：選松菸的話，國父紀念館就在隔壁走路 10 分，等於兩個點一起看，而且離家更近。</p>
     <p class="mute" style="margin-top:8px">9/30–10/2 的三天兩夜已定案（日月潭＋溪頭，住宿已訂），拆成 Day 5、6、7 三天各自一頁。</p>
   </div>
 </section>
@@ -391,7 +392,6 @@ footer p{max-width:70ch}
           <li><span class="d done">已訂</span><span><b>日月潭溪頭套票</b>——涵蓋 9/30 台中→日月潭、10/1 日月潭→溪頭（6801）、10/2 溪頭→台中（6883）與 <b>10/1 溪頭入園券</b></span></li>
           <li><span class="d now">立刻</span><span><b>高鐵 9/30 台北 → 台中</b>（08:00 發車，對號座要先訂）</span></li>
           <li><span class="d now">立刻</span><span><b>高鐵 10/2 台中 → 台北</b>——A 案 14:30、B 案約 18:00；<b>買自由座就能當天再決定要不要繞草悟道</b></span></li>
-          <li><span class="d now">越早越好</span><span><b>雙層觀光巴士 9/27 日間票 NT 500</b>：上 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">官網</a> 線上訂票（也可上車現買，但連假上層露天座會滿）</span></li>
           <li><span class="d later">可先買</span><span>潮境智能海洋館全票 NT 300——線上先買可以少排一次隊，最後售票 16:00</span></li>
           <li><span class="d later">可先買</span><span>故宮全票 NT 350（10/3）——現場買也很快，人多時線上買較省時</span></li>
           <li><span class="d later">不用訂</span><span>台鐵區間車與深澳線（9/28）、九份 1062／788（9/29）、台北捷運——<b>全部刷悠遊卡上車即可</b></span></li>
@@ -425,7 +425,7 @@ footer p{max-width:70ch}
           <tr><td>桃園機場 → 家（9/26）</td><td>開車接機</td><td>約 50 分–1 小時</td><td class="mute">油資與過路費</td><td class="mute">連假傍晚國道 1 號可能塞</td></tr>
           <tr><td>家 → 桃園機場（10/5）</td><td>開車或叫車</td><td>約 50 分–1 小時</td><td class="mute">叫車前一晚先預約</td><td class="mute">黃金週期間現叫不一定有車</td></tr>
           <tr><td class="mute">（備案）機場 ⇄ 台北車站</td><td class="mute">機場捷運直達車</td><td class="mute">約 40 分</td><td class="mute">NT 160</td><td class="mute">現場刷悠遊卡，再轉捷運到南京三民</td></tr>
-          <tr><td>9/27 下午 市區環線</td><td>雙層觀光巴士 紅線</td><td>下午半天</td><td>NT 500</td><td>日間票 09:00–18:00 無限上下車・<a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">官網訂票</a></td></tr>
+          <tr><td>9/27 全天 市區</td><td>台北捷運</td><td>單趟 10–20 分</td><td class="mute">刷悠遊卡</td><td class="done">不用訂</td></tr>
           <tr><td>台北車站 → 桃園機場</td><td>機場捷運直達車</td><td>約 40 分</td><td>NT 160</td><td class="mute">同上</td></tr>
           <tr><td>9/30 台北 → 台中</td><td>高鐵</td><td>約 1 小時</td><td class="mute">08:00 發車</td><td class="mute">對號座要先訂</td></tr>
           <tr><td>9/30 高鐵台中 → 日月潭</td><td>台灣好行 6670A–F</td><td>約 1.5–2 小時</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂</td></tr>
@@ -554,8 +554,7 @@ const P={ // [lat,lng]
  bopiliao:[25.03685,121.50227], longshan:[25.03523,121.50122], palaceMuseum:[25.1023,121.5485], beitou:[25.13694,121.50253], beitouLib:[25.13635,121.50627], hell:[25.13780,121.50963], raohe:[25.0510,121.5770], shilin:[25.0880,121.5240], shilinStn:[25.09347,121.52619],
  dadaocheng:[25.0556,121.5100], dadaochengPier:[25.0566,121.5062], cks:[25.0346,121.5220], yongkang:[25.0331,121.5296],
  home:[25.056,121.567], illume:[25.05280,121.54857], xiaojudan:[25.05165,121.55200], njfx:[25.05229,121.54404], jiantan:[25.08424,121.52497],
- huashan:[25.04412,121.52964], daanPark:[25.03354,121.53531], cityHall:[25.04118,121.56526], zhongxiaofuxing:[25.04160,121.54379],
- xiaonanmen:[25.03567,121.51078], daan:[25.03282,121.54363], zhongxiaodunhua:[25.04149,121.54966], dongmen:[25.03393,121.52832],
+ huashan:[25.04412,121.52964], cityHall:[25.04118,121.56526],
  sysMemorial:[25.0402,121.5601], songyan:[25.0442,121.5606], zoo:[24.99828,121.57933],
  taoyuanHsr:[25.0130,121.2150], ruifang:[25.10893,121.80615], jiufen:[25.1097,121.8443], keelung:[25.1310,121.7390],
  // ── 9/28 深澳線・八斗子潮境（座標來源：台鐵官方站點、國土測繪中心地標、內政部門牌）
@@ -606,7 +605,6 @@ const MODE={
  car:{c:'#c8452e',w:3,label:'租車'},
  drive:{c:'#c8452e',w:3.2,d:'9 4',label:'開車／叫車'},
  coach:{c:'#c8452e',w:3.4,label:'專車接送'},
- sightbus:{c:'#c8452e',w:4,label:'雙層觀光巴士 紅線'},
  bus:{c:'#d9a21b',w:2.6,d:'7 5',label:'客運・公車'},
  ferry:{c:'#3c9a72',w:2.8,d:'9 5',label:'渡輪'},
  ropeway:{c:'#6f5aa0',w:2.6,d:'2 4',label:'纜車'},
@@ -619,8 +617,7 @@ const MODE={
 
 /* ── 4. KIND / NAMES：地圖上點的樣式與顯示名。
       類型：hotel（朱紅＋🛏）/ spot（櫻粉）/ station（白圈）/ air（黑菱形） */
-const KIND={hotel:{c:'#c8452e',r:6,t:'🛏'},spot:{c:'#e28aa5',r:5.5},station:{c:'#fff',r:4,s:'#2b4c7e'},air:{c:'#26292e',r:5.5,sq:true},
- bus:{c:'#c8452e',r:3.6,s:'#fff'}};   // bus＝雙層觀光巴士停靠站，小紅點
+const KIND={hotel:{c:'#c8452e',r:6,t:'🛏'},spot:{c:'#e28aa5',r:5.5},station:{c:'#fff',r:4,s:'#2b4c7e'},air:{c:'#26292e',r:5.5,sq:true}};
 const NAMES={
  tpe:['桃園機場','air'], tsa:['松山機場','air'], rmq:['台中機場','air'], khh:['高雄小港機場','air'], hun:['花蓮機場','air'],
  taipeiStn:['台北車站','station'], nangang:['南港','station'], banqiao:['板橋','station'], songshan:['松山','station'],
@@ -630,8 +627,7 @@ const NAMES={
 
  // 家只給概略位置（座標取 3 位小數、約百公尺級），不標地址也不標附近地標
  home:['家','spot'], illume:['茹曦酒店','hotel'], xiaojudan:['台北小巨蛋站','station'], njfx:['南京復興站','station'], jiantan:['劍潭','station'],
- huashan:['華山文創園區','spot'], daanPark:['大安森林公園','bus'], cityHall:['市政府','bus'], zhongxiaofuxing:['忠孝復興','bus'],
- xiaonanmen:['小南門','bus'], daan:['大安','bus'], zhongxiaodunhua:['忠孝敦化','bus'], dongmen:['永康街','bus'],
+ huashan:['華山文創園區','spot'], cityHall:['市政府站','station'],
  sysMemorial:['國父紀念館','spot'], songyan:['松山文創園區','spot'], zoo:['台北市立動物園','spot'],
  taoyuanHsr:['高鐵桃園','station'], ruifang:['瑞芳','station'], jiufen:['九份','spot'], keelung:['基隆廟口','spot'],
  njsm:['南京三民','station'], sijiaoting:['四腳亭','station'], ruifangOld:['瑞芳老街','spot'],
@@ -694,7 +690,7 @@ const CARDS={
   text:'台北保存最完整的老街區。迪化街一段兩側是巴洛克立面的南北貨行、中藥行與布行，近年進駐不少老屋改造的選物店和咖啡館。霞海城隍廟以求姻緣聞名，香火很旺。傍晚走到大稻埕碼頭看淡水河夕陽，河岸有貨櫃市集與露天座位。',
   chips:['老街全日','霞海城隍廟 約 06:00–19:30','北門站或大橋頭站步行 10 分']},
  huashan:{name:'華山1914文化創意產業園區',jp:'Huashan 1914',kind:'景點',url:'https://www.huashan1914.com/w/huashan1914/index',short:'日治酒廠改造的紅磚廠房聚落',wiki:['華山1914文化創意產業園區'],
-  text:'前身是 1914 年的日本芳釀社酒造工場，後來的台北酒廠，1987 年停產後閒置，整區的紅磚廠房、煙囪與四連棟保留下來改成文創園區。現在有展覽、獨立書店、選物店、電影院與餐廳，戶外草地常有市集。園區腹地平坦好走，逛一圈約一小時；雙層觀光巴士紅線在這裡設站。',
+  text:'前身是 1914 年的日本芳釀社酒造工場，後來的台北酒廠，1987 年停產後閒置，整區的紅磚廠房、煙囪與四連棟保留下來改成文創園區。現在有展覽、獨立書店、選物店、電影院與餐廳，戶外草地常有市集。園區腹地平坦好走，逛一圈約一小時。<b>目前沒有排進行程</b>——9/27 改走萬華與信義區之後就順路不到了，要去得另外排（捷運忠孝新生站步行 5 分）。',
   chips:['戶外園區全日・免費','館內展覽依各展資訊','捷運忠孝新生站步行 5 分']},
  sysMemorial:{name:'國父紀念館',jp:'Sun Yat-sen Memorial Hall',kind:'景點',url:'https://www.yatsen.gov.tw/',short:'翠湖借景 101；館內整修中，以園區為主',wiki:['國立國父紀念館'],
   text:'1972 年落成的黃瓦大屋頂建築。館外<b>中山公園的翠湖是拍台北 101 倒影的經典角度</b>，也是這天的重點；走到松菸只要 10 分鐘，適合排在同一天。<br><br><b>⚠ 館內正在整修</b>　「大會堂暨周邊設施升級工程」<b>自 2024/2/26 起施工，預計 2026 年第 4 季完工</b>，範圍包含大會堂、<b>大廳</b>、展場與典藏庫房。施工期間<b>館內不對外開放</b>，也就是<b>大廳的三軍儀隊交接（原本每整點一次）看不到</b>；<b>戶外的中山文化園區照常開放</b>。<br>我們 9/27 到訪時還在工期內（2026 第 3 季），所以這天請以翠湖與園區為主。<b>但完工時間很接近，出發前務必上<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>看最新公告</b>——若提前開館，儀隊交接是每整點一次（09:00–17:00）。',
@@ -707,10 +703,6 @@ const CARDS={
  qingjing:{name:'清境農場',jp:'Qingjing Farm',kind:'景點',short:'海拔 1,750 公尺的高山草原與綿羊秀',wiki:['清境農場'],
   text:'合歡山下的高山牧場，青青草原上放牧綿羊，假日有綿羊秀與馬術秀；高空觀景步道沿稜線架設，天氣好看得到中央山脈稜線。海拔約 1,750 公尺，比平地低 10 度以上，十月上山要帶外套。台中出發車程單程約 2–2.5 小時，山路彎多，會暈車的先吃藥。',
   chips:['青青草原 08:00–17:00','門票 NT 200','綿羊秀 例假日 09:30／14:30','馬術秀 每日 10:45／15:45']},
- sightseeingBus:{name:'臺北市雙層觀光巴士',jp:'Taipei Sightseeing Bus',kind:'交通',url:'https://taipeisightseeing.com.tw/',short:'紅藍兩線，效期內無限上下車',wiki:['臺北市雙層觀光巴士'],
-  text:'開放式頂層的雙層巴士，同一張票在效期內可無限次上下車。<b>紅線</b>從台北車站繞西門、萬華、龍山寺、中正紀念堂、永康街、大安森林公園、台北 101、市政府、國父紀念館、忠孝敦化、忠孝復興到華山，再回台北車站；<b>藍線</b>走北門、圓環、中山、晶華、北美館、圓山飯店、劍潭到士林官邸與故宮博物院。全車 57 席（上層 37 個露天座、10 個室內座，下層 9 席與 1 個無障礙座），車上有免費 WiFi、充電座與中英日韓泰五語導覽。<b>注意藍線只到故宮，不到淡水或北投。</b><br><br><b>票種</b>　4 小時票 300（限當天 18:00 前使用）、日間票 500（紅線 09:00–18:00、藍線 09:10–17:00）、夜間票 400（紅線 18:00–22:00）、1 日票 700、2 日票 1,200。<b>班距約 30–40 分</b>，比捷運疏，排行程要留等車時間。<br><b>購票</b>　官網 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">taipeisightseeing.com.tw</a> 可線上訂票，也能上車現買（收現金、信用卡與悠遊卡），上車掃 QR code。出發前再上官網對一次票價與時刻表。<br><b>當天查車到哪了</b>　市府的公車動態可以看<b>紅線的即時位置與到站時間</b>：<a href="https://ebus.gov.taipei/EBus/VsSimpleMap?routeid=0162003400&amp;gb=0" target="_blank" rel="noopener">臺北觀光巴士紅線路線圖</a>。班距 30–40 分，與其在站牌乾等，不如先看一下下一班還有多久。',
-  video:[{u:'https://www.youtube.com/watch?v=z1XSz7TgHFs',l:'<b>紅線</b>搭乘實錄——就是 9/27 要搭的這條，影片裡一路走到台北 101'}],
-  chips:['4 小時票 300／日間票 500／夜間票 400','1 日票 700／2 日票 1,200','班距約 30–40 分','官網可線上訂票','紅線即時動態可查']},
  hongbin:{name:'日月潭鴻賓大飯店',jp:'Hong Bin Hotel',kind:'住宿',url:'https://www.apollo-resort-hotel.com.tw/tw/index.html',short:'9/30 住這裡，就在水社商圈內',wiki:[],
   text:'9/30 晚上的住宿，位在<b>水社商圈</b>裡（名勝街一帶），<b>走路幾分鐘就到水社碼頭</b>——中午先寄放行李再出門搭船，下午玩完回來入住，不用拖著行李上船。<br><br>周邊就是水社的餐廳與商店街，晚餐走出門就有；隔天早上搭 6801 往溪頭的站牌也在附近。',
   chips:['9/30 一晚','水社商圈內','走路幾分鐘到水社碼頭','中午可先寄放行李']},
@@ -783,7 +775,7 @@ const CARDS={
 };
 
 /* ── 6. IMG：照片資料區。保持 {} 就好，之後用 tools/embed_images.py 把照片轉 base64 塞進來。 */
-const IMG={"cks":["assets/img/cks-1.jpg","assets/img/cks-2.jpg","assets/img/cks-3.jpg"],"taipei101":["assets/img/taipei101-1.jpg","assets/img/taipei101-2.jpg","assets/img/taipei101-3.jpg"],"beitouLib":["assets/img/beitouLib-1.jpg","assets/img/beitouLib-2.jpg","assets/img/beitouLib-3.jpg","assets/img/beitouLib-4.jpg"],"sightseeingBus":["assets/img/sightseeingBus-1.jpg","assets/img/sightseeingBus-2.jpg"],"xiangshanVC":["assets/img/xiangshanVC-1.jpg","assets/img/xiangshanVC-2.jpg"],"sysMemorial":["assets/img/sysMemorial-1.jpg","assets/img/sysMemorial-2.jpg"],"rongxuan":["assets/img/rongxuan-1.jpg","assets/img/rongxuan-2.jpg","assets/img/rongxuan-3.jpg"],"palaceMuseum":["assets/img/palaceMuseum-1.jpg","assets/img/palaceMuseum-2.jpg"],"dyropeway":"assets/img/dyropeway-1.jpg","chaojing":["assets/img/chaojing-1.jpg","assets/img/chaojing-2.jpg","assets/img/chaojing-3.jpg"],"huashan":["assets/img/huashan-1.jpg","assets/img/huashan-2.jpg","assets/img/huashan-3.jpg"],"songyan":["assets/img/songyan-1.jpg","assets/img/songyan-2.jpg","assets/img/songyan-3.jpg"],"iocean":["assets/img/iocean-1.jpg","assets/img/iocean-2.jpg","assets/img/iocean-3.jpg","assets/img/iocean-4.jpg"],"sunmoonlake":["assets/img/sunmoonlake-1.jpg","assets/img/sunmoonlake-2.jpg","assets/img/sunmoonlake-3.jpg"],"smlAccess":"assets/img/smlAccess-1.jpg","beitouMuseum":["assets/img/beitouMuseum-1.jpg","assets/img/beitouMuseum-2.jpg","assets/img/beitouMuseum-3.jpg"],"beitou":[{"t":"北投公園露天溫泉浴池","u":["assets/img/beitou-1.jpg"]},{"t":"瀧乃湯","u":["assets/img/beitou-2.jpg","assets/img/beitou-3.jpg","assets/img/beitou-4.jpg"]},{"t":"春天酒店大眾池","u":["assets/img/beitou-5.jpg","assets/img/beitou-6.jpg","assets/img/beitou-7.jpg","assets/img/beitou-8.jpg"]},{"t":"北投老爺酒店大眾池","u":["assets/img/beitou-9.jpg","assets/img/beitou-10.jpg"]},{"t":"水美溫泉會館","u":["assets/img/beitou-11.jpg","assets/img/beitou-12.jpg"]}],"jiufen":["assets/img/jiufen-1.jpg","assets/img/jiufen-2.jpg","assets/img/jiufen-3.jpg","assets/img/jiufen-4.jpg"],"bopiliao":["assets/img/bopiliao-1.jpg","assets/img/bopiliao-2.jpg","assets/img/bopiliao-3.jpg"],"dadaocheng":["assets/img/dadaocheng-1.jpg","assets/img/dadaocheng-2.jpg","assets/img/dadaocheng-3.jpg"],"xitouGuide":"assets/img/xitouGuide-1.jpg","xitou":[{"t":"園區","u":["assets/img/xitou-1.jpg","assets/img/xitou-2.jpg","assets/img/xitou-3.jpg"]},{"t":"大學池","u":["assets/img/xitou-4.jpg","assets/img/xitou-5.jpg"]},{"t":"神木","u":["assets/img/xitou-6.jpg","assets/img/xitou-7.jpg"]},{"t":"空中走廊","u":["assets/img/xitou-8.jpg"]}],"daxuepool":["assets/img/daxuepool-1.jpg","assets/img/daxuepool-2.jpg"],"xitouShenmu":["assets/img/xitouShenmu-1.jpg","assets/img/xitouShenmu-2.jpg"],"xitouSkywalk":"assets/img/xitouSkywalk-1.jpg","raohe":["assets/img/raohe-1.jpg","assets/img/raohe-2.jpg"],"hongbin":["assets/img/hongbin-1.jpg","assets/img/hongbin-2.jpg","assets/img/hongbin-3.jpg","assets/img/hongbin-4.jpg"],"shenao":["assets/img/shenao-1.jpg","assets/img/shenao-2.jpg","assets/img/shenao-3.jpg"],"xunri":[{"t":"館內","u":["assets/img/xunri-1.jpg","assets/img/xunri-2.jpg","assets/img/xunri-3.jpg"]},{"t":"房間","u":["assets/img/xunri-4.jpg","assets/img/xunri-5.jpg","assets/img/xunri-6.jpg","assets/img/xunri-7.jpg","assets/img/xunri-8.jpg","assets/img/xunri-9.jpg"]}]};
+const IMG={"cks":["assets/img/cks-1.jpg","assets/img/cks-2.jpg","assets/img/cks-3.jpg"],"taipei101":["assets/img/taipei101-1.jpg","assets/img/taipei101-2.jpg","assets/img/taipei101-3.jpg"],"beitouLib":["assets/img/beitouLib-1.jpg","assets/img/beitouLib-2.jpg","assets/img/beitouLib-3.jpg","assets/img/beitouLib-4.jpg"],"xiangshanVC":["assets/img/xiangshanVC-1.jpg","assets/img/xiangshanVC-2.jpg"],"sysMemorial":["assets/img/sysMemorial-1.jpg","assets/img/sysMemorial-2.jpg"],"rongxuan":["assets/img/rongxuan-1.jpg","assets/img/rongxuan-2.jpg","assets/img/rongxuan-3.jpg"],"palaceMuseum":["assets/img/palaceMuseum-1.jpg","assets/img/palaceMuseum-2.jpg"],"dyropeway":"assets/img/dyropeway-1.jpg","chaojing":["assets/img/chaojing-1.jpg","assets/img/chaojing-2.jpg","assets/img/chaojing-3.jpg"],"huashan":["assets/img/huashan-1.jpg","assets/img/huashan-2.jpg","assets/img/huashan-3.jpg"],"songyan":["assets/img/songyan-1.jpg","assets/img/songyan-2.jpg","assets/img/songyan-3.jpg"],"iocean":["assets/img/iocean-1.jpg","assets/img/iocean-2.jpg","assets/img/iocean-3.jpg","assets/img/iocean-4.jpg"],"sunmoonlake":["assets/img/sunmoonlake-1.jpg","assets/img/sunmoonlake-2.jpg","assets/img/sunmoonlake-3.jpg"],"smlAccess":"assets/img/smlAccess-1.jpg","beitouMuseum":["assets/img/beitouMuseum-1.jpg","assets/img/beitouMuseum-2.jpg","assets/img/beitouMuseum-3.jpg"],"beitou":[{"t":"北投公園露天溫泉浴池","u":["assets/img/beitou-1.jpg"]},{"t":"瀧乃湯","u":["assets/img/beitou-2.jpg","assets/img/beitou-3.jpg","assets/img/beitou-4.jpg"]},{"t":"春天酒店大眾池","u":["assets/img/beitou-5.jpg","assets/img/beitou-6.jpg","assets/img/beitou-7.jpg","assets/img/beitou-8.jpg"]},{"t":"北投老爺酒店大眾池","u":["assets/img/beitou-9.jpg","assets/img/beitou-10.jpg"]},{"t":"水美溫泉會館","u":["assets/img/beitou-11.jpg","assets/img/beitou-12.jpg"]}],"jiufen":["assets/img/jiufen-1.jpg","assets/img/jiufen-2.jpg","assets/img/jiufen-3.jpg","assets/img/jiufen-4.jpg"],"bopiliao":["assets/img/bopiliao-1.jpg","assets/img/bopiliao-2.jpg","assets/img/bopiliao-3.jpg"],"dadaocheng":["assets/img/dadaocheng-1.jpg","assets/img/dadaocheng-2.jpg","assets/img/dadaocheng-3.jpg"],"xitouGuide":"assets/img/xitouGuide-1.jpg","xitou":[{"t":"園區","u":["assets/img/xitou-1.jpg","assets/img/xitou-2.jpg","assets/img/xitou-3.jpg"]},{"t":"大學池","u":["assets/img/xitou-4.jpg","assets/img/xitou-5.jpg"]},{"t":"神木","u":["assets/img/xitou-6.jpg","assets/img/xitou-7.jpg"]},{"t":"空中走廊","u":["assets/img/xitou-8.jpg"]}],"daxuepool":["assets/img/daxuepool-1.jpg","assets/img/daxuepool-2.jpg"],"xitouShenmu":["assets/img/xitouShenmu-1.jpg","assets/img/xitouShenmu-2.jpg"],"xitouSkywalk":"assets/img/xitouSkywalk-1.jpg","raohe":["assets/img/raohe-1.jpg","assets/img/raohe-2.jpg"],"hongbin":["assets/img/hongbin-1.jpg","assets/img/hongbin-2.jpg","assets/img/hongbin-3.jpg","assets/img/hongbin-4.jpg"],"shenao":["assets/img/shenao-1.jpg","assets/img/shenao-2.jpg","assets/img/shenao-3.jpg"],"xunri":[{"t":"館內","u":["assets/img/xunri-1.jpg","assets/img/xunri-2.jpg","assets/img/xunri-3.jpg"]},{"t":"房間","u":["assets/img/xunri-4.jpg","assets/img/xunri-5.jpg","assets/img/xunri-6.jpg","assets/img/xunri-7.jpg","assets/img/xunri-8.jpg","assets/img/xunri-9.jpg"]}]};
 
 /* ── 7. DAYS：每天一個物件。下面兩天是「格式示範」，行程細節確定後整段換掉。
       {n:第幾天, date:'2/10', wd:'三', title:'A → B', sub:'副標一句', stay:'今晚飯店',
@@ -805,30 +797,32 @@ const DAYS=[
    {t:'20:00',i:'🍜',h:'第一餐（待定）'}
   ],cards:[],
   notes:{pack:'護照、悠遊卡（機場或超商可買）、換好的台幣。',other:'連假傍晚國道 1 號往台北可能塞，順的話 50 分、塞起來抓 1.5 小時。落地當天只排進飯店、吃飯、休息。',rain:'全程在車上，下雨不影響。'}},
- {n:2,date:'9/27',wd:'日',title:'國父紀念館・雙層巴士紅線',sub:'上午到國父紀念館，下午搭紅線繞一圈，傍晚回家烤肉',stay:'茹曦酒店',who:'吳老媽・吳老爸・Nick <span class="note">三位裡面來兩位</span>',
-  map:{pts:['illume','home','sysMemorial','songyan','huashan','cks','taipei101','zhongxiaodunhua','zhongxiaofuxing','taipeiStn','ximen','xiaonanmen','longshan','dongmen','daanPark','daan','cityHall'],
-   legs:[{a:'illume',b:'sysMemorial',mode:'bus'},{a:'sysMemorial',b:'songyan',mode:'walk'},{a:'songyan',b:'sysMemorial',mode:'walk',curve:.3},{a:'sysMemorial',b:'huashan',mode:'sightbus',via:['zhongxiaodunhua','zhongxiaofuxing']},{a:'huashan',b:'cks',mode:'sightbus',via:['taipeiStn','ximen','xiaonanmen','longshan']},{a:'cks',b:'taipei101',mode:'sightbus',via:['dongmen','daanPark','daan']},{a:'taipei101',b:'sysMemorial',mode:'sightbus',via:['cityHall']},{a:'sysMemorial',b:'home',mode:'bus',curve:.25},{a:'home',b:'illume',mode:'drive',curve:.22}],
-   kinds:{taipeiStn:'bus',ximen:'bus',longshan:'bus'},
-   labels:{illume:'t',home:'r',sysMemorial:'b',songyan:'t',huashan:'t',cks:'b',taipei101:'b',taipeiStn:'t',ximen:'l',xiaonanmen:'t',longshan:'b',dongmen:'t',daanPark:'b',daan:'t',zhongxiaodunhua:'b',zhongxiaofuxing:'t',cityHall:'t'},minSpan:.03},
+ {n:2,date:'9/27',wd:'日',title:'艋舺・中正紀念堂・信義',sub:'小巨蛋會合後全程捷運，從萬華的老街區一路走到信義區，傍晚回家烤肉',stay:'茹曦酒店',who:'老姊・姊夫',
+  map:{pts:['illume','xiaojudan','longshan','bopiliao','cks','taipei101','home'],
+   legs:[{a:'illume',b:'xiaojudan',mode:'walk'},
+    {a:'xiaojudan',b:'longshan',mode:'metro',via:['ximen']},
+    {a:'longshan',b:'bopiliao',mode:'walk'},
+    {a:'bopiliao',b:'cks',mode:'metro',via:['longshan','ximen']},
+    {a:'cks',b:'taipei101',mode:'metro'},
+    {a:'taipei101',b:'home',mode:'metro',via:['cityHall']},
+    {a:'home',b:'illume',mode:'drive',curve:.25}],
+   labels:{illume:'t',xiaojudan:'r',longshan:'b',bopiliao:'l',cks:'b',taipei101:'r',home:'t'},minSpan:.03},
   tl:[
-   {t:'09:30',i:'🚌',h:'從飯店搭公車到國父紀念館（約 1.8 公里、15 分）',move:1},
-   {t:'10:00',i:'🏛',h:'國父紀念館：翠湖拍 101 倒影、中山公園散步（<b>館內整修中，儀隊交接暫停</b>）'},
-   {t:'11:00',i:'🛍',h:'松菸、誠品生活松菸（走路 10 分，就在隔壁；<b>誠品 11:00 才開</b>，不用更早到）'},
-   {t:'12:30',i:'🍽',h:'附近午餐（松菸、市府路一帶選擇多）'},
-   {t:'13:30',i:'🎫',h:'回國父紀念館站上紅線，買日間票 NT 500'},
-   {t:'13:50',i:'🚌',h:'紅線 → 華山（經忠孝敦化、忠孝復興）',move:1},
-   {t:'14:00',i:'🧱',h:'華山文創園區：紅磚廠房、四連棟、戶外草地'},
-   {t:'15:00',i:'🚌',h:'紅線 → 中正紀念堂（經台北車站、西門、龍山寺）',move:1},
-   {t:'15:40',i:'🏛',h:'中正紀念堂：自由廣場、兩廳院（只看建築與園區）'},
-   {t:'16:20',i:'🚌',h:'紅線 → 台北 101（經永康街、大安森林公園）',move:1},
-   {t:'16:50',i:'🏙',h:'台北 101：商場或四四南村（走路 5 分）'},
-   {t:'17:30',i:'🚌',h:'紅線 → 回國父紀念館站（經松壽路口、市政府）',move:1},
-   {t:'17:50',i:'🚌',h:'搭公車回<b>家</b>（約 12 分）',move:1},
+   {t:'09:00',i:'🤝',h:'<b>台北小巨蛋站會合</b>（飯店走過去約 5 分、420 公尺）'},
+   {t:'09:20',i:'🚇',h:'小巨蛋 →（松山新店線）→ 西門 →（板南線）→ <b>龍山寺</b>（約 20 分，西門轉一次車）',move:1},
+   {t:'10:00',i:'⛩',h:'<b>龍山寺</b>：1738 年的艋舺古剎，前殿、正殿、後殿三進格局'},
+   {t:'11:00',i:'🧱',h:'<b>剝皮寮歷史街區</b>（龍山寺走路 5 分）：清代街屋、紅磚拱廊，整條有頂蓋'},
+   {t:'12:00',i:'🍽',h:'附近午餐：華西街、廣州街夜市一帶白天也有店，或走到西門町'},
+   {t:'13:40',i:'🚇',h:'龍山寺 →（板南線）→ 西門 →（松山新店線小南門線）→ <b>中正紀念堂</b>（約 15 分）',move:1},
+   {t:'14:00',i:'🏛',h:'<b>中正紀念堂</b>：自由廣場、兩廳院（只看建築與園區），園區平坦好走'},
+   {t:'15:40',i:'🚇',h:'中正紀念堂 →（淡水信義線）→ <b>台北 101／世貿</b>（5 站、約 12 分，<b>不用轉車</b>）',move:1},
+   {t:'16:00',i:'🏙',h:'<b>台北 101</b>（商場、四四南村走路 5 分）——<b>或改去松菸</b>，見下方備註'},
+   {t:'17:30',i:'🚇',h:'回<b>家</b>（101／世貿 → 市政府 → 捷運或公車回松山區，約 30 分）',move:1},
    {t:'18:30',i:'🍖',h:'中秋烤肉'},
    {t:'20:00',i:'🌕',h:'賞月'},
    {t:'21:30',i:'🚕',h:'回茹曦酒店（約 1.9 公里，叫車 10 分或公車 15 分）',move:1}
-  ],cards:['sightseeingBus','sysMemorial','songyan','huashan','cks','taipei101'],
-  notes:{pack:'<b>薄外套或雨具</b>——雙層巴士上層是露天座，全車 57 席裡室內只有 10 席。',tickets:'雙層觀光巴士<b>紅線日間票 NT 500</b>（09:00–18:00 無限上下車）。可上 <a href="https://taipeisightseeing.com.tw/" target="_blank" rel="noopener">官網</a>線上訂，也能上車現買（現金／信用卡／悠遊卡，上車掃 QR code）。',book:'<b>中秋烤肉食材前一天先買好</b>，當天很搶手。',other:'<ul><li><b>國父紀念館館內整修中</b>（2024/2 起，預計 2026 第 4 季完工），<b>儀隊交接暫停</b>，戶外中山公園照常開放——這天以翠湖與園區為主。完工時間很近，出發前查一下<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>。</li><li><b>班距約 30–40 分</b>，上表是「不用等車」的理想值。當天用市府公車動態查<a href="https://ebus.gov.taipei/EBus/VsSimpleMap?routeid=0162003400&amp;gb=0" target="_blank" rel="noopener">紅線即時到站</a>，不用在站牌乾等。</li><li><b>來不及就砍台北 101</b>——它排在最後，坐在車上繞回國父紀念館就好。</li><li>飯店到國父紀念館搭公車（約 1.8 公里）；捷運要轉兩次車，不划算。</li><li><b>晚上烤肉在家，不在飯店</b>，賞月後再叫車回飯店（約 10 分）。</li><li><b>累了就留在飯店休息</b>——只是<b>雙層巴士是按人買票</b>，這天出門的人數最好前一天就確定，票才好訂。</li></ul>',rain:'華山、中正紀念堂主堂、101 商場、松菸都有室內，主要影響的是坐上層的體驗。'}},
+  ],cards:['bopiliao','cks','taipei101','songyan','sysMemorial'],
+  notes:{pack:'<b>好走的鞋</b>——這天幾乎都在走，但全程平地、沒有階梯路段。龍山寺與剝皮寮都有遮蔽。',tickets:'<b>今天不用買任何票</b>：捷運刷悠遊卡上車，龍山寺、剝皮寮、中正紀念堂園區都免費；台北 101 只逛商場也不用門票（要上觀景台才另外買）。',book:'不用預約。',other:'<ul><li><b>全程捷運，不搭觀光巴士</b>——小巨蛋、龍山寺、中正紀念堂、台北 101 四個點都在捷運站出口旁邊，轉車都在西門一站解決。</li><li><b>16:00 那格二選一</b>：<b>台北 101</b> 從中正紀念堂搭淡水信義線直達、不用轉車；<b>松菸</b>則是搭板南線到國父紀念館站，<b>國父紀念館就在松菸隔壁走路 10 分</b>，選松菸等於兩個點一起看，而且離家更近、晚上回去更快。</li><li>剝皮寮<b>週一休</b>，9/27 是週日沒問題。</li><li><b>累了就留在飯店休息</b>——今天不用訂票也不用訂位，少一個人完全不影響，午餐後直接搭捷運回飯店也很方便（龍山寺到小巨蛋約 20 分）。</li><li>晚上烤肉在家，不在飯店，賞月後再叫車回飯店（約 10 分）。</li></ul>',rain:'龍山寺、剝皮寮、中正紀念堂主堂、台北 101 商場、松菸都有室內或有頂蓋，這天下雨影響很小。'}},
  {n:3,date:'9/28',wd:'一',title:'深澳線・八斗子潮境',sub:'捷運兩站接台鐵到瑞芳，換深澳線到最靠海的車站，走完潮境一圈',stay:'茹曦酒店',who:'吳老弟・吳老媽・吳老爸',
   map:{cap:'全日路線：台北小巨蛋 → 松山 → 瑞芳 → 深澳線',
    pts:['xiaojudan','songshan','ruifang','badouzi'],
@@ -1327,9 +1321,10 @@ function animateMap(svg){
     legs:[
       // 9/26 桃園機場 → 家（開車接機）
       {day:'9/26',a:'tpe',b:'illume',mode:'drive',via:['banqiao','taipeiStn']},
-      // 9/27 雙層觀光巴士紅線：家 → 國父紀念館 → 華山 → 中正紀念堂 → 台北 101 → 家
-      {day:'9/27',a:'illume',b:'cks',mode:'sightbus',via:['sysMemorial','zhongxiaofuxing','huashan']},
-      {day:'9/27',a:'cks',b:'home',mode:'sightbus',via:['dongmen','daanPark','taipei101','cityHall'],curve:.12},
+      // 9/27 全程捷運：飯店 → 龍山寺・剝皮寮 → 中正紀念堂 → 台北 101 → 家
+      {day:'9/27',a:'illume',b:'longshan',mode:'metro',via:['ximen']},
+      {day:'9/27',a:'longshan',b:'cks',mode:'metro',via:['ximen']},
+      {day:'9/27',a:'cks',b:'home',mode:'metro',via:['taipei101','cityHall'],curve:.1},
       {day:'9/27',a:'home',b:'illume',mode:'drive',curve:.25},
       // 9/28 深澳線：捷運到松山接台鐵到瑞芳，再換深澳線到八斗子
       {day:'9/28',a:'illume',b:'ruifang',mode:'tra',via:['songshan','nangang','sijiaoting']},

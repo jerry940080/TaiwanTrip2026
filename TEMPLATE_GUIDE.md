@@ -263,6 +263,10 @@ map2:{cap:'步行段：八斗子車站 → 潮境 → 海科館站', pts:[...], 
 - **CSS 選擇器要指名到 `.mapwrap` 的直接子元素。** `.mapcard svg{width:100%}`
   這種寫法會連 Leaflet 畫線用的 SVG 一起打到，線條會被撐成一整塊色塊；
   `.mapcard.real .mapwrap svg{visibility:hidden}` 則會把 Leaflet 的線一起藏掉。
+- **手繪 SVG 要自己 `position:relative;z-index:1`。** 它原本是非定位的行內元素，
+  繪製順序排在 `position:absolute` 的 `.rmap` 之前，圖磚載不到時會被 `.rmap`
+  的底色整片蓋掉，畫面變成一張空白的圖——而且 `visibility` 量起來還是 `visible`，
+  只看 computed style 抓不到。改這幾行之後要<b>實際截圖看</b>，或量截圖的顏色數。
 - **`curve` 要換算回經緯度。** 手繪版是在螢幕座標上彎（`legPath`），真實地圖得用
   `legLatLngs()` 換算，乘上 `cos(lat)` 補經度被壓縮的比例，兩張圖才會彎向同一邊。
 
