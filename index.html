@@ -92,6 +92,8 @@ section.block>.wrap>h2{font-size:28px;margin-bottom:18px}
 .pre{display:grid;grid-template-columns:1.1fr .9fr;gap:22px 36px}
 @media (max-width:860px){.pre{grid-template-columns:1fr}}
 .pre h3{font-size:18px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--ink)}
+#pre h3{font-size:18px;margin-bottom:10px}
+#pre table+h3,#pre p+h3{margin-top:38px}   /* 同行者與住宿兩張表之間留白 */
 table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top}
 th{font-weight:500;color:var(--ink3);font-size:12.5px}
@@ -375,54 +377,53 @@ footer p{max-width:70ch}
 <section class="block" id="tickets">
   <div class="wrap">
     <h2>車票與費用</h2>
-    <div class="pre">
-      <div>
-        <h3>車票與費用</h3>
-        <table>
-          <tr><th>區間</th><th>車種</th><th>時間</th><th>車資</th><th>訂票</th></tr>
-          <tr><td>桃園機場 → 家（9/26）</td><td>開車接機</td><td>約 50 分–1 小時</td><td class="mute">油資與過路費</td><td class="mute">連假傍晚國道 1 號可能塞</td></tr>
-          <tr><td>家 → 桃園機場（10/5）</td><td>開車或叫車</td><td>約 50 分–1 小時</td><td class="mute">叫車前一晚先預約</td><td class="mute">黃金週期間現叫不一定有車</td></tr>
-          <tr><td class="mute">（備案）機場 ⇄ 台北車站</td><td class="mute">機場捷運直達車</td><td class="mute">約 40 分</td><td class="mute">NT 160</td><td class="mute">現場刷悠遊卡，再轉捷運到南京三民</td></tr>
-          <tr><td>9/27 全天 市區</td><td>台北捷運</td><td>單趟 10–20 分</td><td class="mute">刷悠遊卡</td><td class="done">不用訂</td></tr>
-          <tr><td>台北車站 → 桃園機場</td><td>機場捷運直達車</td><td>約 40 分</td><td>NT 160</td><td class="mute">同上</td></tr>
-          <tr><td>9/30 台北 → 台中</td><td>高鐵</td><td>約 1 小時</td><td class="mute">08:00 發車</td><td class="mute">對號座要先訂</td></tr>
-          <tr><td>9/30 高鐵台中 → 日月潭</td><td>台灣好行 6670A–F</td><td>約 1.5–2 小時</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂</td></tr>
-          <tr><td>10/1 日月潭 → 溪頭</td><td>台灣好行 6801</td><td>約 2 小時（經水里）</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂・<b>班表仍要查</b></td></tr>
-          <tr><td>10/2 溪頭 → 高鐵台中</td><td>台灣好行 6883</td><td>約 1.5–2 小時</td><td class="mute">溪頭套票涵蓋</td><td>車票已含，<b>座位要另外預約</b>：<a href="https://ntbus.welcometw.com/tour/yj9k" target="_blank" rel="noopener">線上預約</a>，<b>9/27 起</b>（限乘車日前 5 天內）</td></tr>
-          <tr><td>10/2 台中 → 台北</td><td>高鐵</td><td>約 1 小時</td><td class="mute">約 14:30 發車</td><td class="mute">對號座要先訂</td></tr>
-          <tr><td>9/30 遊湖船・纜車・環湖公車</td><td>船＋纜車＋遊湖巴士</td><td>下午半天</td><td class="mute">日月潭套票涵蓋</td><td class="done">已訂</td></tr>
-          <tr><td>10/1 溪頭園區內</td><td>導覽解說電動車</td><td>約 1.5 小時</td><td>NT 1,400／hr</td><td class="mute">限 4 人・049-2612210 事先預約</td></tr>
-          <tr><td>9/28 松山 → 瑞芳</td><td>台鐵 自強／莒光</td><td>單程約 30 分</td><td class="mute">對號座</td><td><b>要先訂</b>（乘車日前 29 天開賣）</td></tr>
-          <tr><td>9/28 瑞芳 → 八斗子</td><td>台鐵 深澳線</td><td>單程約 13 分</td><td>NT 15 單程</td><td class="mute"><b>班距約 1 小時</b>，出發前查時刻表；無人站刷悠遊卡</td></tr>
-          <tr><td>9/29 松山 ⇄ 九份</td><td>1062 基隆客運</td><td>單程約 70–80 分</td><td class="mute">約 NT 95 單程・刷悠遊卡</td><td class="mute">離峰 15–20 分一班；<b>往台北末班要確認</b></td></tr>
-          <tr><td>9/28 八斗子 → 台北</td><td>客運</td><td>約 50–60 分</td><td class="mute">刷悠遊卡</td><td class="mute"><b>班次與終點站要查</b>（台北車站／圓山／市政府都有路線）</td></tr>
-          <tr><td>10/1 溪頭自然教育園區門票</td><td>入園券</td><td>—</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂</td></tr>
-        </table>
-        <div class="money">
-          <div><div class="big">NT —</div><div class="lab">每人・島內交通</div></div>
-          <div><div class="big">NT —</div><div class="lab">每人・住宿 9 晚</div></div>
-          <div><div class="big">NT —</div><div class="lab">每人・門票與餐食概算</div></div>
-        </div>
-      </div>
-      <div>
-        <h3>出發前要確認的事</h3>
-        <ul class="todo">
-          <li><span class="d now">最優先</span><span><b>查 10/1 台灣好行 6801（日月潭 → 溪頭）當天班表</b>——這是整趟最關鍵的接點，班次不多。<b>套票已經買了，但套票不保證班次</b>；09:00 出發只是推估，沒接上就得改走日月潭→水里→溪頭自己轉，或當天改住日月潭</span></li>
-          <li><span class="d now">最優先</span><span><b>查 10/2 台灣好行 6883（溪頭 → 高鐵台中）當天班表</b>——11:00 退房到 13:00 抵高鐵只有 2 小時，車程就要 1.5–2 小時，幾乎沒有緩衝；對不上就改晚一班高鐵。<b>班表看好之後 9/27 起要上 <a href="https://ntbus.welcometw.com/tour/yj9k" target="_blank" rel="noopener">南投客運線上預約</a>訂位</b></span></li>
-          <li><span class="d later">出發前</span><span><b>對一次兩張套票的實際內容與兌換規則</b>：車票是兌換券還是直接搭；在哪裡蓋日期／換票（南投客運高鐵台中站櫃台）；遊湖船與纜車是指定航班還是當日任搭</span></li>
-          <li><span class="d later">出發前</span><span>查 9/30 的日月潭遊湖船航班與<b>纜車最後上站時間</b></span></li>
-          <li><span class="d later">出發前</span><span><b>查國父紀念館是否已完工開館</b>——整修預計 2026 第 4 季完工，我們 9/27 到訪還在工期內，若提前開放就能看到整點的儀隊交接（<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>）</span></li>
-          <li><span class="d later">出發前</span><span><b>確認 9/28 海科館有沒有開</b>——規則是週一休館、但國定假日連續假期照常開館，9/28 是中秋連假最後一天，照規則會開，<b>但這是二手資料，務必自己對一次官網</b>。這天大半時間在館內，它沒開整天就要重排</span></li>
-          <li><span class="d later">出發前</span><span>查 <b>10/3 地熱谷是否休園</b>；順便確認<b>溫泉博物館 10/3（週六）有開</b>——公告寫「週一及國定例假日休館」，10/3 不是國定假日，照公告有開，但週六不像平日那樣完全沒有變數。故宮週六正常開館。</span></li>
-          <li><span class="d later">出發前</span><span><b>查 9/28 深澳線當天時刻表</b>（跟平溪線共用列車、班距約 1 小時）——瑞芳往八斗子那班要對準，錯過一班等一小時</span></li>
-          <li><span class="d later">出發前</span><span><b>查 9/28 傍晚八斗子回台北的客運班次</b>——幾條路線終點不同（台北車站、捷運圓山站、捷運市政府站），挑離飯店最近、時間最合的</span></li>
-          <li><span class="d later">出發前</span><span><b>確認忘憂谷步道開放狀況</b>——2024 年曾因颱風封閉、2026 年 4 月才重新開放，出發前再看一次基隆市政府的公告</span></li>
-          <li><span class="d later">出發前</span><span><b>確認 1062 從九份往台北的末班車時間</b>——我查到 21:10 與 21:30 兩個數字，來源不一致。我們 18:45 下山離末班很遠，正常不會有事，但還是去基隆客運官網或 iBus 對一次。備案是 788 下山到瑞芳（平日行駛到 22:00）再搭台鐵回松山</span></li>
-          <li><span class="d later">10/5 當天</span><span>回程遇上中國十一黃金週（10/1–7），桃園機場報到與北京端入境都會排隊，建議提早 3 小時到機場</span></li>
-        </ul>
-        <p class="mute" style="margin-top:8px">台鐵乘車日前 29 天 00:00 開放訂票；高鐵早鳥於乘車日前 28 天開賣，連假班次通常開賣當天就被掃光。</p>
-      </div>
+    <table>
+      <tr><th>區間</th><th>車種</th><th>時間</th><th>車資</th><th>訂票</th></tr>
+      <tr><td>桃園機場 → 家（9/26）</td><td>開車接機</td><td>約 50 分–1 小時</td><td class="mute">油資與過路費</td><td class="mute">連假傍晚國道 1 號可能塞</td></tr>
+      <tr><td>家 → 桃園機場（10/5）</td><td>開車或叫車</td><td>約 50 分–1 小時</td><td class="mute">叫車前一晚先預約</td><td class="mute">黃金週期間現叫不一定有車</td></tr>
+      <tr><td class="mute">（備案）機場 ⇄ 台北車站</td><td class="mute">機場捷運直達車</td><td class="mute">約 40 分</td><td class="mute">NT 160</td><td class="mute">現場刷悠遊卡，再轉捷運到南京三民</td></tr>
+      <tr><td>9/27 全天 市區</td><td>台北捷運</td><td>單趟 10–20 分</td><td class="mute">刷悠遊卡</td><td class="done">不用訂</td></tr>
+      <tr><td>台北車站 → 桃園機場</td><td>機場捷運直達車</td><td>約 40 分</td><td>NT 160</td><td class="mute">同上</td></tr>
+      <tr><td>9/30 台北 → 台中</td><td>高鐵</td><td>約 1 小時</td><td class="mute">08:00 發車</td><td class="mute">對號座要先訂</td></tr>
+      <tr><td>9/30 高鐵台中 → 日月潭</td><td>台灣好行 6670A–F</td><td>約 1.5–2 小時</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂</td></tr>
+      <tr><td>10/1 日月潭 → 溪頭</td><td>台灣好行 6801</td><td>約 2 小時（經水里）</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂・<b>班表仍要查</b></td></tr>
+      <tr><td>10/2 溪頭 → 高鐵台中</td><td>台灣好行 6883</td><td>約 1.5–2 小時</td><td class="mute">溪頭套票涵蓋</td><td>車票已含，<b>座位要另外預約</b>：<a href="https://ntbus.welcometw.com/tour/yj9k" target="_blank" rel="noopener">線上預約</a>，<b>9/27 起</b>（限乘車日前 5 天內）</td></tr>
+      <tr><td>10/2 台中 → 台北</td><td>高鐵</td><td>約 1 小時</td><td class="mute">約 14:30 發車</td><td class="mute">對號座要先訂</td></tr>
+      <tr><td>9/30 遊湖船・纜車・環湖公車</td><td>船＋纜車＋遊湖巴士</td><td>下午半天</td><td class="mute">日月潭套票涵蓋</td><td class="done">已訂</td></tr>
+      <tr><td>10/1 溪頭園區內</td><td>導覽解說電動車</td><td>約 1.5 小時</td><td>NT 1,400／hr</td><td class="mute">限 4 人・049-2612210 事先預約</td></tr>
+      <tr><td>9/28 松山 → 瑞芳</td><td>台鐵 自強／莒光</td><td>單程約 30 分</td><td class="mute">對號座</td><td><b>要先訂</b>（乘車日前 29 天開賣）</td></tr>
+      <tr><td>9/28 瑞芳 → 八斗子</td><td>台鐵 深澳線</td><td>單程約 13 分</td><td>NT 15 單程</td><td class="mute"><b>班距約 1 小時</b>，出發前查時刻表；無人站刷悠遊卡</td></tr>
+      <tr><td>9/29 松山 ⇄ 九份</td><td>1062 基隆客運</td><td>單程約 70–80 分</td><td class="mute">約 NT 95 單程・刷悠遊卡</td><td class="mute">離峰 15–20 分一班；<b>往台北末班要確認</b></td></tr>
+      <tr><td>9/28 八斗子 → 台北</td><td>客運</td><td>約 50–60 分</td><td class="mute">刷悠遊卡</td><td class="mute"><b>班次與終點站要查</b>（台北車站／圓山／市政府都有路線）</td></tr>
+      <tr><td>10/1 溪頭自然教育園區門票</td><td>入園券</td><td>—</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂</td></tr>
+    </table>
+    <div class="money">
+      <div><div class="big">NT —</div><div class="lab">每人・島內交通</div></div>
+      <div><div class="big">NT —</div><div class="lab">每人・住宿 9 晚</div></div>
+      <div><div class="big">NT —</div><div class="lab">每人・門票與餐食概算</div></div>
     </div>
+  </div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section class="block" id="check">
+  <div class="wrap">
+    <h2>出發前要確認的事</h2>
+    <ul class="todo">
+      <li><span class="d now">最優先</span><span><b>查 10/1 台灣好行 6801（日月潭 → 溪頭）當天班表</b>——這是整趟最關鍵的接點，班次不多。<b>套票已經買了，但套票不保證班次</b>；09:00 出發只是推估，沒接上就得改走日月潭→水里→溪頭自己轉，或當天改住日月潭</span></li>
+      <li><span class="d now">最優先</span><span><b>查 10/2 台灣好行 6883（溪頭 → 高鐵台中）當天班表</b>——11:00 退房到 13:00 抵高鐵只有 2 小時，車程就要 1.5–2 小時，幾乎沒有緩衝；對不上就改晚一班高鐵。<b>班表看好之後 9/27 起要上 <a href="https://ntbus.welcometw.com/tour/yj9k" target="_blank" rel="noopener">南投客運線上預約</a>訂位</b></span></li>
+      <li><span class="d later">出發前</span><span><b>對一次兩張套票的實際內容與兌換規則</b>：車票是兌換券還是直接搭；在哪裡蓋日期／換票（南投客運高鐵台中站櫃台）；遊湖船與纜車是指定航班還是當日任搭</span></li>
+      <li><span class="d later">出發前</span><span>查 9/30 的日月潭遊湖船航班與<b>纜車最後上站時間</b></span></li>
+      <li><span class="d later">出發前</span><span><b>查國父紀念館是否已完工開館</b>——整修預計 2026 第 4 季完工，我們 9/27 到訪還在工期內，若提前開放就能看到整點的儀隊交接（<a href="https://www.yatsen.gov.tw/" target="_blank" rel="noopener">官網</a>）</span></li>
+      <li><span class="d later">出發前</span><span><b>確認 9/28 海科館有沒有開</b>——規則是週一休館、但國定假日連續假期照常開館，9/28 是中秋連假最後一天，照規則會開，<b>但這是二手資料，務必自己對一次官網</b>。這天大半時間在館內，它沒開整天就要重排</span></li>
+      <li><span class="d later">出發前</span><span>查 <b>10/3 地熱谷是否休園</b>；順便確認<b>溫泉博物館 10/3（週六）有開</b>——公告寫「週一及國定例假日休館」，10/3 不是國定假日，照公告有開，但週六不像平日那樣完全沒有變數。故宮週六正常開館。</span></li>
+      <li><span class="d later">出發前</span><span><b>查 9/28 深澳線當天時刻表</b>（跟平溪線共用列車、班距約 1 小時）——瑞芳往八斗子那班要對準，錯過一班等一小時</span></li>
+      <li><span class="d later">出發前</span><span><b>查 9/28 傍晚八斗子回台北的客運班次</b>——幾條路線終點不同（台北車站、捷運圓山站、捷運市政府站），挑離飯店最近、時間最合的</span></li>
+      <li><span class="d later">出發前</span><span><b>確認忘憂谷步道開放狀況</b>——2024 年曾因颱風封閉、2026 年 4 月才重新開放，出發前再看一次基隆市政府的公告</span></li>
+      <li><span class="d later">出發前</span><span><b>確認 1062 從九份往台北的末班車時間</b>——我查到 21:10 與 21:30 兩個數字，來源不一致。我們 18:45 下山離末班很遠，正常不會有事，但還是去基隆客運官網或 iBus 對一次。備案是 788 下山到瑞芳（平日行駛到 22:00）再搭台鐵回松山</span></li>
+      <li><span class="d later">10/5 當天</span><span>回程遇上中國十一黃金週（10/1–7），桃園機場報到與北京端入境都會排隊，建議提早 3 小時到機場</span></li>
+    </ul>
+    <p class="mute" style="margin-top:8px">台鐵乘車日前 29 天 00:00 開放訂票；高鐵早鳥於乘車日前 28 天開賣，連假班次通常開賣當天就被掃光。</p>
   </div>
 </section>
 
@@ -1313,7 +1314,7 @@ function animateMap(svg){
 
 // strip nav
 const strip=document.getElementById('strip');
-strip.innerHTML='<a href="#pre">行前</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#booking">訂票・預約</a><a href="#tickets">車票・費用</a><a href="#food">美食・行李</a>';
+strip.innerHTML='<a href="#pre">行前</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#booking">訂票・預約</a><a href="#tickets">車票・費用</a><a href="#check">出發前確認</a><a href="#food">美食・行李</a>';
 
 // days
 // IMG[id] 可以是三種形狀：單一路徑、路徑陣列，或分組 [{t:'瀧乃湯',u:[...]}]。
