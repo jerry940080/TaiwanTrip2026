@@ -554,7 +554,12 @@ const P={ // [lat,lng]
  ximen:[25.04221,121.50849], taipei101:[25.03352,121.56460], ssnc:[25.03159,121.56218],
  bopiliao:[25.03685,121.50227], longshan:[25.03523,121.50122], palaceMuseum:[25.1023,121.5485], beitou:[25.13694,121.50253], beitouLib:[25.13635,121.50627], hell:[25.13780,121.50963], raohe:[25.0510,121.5770], shilin:[25.0880,121.5240], shilinStn:[25.09347,121.52619],
  dadaocheng:[25.0556,121.5100], dadaochengPier:[25.0566,121.5062], cks:[25.0346,121.5220], yongkang:[25.0331,121.5296],
- home:[25.056,121.567], illume:[25.05280,121.54857], sjnj:[25.05241,121.53307], xiaojudan:[25.05165,121.55200], njfx:[25.05229,121.54404], jiantan:[25.08424,121.52497],
+ home:[25.056,121.567], illume:[25.05280,121.54857],
+ // 捷運轉折點：座標取自本檔的 STATIONS。只拿來當 leg 的 via，讓線沿著路網走，
+ // 不會畫成行程點（行程點看 DAYS 的 pts）。
+ sjnj:[25.05241,121.53307], mZhongshan:[25.05268,121.52040], mBeimen:[25.04929,121.51028],
+ mXiaonanmen:[25.03567,121.51078], mDongmen:[25.03393,121.52832], mDaanPark:[25.03354,121.53531],
+ mDaan:[25.03282,121.54363], mXinyiAnhe:[25.03315,121.55323], xiaojudan:[25.05165,121.55200], njfx:[25.05229,121.54404], jiantan:[25.08424,121.52497],
  huashan:[25.04412,121.52964], cityHall:[25.04118,121.56526],
  sysMemorial:[25.0402,121.5601], songyan:[25.0442,121.5606], zoo:[24.99828,121.57933],
  taoyuanHsr:[25.0130,121.2150], ruifang:[25.10893,121.80615], jiufen:[25.1097,121.8443], keelung:[25.1310,121.7390],
@@ -627,7 +632,10 @@ const NAMES={
  dadaocheng:['大稻埕・迪化街','spot'], dadaochengPier:['大稻埕碼頭','spot'], cks:['中正紀念堂','spot'], yongkang:['永康街','spot'],
 
  // 家只給概略位置（座標取 3 位小數、約百公尺級），不標地址也不標附近地標
- home:['家','spot'], illume:['茹曦酒店','hotel'], sjnj:['松江南京站','station'], xiaojudan:['台北小巨蛋站','station'], njfx:['南京復興站','station'], jiantan:['劍潭','station'],
+ home:['家','spot'], illume:['茹曦酒店','hotel'],
+ sjnj:['松江南京站','station'], mZhongshan:['中山站','station'], mBeimen:['北門站','station'],
+ mXiaonanmen:['小南門站','station'], mDongmen:['東門站','station'], mDaanPark:['大安森林公園站','station'],
+ mDaan:['大安站','station'], mXinyiAnhe:['信義安和站','station'], xiaojudan:['台北小巨蛋站','station'], njfx:['南京復興站','station'], jiantan:['劍潭','station'],
  huashan:['華山文創園區','spot'], cityHall:['市政府站','station'],
  sysMemorial:['國父紀念館','spot'], songyan:['松山文創園區','spot'], zoo:['台北市立動物園','spot'],
  taoyuanHsr:['高鐵桃園','station'], ruifang:['瑞芳','station'], jiufen:['九份','spot'], keelung:['基隆廟口','spot'],
@@ -800,12 +808,17 @@ const DAYS=[
   notes:{pack:'護照、悠遊卡（機場或超商可買）、換好的台幣。',other:'連假傍晚國道 1 號往台北可能塞，順的話 50 分、塞起來抓 1.5 小時。落地當天只排進飯店、吃飯、休息。',rain:'全程在車上，下雨不影響。'}},
  {n:2,date:'9/27',wd:'日',title:'艋舺・中正紀念堂・信義',sub:'小巨蛋會合後全程捷運，從萬華的老街區一路走到信義區，傍晚回家烤肉',stay:'茹曦酒店',who:'老姊・姊夫',
   map:{pts:['illume','xiaojudan','longshan','bopiliao','cks','taipei101','home'],
+   // via 一路列出中間停靠的捷運站，畫出來才是沿著路網走，不是兩點拉直線
    legs:[{a:'illume',b:'xiaojudan',mode:'walk'},
-    {a:'xiaojudan',b:'longshan',mode:'metro',via:['ximen']},
+    // 松山新店線 小巨蛋→西門，西門轉板南線一站到龍山寺
+    {a:'xiaojudan',b:'longshan',mode:'metro',via:['njfx','sjnj','mZhongshan','mBeimen','ximen'],sharp:1},
     {a:'longshan',b:'bopiliao',mode:'walk'},
-    {a:'bopiliao',b:'cks',mode:'metro',via:['longshan','ximen']},
-    {a:'cks',b:'taipei101',mode:'metro'},
-    {a:'taipei101',b:'home',mode:'metro',via:['cityHall']},
+    // 板南線回西門，轉小南門線兩站到中正紀念堂
+    {a:'bopiliao',b:'cks',mode:'metro',via:['longshan','ximen','mXiaonanmen'],sharp:1},
+    // 淡水信義線直達，不用轉車
+    {a:'cks',b:'taipei101',mode:'metro',via:['mDongmen','mDaanPark','mDaan','mXinyiAnhe'],sharp:1},
+    // 回程：信義線到大安，轉文湖線到南京復興，再轉松山新店線回松山區
+    {a:'taipei101',b:'home',mode:'metro',via:['mXinyiAnhe','mDaan','njfx','xiaojudan','njsm'],sharp:1},
     {a:'home',b:'illume',mode:'drive',curve:.25}],
    labels:{illume:'t',xiaojudan:'r',longshan:'b',bopiliao:'l',cks:'b',taipei101:'r',home:'t'},minSpan:.03},
   tl:[
@@ -818,7 +831,7 @@ const DAYS=[
    {t:'14:00',i:'🏛',h:'<b>中正紀念堂</b>：自由廣場、兩廳院（只看建築與園區），園區平坦好走'},
    {t:'15:40',i:'🚇',h:'中正紀念堂 →（淡水信義線）→ <b>台北 101／世貿</b>（5 站、約 12 分，<b>不用轉車</b>）',move:1},
    {t:'16:00',i:'🏙',h:'<b>台北 101</b>（商場、四四南村走路 5 分）——<b>或改去松菸</b>，見下方備註'},
-   {t:'17:30',i:'🚇',h:'回<b>家</b>（101／世貿 → 市政府 → 捷運或公車回松山區，約 30 分）',move:1},
+   {t:'17:30',i:'🚇',h:'回<b>家</b>：101／世貿 →（淡水信義線）→ 大安 →（文湖線）→ 南京復興 →（松山新店線）→ 南京三民（約 30 分，轉兩次車）',move:1},
    {t:'18:30',i:'🍖',h:'中秋烤肉'},
    {t:'20:00',i:'🌕',h:'賞月'},
    {t:'21:30',i:'🚕',h:'回茹曦酒店（約 1.9 公里，叫車 10 分或公車 15 分）',move:1}
@@ -1104,7 +1117,12 @@ function smooth(pts){ // catmull-rom -> cubic bezier path
 function legPath(lg,pr){
   const keys=[lg.a,...(lg.via||[]),lg.b];
   const pts=keys.map(kk=>pr.pt(P[kk]));
-  if(pts.length>2) return smooth(pts);
+  // sharp:1＝用直線接每個 via，不要平滑曲線。捷運那種「沿著站點折過去」的路線
+  // 用曲線畫會在轉折處外擴（例如龍山寺→西門→小南門這種折返），直線才像路網。
+  // 真實地圖那層本來就是直線，加了這個兩張圖才一致。
+  if(pts.length>2) return lg.sharp
+    ? 'M'+pts.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join('L')
+    : smooth(pts);
   const [a,b]=pts;
   if(lg.curve){
     const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,dx=b[0]-a[0],dy=b[1]-a[1];
