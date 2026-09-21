@@ -360,7 +360,7 @@ footer p{max-width:70ch}
           <li><span class="d now">立刻</span><span><b>高鐵 9/30 台北 → 台中</b>（08:00 發車，對號座要先訂）</span></li>
           <li><span class="d now">立刻</span><span><b>高鐵 10/2 台中 → 台北</b>（約 14:30 發車，對號座要先訂）</span></li>
           <li><span class="d later">可先買</span><span>故宮全票 NT 350（<b>9/28</b>）——現場買也很快，人多時線上買較省時</span></li>
-          <li><span class="d later">不用訂</span><span>九份 1062／788（9/29）、台北捷運與公車（9/27・9/28・10/4）——<b>全部刷悠遊卡上車即可</b></span></li>
+          <li><span class="d later">不用訂</span><span>九份 1062／788（9/29）、台北捷運（9/27・10/4）——<b>全部刷悠遊卡上車即可</b>；9/28 全程開車</span></li>
         </ul>
       </div>
       <div>
@@ -387,7 +387,7 @@ footer p{max-width:70ch}
       <tr><td>桃園機場 → 茹曦酒店（9/26）</td><td>開車接機</td><td>約 50 分–1 小時</td><td class="mute">油資與過路費</td><td class="mute">連假傍晚國道 1 號可能塞</td></tr>
       <tr><td>兄弟大飯店 → 桃園機場（10/5）</td><td>開車或叫車</td><td>約 50 分–1 小時</td><td class="mute">叫車前一晚先預約</td><td class="mute">黃金週期間現叫不一定有車</td></tr>
       <tr><td class="mute">（備案）機場 ⇄ 台北車站</td><td class="mute">機場捷運直達車</td><td class="mute">約 40 分</td><td class="mute">NT 160</td><td class="mute">現場刷悠遊卡，再轉捷運到南京三民</td></tr>
-      <tr><td>台北市區（9/27・9/28・10/4）</td><td>台北捷運</td><td>單趟 10–20 分</td><td class="mute">刷悠遊卡</td><td class="done">不用訂</td></tr>
+      <tr><td>台北市區（9/27・10/4）</td><td>台北捷運</td><td>單趟 10–20 分</td><td class="mute">刷悠遊卡</td><td class="done">不用訂</td></tr>
       <tr><td>台北車站 → 桃園機場</td><td>機場捷運直達車</td><td>約 40 分</td><td>NT 160</td><td class="mute">同上</td></tr>
       <tr><td>9/30 台北 → 台中</td><td>高鐵</td><td>08:00 發車・約 1 小時</td><td class="mute">對號座，票價依高鐵公告</td><td class="mute">要先訂</td></tr>
       <tr><td>9/30 高鐵台中 → 日月潭</td><td>台灣好行 6670A–F</td><td>約 1.5–2 小時</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂</td></tr>
@@ -397,7 +397,7 @@ footer p{max-width:70ch}
       <tr><td>9/30 遊湖船・纜車・環湖公車</td><td>船＋纜車＋遊湖巴士</td><td>下午半天</td><td class="mute">日月潭套票涵蓋</td><td class="done">已訂</td></tr>
       <tr><td>10/1 溪頭園區內</td><td>導覽解說電動車</td><td>約 1.5 小時</td><td>NT 1,400／hr</td><td class="mute">限 4 人・049-2612210 事先預約</td></tr>
       <tr><td>9/29 松山 ⇄ 九份</td><td>1062 基隆客運</td><td>單程約 70–80 分</td><td class="mute">約 NT 95 單程・刷悠遊卡</td><td class="mute">離峰 15–20 分一班；<b>往台北末班要確認</b></td></tr>
-      <tr><td>9/28 士林 ⇄ 故宮</td><td>公車 紅30</td><td>單程約 15 分</td><td class="mute">刷悠遊卡</td><td class="mute">低地板，直達正館門口</td></tr>
+      <tr><td>9/28 飯店 → 故宮 → 新北投 → 飯店</td><td>開車（吳老弟）</td><td>三段各約 20–35 分</td><td class="mute">油資與停車費</td><td class="mute">故宮廣場停車場／捷運新北投站停車場</td></tr>
           <tr><td>9/28 故宮門票</td><td>全票</td><td>—</td><td>NT 350</td><td class="mute">現場買即可</td></tr>
           <tr><td>10/1 溪頭自然教育園區門票</td><td>入園券</td><td>—</td><td class="mute">溪頭套票涵蓋</td><td class="done">已訂</td></tr>
     </table>
@@ -820,12 +820,12 @@ const DAYS=[
  {n:3,date:'9/28',wd:'一',title:'故宮・北投溫泉',sub:'上午故宮慢慢看，下午捷運直接到新北投泡湯',stay:'茹曦酒店',who:'吳老弟・老姊・姊夫',
   // 總覽圖只畫「飯店 → 故宮 → 北投」三個點——新北投那四個點全擠在一公里內，
   // 放進來標籤會疊成一團，細部留給下面的 map2。
-  map:{cap:'全日路線：飯店 → 士林・故宮 → 新北投',
+  map:{cap:'全日路線：飯店 → 故宮 → 新北投，全程吳老弟開車',
    pts:['illume','palaceMuseum','beitou'],
-   legs:[{a:'illume',b:'palaceMuseum',mode:'metro',via:['njfx','sjnj','mZhongshan','jiantan','shilinStn'],sharp:1},
-    // 紅30 回士林站，再搭淡水信義線往北到北投、轉新北投支線
-    {a:'palaceMuseum',b:'beitou',mode:'metro',via:['shilinStn'],sharp:1},
-    {a:'beitou',b:'illume',mode:'metro',via:['jiantan','mZhongshan','sjnj','njfx'],sharp:1,curve:.12}],
+   // 這天吳老弟開車，三段都是自駕，不走捷運路網
+   legs:[{a:'illume',b:'palaceMuseum',mode:'drive'},
+    {a:'palaceMuseum',b:'beitou',mode:'drive'},
+    {a:'beitou',b:'illume',mode:'drive',curve:.22}],
    labels:{illume:'b',palaceMuseum:'r',beitou:'t'},minSpan:.09},
   map2:{cap:'新北投：四個點都在十分鐘腳程內',
    pts:['beitou','beitouLib','beitouMuseum','hell'],
@@ -834,18 +834,19 @@ const DAYS=[
     {a:'beitouMuseum',b:'hell',mode:'walk'}],
    labels:{beitou:'l',beitouLib:'b',beitouMuseum:'b',hell:'r'},minSpan:.012},
   tl:[
-   {t:'08:30',i:'🚇',h:'飯店出發：捷運小巨蛋 → 中山轉淡水信義線 → <b>士林站</b>（約 30 分）',move:1},
-   {t:'09:10',i:'🚌',h:'士林站 1 號出口轉 <b>紅30</b>（低地板公車，直達故宮正館門口，約 15 分）',move:1},
+   {t:'09:00',i:'🚗',h:'<b>吳老弟開車從飯店出發</b>往故宮（約 7 公里、20–25 分）',move:1},
+   {t:'09:25',i:'🅿',h:'停<b>故宮廣場停車場</b>（正館前）或至善公園停車場，走幾步就到入口'},
    {t:'09:30',i:'🏛',h:'<b>故宮博物院</b>：常設展慢慢看，留 3 小時。展間全程室內、有冷氣，累了館內有座位區'},
-   {t:'12:30',i:'🍽',h:'午餐（故宮晶華，或搭紅30 回士林站一帶）'},
-   {t:'14:00',i:'🚇',h:'紅30 回士林站 →（淡水信義線）→ 北投 → 轉<b>新北投支線</b>一站（約 25 分）',move:1},
+   {t:'12:30',i:'🍽',h:'午餐（故宮晶華就在館內，開車也可以下山到士林一帶吃）'},
+   {t:'14:00',i:'🚗',h:'開車往<b>新北投</b>（約 8 公里、20–25 分）',move:1},
+   {t:'14:25',i:'🅿',h:'停<b>捷運新北投站停車場</b>或<b>大豐公園地下停車場</b>——北投公園一帶路邊車位很少，直接停停車場比較省事'},
    {t:'14:30',i:'🌳',h:'<b>北投公園</b>散步：溪流、老樹與日式石橋，從捷運站門口一路延伸上去，全程平緩'},
    {t:'15:00',i:'📚',h:'<b>北投圖書館</b>（外觀）與<b>溫泉博物館</b>——兩棟都在公園裡，走路三分鐘'},
    {t:'16:00',i:'♨',h:'<b>泡湯</b>：湯屋（包廂、可單人，<b>先訂好時段</b>）或公共大眾池，公園一帶走路都到得了'},
    {t:'18:00',i:'🍜',h:'新北投一帶晚餐'},
-   {t:'19:30',i:'🚇',h:'捷運回飯店：新北投 → 北投 → 中山轉松山新店線 → 小巨蛋（約 50 分）',move:1}
+   {t:'19:30',i:'🚗',h:'開車回飯店（約 14 公里、30–35 分）',move:1}
   ],cards:['palaceMuseum','beitou','beitouLib','beitouMuseum'],
-  notes:{pack:'<b>好走的鞋</b>——故宮是久站不是走路，三小時下來腳會酸；館內冷氣強，<b>帶件薄外套</b>。泡湯要帶<b>毛巾與換洗衣物</b>（湯屋多半有提供，大眾池不一定）。',tickets:'故宮全票 NT 350，現場買即可。捷運與公車刷悠遊卡。泡湯費用視湯屋或大眾池而定，現場付。',book:'故宮不用預約。<b>湯屋可以先訂時段</b>——訂好就不用現場排隊，這天下午的重點就是它；公共大眾池是現場買票，不用訂。',other:'<ul><li><b>9/28 是週一，又是教師節連假的最後一天——這天最大的變數就是「有沒有開」。</b>出發前務必自己對過官網：故宮的週一開館狀況，以及<b>北投的溫泉博物館與地熱谷（兩邊的公告都寫週一與國定假日休館，9/28 兩個條件都中了，很可能是關的）</b>。</li><li><b>就算兩個館都沒開，這天還是成立</b>——泡湯是商家、照常營業；北投公園、圖書館外觀、溪流步道都在戶外，隨時可以走。真的不放心就跟 10/3 對調，10/3 是週六，三個館都會開。</li><li><b>搭紅30，不要搭別條。</b>士林站往故宮的公車裡<b>只有紅30 直接停到正館門口</b>，其他都停路口、還要走 5 分緩坡。</li><li>不想轉車就<b>直接叫車</b>：飯店到故宮約 20–25 分。</li></ul>',rain:'故宮全程室內、泡湯也在室內，這天下雨幾乎沒影響——北投公園的散步改短一點就好。'}},
+  notes:{pack:'<b>好走的鞋</b>——故宮是久站不是走路，三小時下來腳會酸；館內冷氣強，<b>帶件薄外套</b>。泡湯要帶<b>毛巾與換洗衣物</b>（湯屋多半有提供，大眾池不一定）。',tickets:'故宮全票 NT 350，現場買即可。<b>這天全程開車，不用悠遊卡</b>——要花的是油錢與兩次停車費。泡湯費用視湯屋或大眾池而定，現場付。',book:'故宮不用預約。<b>湯屋可以先訂時段</b>——訂好就不用現場排隊，這天下午的重點就是它；公共大眾池是現場買票，不用訂。',other:'<ul><li><b>9/28 是週一，又是教師節連假的最後一天——這天最大的變數就是「有沒有開」。</b>出發前務必自己對過官網：故宮的週一開館狀況，以及<b>北投的溫泉博物館與地熱谷（兩邊的公告都寫週一與國定假日休館，9/28 兩個條件都中了，很可能是關的）</b>。</li><li><b>就算兩個館都沒開，這天還是成立</b>——泡湯是商家、照常營業；北投公園、圖書館外觀、溪流步道都在戶外，隨時可以走。真的不放心就跟 10/3 對調，10/3 是週六，三個館都會開。</li><li><b>這天全程吳老弟開車</b>，三段都不長：飯店→故宮約 7 公里、故宮→新北投約 8 公里、新北投→飯店約 14 公里，市區時段各抓 20–35 分。</li><li><b>停車先想好。</b>故宮正館前有<b>故宮廣場停車場</b>，旁邊還有至善公園停車場；新北投一帶<b>路邊車位很少</b>，直接停<b>捷運新北投站停車場</b>或<b>大豐公園地下停車場</b>，走到北投公園都在幾分鐘內。</li><li><b>開車的好處是行李與外套可以丟車上</b>——故宮館內冷氣強、北投泡完湯會熱，衣服可以隨時換。</li></ul>',rain:'故宮全程室內、泡湯也在室內，而且是開車門到門，這天下雨幾乎沒影響——北投公園的散步改短一點就好。'}},
  {n:4,date:'9/29',wd:'二',title:'松山・九份：泡茶等日落',sub:'上午松山慈祐宮與車站周邊，下午客運直達九份泡茶看海，日落點燈後搭同一條線回饒河街吃夜市',stay:'茹曦酒店',who:'吳老媽・吳老爸',
   map:{cap:'全日路線：松山 ⇄ 九份，來回都搭 1062',
    pts:['illume','raohe','ruifang','jiufen'],
@@ -1303,10 +1304,10 @@ function animateMap(svg){
       {day:'9/27',a:'taipei101',b:'songyan',mode:'metro',via:['xiangshan','mDaan','mZxfx']},
       {day:'9/27',a:'songyan',b:'home',mode:'drive'},
       {day:'9/27',a:'home',b:'illume',mode:'drive',curve:.25},
-      // 9/28 上午故宮、下午新北投泡湯，全程捷運＋紅30
-      {day:'9/28',a:'illume',b:'palaceMuseum',mode:'metro',via:['njfx','mZhongshan','jiantan','shilinStn']},
-      {day:'9/28',a:'palaceMuseum',b:'beitou',mode:'metro',via:['shilinStn']},
-      {day:'9/28',a:'beitou',b:'illume',mode:'metro',via:['jiantan','mZhongshan'],curve:.12},
+      // 9/28 上午故宮、下午新北投泡湯，全程吳老弟開車
+      {day:'9/28',a:'illume',b:'palaceMuseum',mode:'drive'},
+      {day:'9/28',a:'palaceMuseum',b:'beitou',mode:'drive'},
+      {day:'9/28',a:'beitou',b:'illume',mode:'drive',curve:.22},
       // 9/29 九份看黃昏與夜景
       {day:'9/29',a:'illume',b:'jiufen',mode:'bus',via:['ruifang']},
       // 9/30 南下——畫面跟著移到南投
