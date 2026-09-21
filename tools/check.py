@@ -11,8 +11,9 @@
   4. legs 的 mode 都在 MODE 裡（漏了圖例會炸）
   5. P 裡有座標但 NAMES 沒給顯示名的點（會顯示成英文 key）
   6. 座標有沒有掉出台灣範圍（打錯經緯度最常見的症狀）
+  7. simple.html（大字版）的日期、星期、住宿有沒有跟 index.html 對上
 """
-import re, sys
+import os, re, sys
 
 TW = (21.5, 25.5, 119.3, 122.3)  # lat0, lat1, lng0, lng1
 
@@ -112,7 +113,55 @@ def main():
         print("\n".join("!! " + b for b in bad))
         sys.exit(1 if any(not b.startswith("提醒") for b in bad) else 0)
     ndays = len(re.findall(r"\{n:'?[\d-]+", days))  # n 可能是 5 或 '5-7'（合併多天的區塊）
-    print(f"OK：{len(pkeys)} 個地點、{len(ckeys)} 張卡片、{ndays} 天行程，沒有發現問題")
+    msg = f"OK：{len(pkeys)} 個地點、{len(ckeys)} 張卡片、{ndays} 天行程，沒有發現問題"
+
+    drift = check_simple(days, os.path.join(os.path.dirname(path) or ".", "simple.html"))
+    if drift:
+        print("\n".join("!! " + d for d in drift))
+        print(msg)
+        sys.exit(1)
+    print(msg)
+
+
+def check_simple(days, simple_path):
+    """大字版是人工濃縮的，不是自動產生——所以只對照最容易忘記同步的骨架。
+
+    比對 index.html 的 DAYS 與 simple.html 的 D：天數、date、wd、stay。
+    stay 在大字版會多寫地區（「茹曦酒店（台北）」），所以只檢查有沒有包含。
+    """
+    if not os.path.exists(simple_path):
+        return []
+    big = open(simple_path, encoding="utf-8").read()
+    src = block(big, "D", "[", "]")
+    if not src:
+        return ["simple.html 裡找不到 const D=[...]，大字版沒辦法對照"]
+
+    def rows(text, keys):
+        out = []
+        for m in re.finditer(r"\{n:(\d+),", text):
+            seg = text[m.start():text.find("{n:", m.end()) if "{n:" in text[m.end():] else len(text)]
+            r = {"n": m.group(1)}
+            for k in keys:
+                g = re.search(k + r"\s*:\s*'((?:[^'\\]|\\.)*)'", seg)
+                r[k] = g.group(1) if g else ""
+            out.append(r)
+        return out
+
+    a = rows(days, ["date", "wd", "stay"])
+    b = rows(src, ["date", "wd", "stay"])
+    bad = []
+    if len(a) != len(b):
+        return [f"天數對不上：index.html 有 {len(a)} 天、simple.html 有 {len(b)} 天"]
+    for x, y in zip(a, b):
+        for k, lab in (("date", "日期"), ("wd", "星期")):
+            if x[k] != y[k]:
+                bad.append(f"第 {x['n']} 天的{lab}不一致：index.html 是 {x[k]}、simple.html 是 {y[k]}")
+        sa, sb = x["stay"].strip("—- "), y["stay"].strip("—- ")
+        if sa and sa not in sb:
+            bad.append(f"第 {x['n']} 天的住宿不一致：index.html 是「{sa}」，simple.html 寫「{sb or '（空白）'}」")
+        if not sa and sb:
+            bad.append(f"第 {x['n']} 天 index.html 沒有住宿，simple.html 卻寫了「{sb}」")
+    return bad
 
 
 if __name__ == "__main__":
