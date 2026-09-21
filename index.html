@@ -1211,7 +1211,9 @@ function poiBg(pr,bbox,detail){
   const cy=(bbox.la0+bbox.la1)/2, cx=(bbox.lo0+bbox.lo1)/2;
   const vis=POIS.filter(t=>inBox(t[1],t[2],bbox,-.002))
                 .sort((a,b)=>Math.hypot(a[1]-cy,a[2]-cx)-Math.hypot(b[1]-cy,b[2]-cx));
-  return '<g class="poi">'+placeLabels(vis,pr,9.5).slice(0,POI_MAX).map(([n,q])=>
+  // 標籤要整個落在畫面內才畫：地名是靠右排的，估一下字寬，會被裁掉就不要
+  const fits=([n,q])=>q[0]>4 && q[1]>10 && q[1]<H-6 && q[0]+4+n.length*9.5<W-4;
+  return '<g class="poi">'+placeLabels(vis,pr,9.5).filter(fits).slice(0,POI_MAX).map(([n,q])=>
     `<g transform="translate(${q[0].toFixed(1)},${q[1].toFixed(1)})"><circle r="1.8" fill="#c0b69e"/>`
     +`<text x="4" y="3" font-size="9.5" fill="#9a917c" stroke="#ece6d8" stroke-width="2.5" paint-order="stroke" stroke-linejoin="round">${n}</text></g>`
   ).join('')+'</g>';
