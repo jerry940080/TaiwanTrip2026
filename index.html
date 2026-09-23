@@ -105,6 +105,9 @@ th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertic
 th{font-weight:500;color:var(--ink3);font-size:12.5px}
 td b{font-weight:500}
 .mute{color:var(--ink3);font-size:12.5px}
+/* 巴士那節的填寫表：印出來要有地方寫字 */
+.fill td{padding-top:16px;padding-bottom:16px}
+.fill .blank{display:block;min-width:56px;height:20px;border-bottom:1.5px solid var(--ink3)}
 .money{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
 .money div{flex:1;min-width:150px;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:12px 14px}
 .money .big{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ai)}
@@ -413,7 +416,6 @@ footer p{max-width:70ch}
         <h3>要預約的事項</h3>
         <ul class="todo">
           <li><span class="d now">要訂位</span><span><b>10/3 兩餐都要訂位</b>——午餐<b>小北平麵食館</b>、晚餐<b>大灣碼頭 松隆店</b>（松山高中對面）。<b>10/3 是週六</b>，熱炒店晚上特別滿，早點訂</span></li>
-          <li><span class="d now">可以訂了</span><span><b>9/28 故宮的導覽要先預約</b>　上<a href="https://www.npm.gov.tw/" target="_blank" rel="noopener">故宮官網</a>登記，出發前確認場次時間與人數；沒排到場次就自己看，或到櫃台問有沒有語音導覽可租</span></li>
           <li><span class="d now">9/27 起</span><span><b>10/2 從溪頭回高鐵台中站的 6883，一定要先預約座位</b>　<a href="https://ntbus.welcometw.com/tour/yj9k" target="_blank" rel="noopener">南投客運線上預約</a>——<b>只能在乘車日前 5 天內預約</b>，10/2 的車最早 <b>9/27</b> 才開放，<b>開放當天就去訂</b>。套票已經含車票，這是「訂位子」不是買票；沒訂到位子就可能上不了車，而這天後面還要接高鐵</span></li>
           <li><span class="d now">跟吳老弟約</span><span><b>9/29 晚上跟吳老弟交接</b>——他到茹曦酒店收走<b>大行李</b>，並帶來<b>小行李箱</b>與<b>兩張高鐵票</b>（高鐵也由他訂）；<b>10/2 傍晚</b>再把大行李送到兄弟飯店</span></li>
           <li><span class="d later">出發前</span><span><b>水社的電動輔助自行車</b>（9/30 下午）——問車行要不要先預約</span></li>
@@ -431,7 +433,6 @@ footer p{max-width:70ch}
   <div class="wrap">
     <h2>出發前要確認的事</h2>
     <ul class="todo">
-      <li><span class="d now">最優先</span><span><b>確認 9/28（週一）故宮有沒有開館</b>——9/28 既是週一、又是教師節連假最後一天，故宮佔掉整個上午，它沒開就要整天重排。<b>同一天的迪化街是街區不是館，不受休館影響。出發前自己對過官網</b></span></li>
       <li><span class="d now">最優先</span><span><b>查 10/1 台灣好行 6801（日月潭 → 溪頭）當天班表</b>——這是整趟最關鍵的接點，班次不多。<b>套票已經買了，但套票不保證班次</b>；09:00 出發只是推估，沒接上就得改走日月潭→水里→溪頭自己轉，或當天改住日月潭</span></li>
       <li><span class="d now">最優先</span><span><b>查 10/2 台灣好行 6883（溪頭 → 高鐵台中）當天班表</b>——11:00 退房到 13:00 抵高鐵只有 2 小時，車程就要 1.5–2 小時，幾乎沒有緩衝；對不上就改晚一班高鐵。<b>班表看好之後 9/27 起要上 <a href="https://ntbus.welcometw.com/tour/yj9k" target="_blank" rel="noopener">南投客運線上預約</a>訂位</b></span></li>
       <li><span class="d later">出發前</span><span><b>對一次兩張套票的實際內容與兌換規則</b>：車票是兌換券還是直接搭；在哪裡蓋日期／換票（南投客運高鐵台中站櫃台）；遊湖船與纜車是指定航班還是當日任搭</span></li>
@@ -445,6 +446,57 @@ footer p{max-width:70ch}
 </section>
 
 <div class="modal" id="modal" hidden><div class="modal-bg"></div><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mTitle"><button type="button" class="modal-x" aria-label="關閉">×</button><div class="modal-ph" id="mPh"></div><div class="modal-tabs" id="mTabs" role="tablist" hidden></div><div class="modal-bd"><div class="kind" id="mKind"></div><h3 id="mTitle"></h3><div class="jp" id="mJp"></div><p id="mText"></p><div class="chips" id="mChips"></div></div><div class="modal-video" id="mVideo"></div></div></div>
+<!-- ============ BUS ============ -->
+<section class="block" id="bus">
+  <div class="wrap">
+    <h2>三天兩夜的三段巴士</h2>
+    <p class="mute" style="max-width:70ch">9/30–10/2 這三天的骨架就是這三班車，<b>每一段都只有這一條路線可搭</b>，錯過一班要等很久。
+       三段的車票都在<b>日月潭溪頭套票</b>裡，但<b>套票只保證票，不保證班次與座位</b>。</p>
+
+    <table>
+      <tr><th>日期</th><th>路線</th><th>區間</th><th>車程</th><th>車票</th><th>座位</th></tr>
+      <tr><td>9/30（三）</td><td><b>台灣好行 6670</b><br><span class="mute">日月潭線</span></td>
+          <td>高鐵台中站 → 日月潭（水社）</td><td>約 1.5–2 小時</td>
+          <td class="done">套票涵蓋</td><td class="mute">自由入座</td></tr>
+      <tr><td>10/1（四）</td><td><b>台灣好行 6801</b><br><span class="mute">日月潭溪頭線</span></td>
+          <td>日月潭（水社）→ 溪頭<br><span class="mute">經水里</span></td><td>約 2 小時</td>
+          <td class="done">套票涵蓋</td><td class="mute">自由入座</td></tr>
+      <tr><td>10/2（五）</td><td><b>台灣好行 6883</b><br><span class="mute">溪頭線</span></td>
+          <td>溪頭 → 高鐵台中站</td><td>約 1.5–2 小時</td>
+          <td class="done">套票涵蓋</td><td><b>要線上預約</b><br><span class="mute">乘車日前 5 天內・9/27 起</span></td></tr>
+    </table>
+
+    <h3 style="margin-top:26px">出發前把實際班次抄在這裡</h3>
+    <p class="mute" style="margin-top:-4px">上官網查到之後填進去，<b>連前一班與後一班一起抄</b>——這三段真正的風險不是「不知道時間」，是「錯過了不知道下一班什麼時候」。</p>
+    <table class="fill">
+      <tr><th style="width:20%">路線</th><th style="width:13%">前一班</th><th style="width:13%">預定搭乘</th><th style="width:13%">後一班</th><th>備註</th></tr>
+      <tr><td><b>6670</b><br><span class="mute">9/30 高鐵台中 → 日月潭</span></td>
+          <td><span class="blank"></span></td><td class="mute">行程抓<br>09:30</td><td><span class="blank"></span></td>
+          <td class="mute">下高鐵先到 1 樓第 5 出入口的南投客運櫃台兌換、蓋日期</td></tr>
+      <tr><td><b>6801</b><br><span class="mute">10/1 日月潭 → 溪頭</span></td>
+          <td><span class="blank"></span></td><td class="mute">行程抓<br>09:00</td><td><span class="blank"></span></td>
+          <td><b>班次最少的一段</b>，沒接上就得自己轉水里，或當天改住日月潭</td></tr>
+      <tr><td><b>6883</b><br><span class="mute">10/2 溪頭 → 高鐵台中</span></td>
+          <td><span class="blank"></span></td><td class="mute">行程抓<br>11:10</td><td><span class="blank"></span></td>
+          <td><b>11:00 退房、13:00 要到高鐵，中間幾乎沒有緩衝</b>；對不上就把高鐵改晚一班</td></tr>
+    </table>
+
+    <div class="one" style="margin-top:14px;border-left:4px solid var(--shu);background:#fff;border-radius:8px;padding:12px 16px">
+      <b>三件跟班表一樣重要的事</b>
+      <ul style="margin:8px 0 0;padding-left:1.2em">
+        <li><b>10/2 的 6883 座位一定要先訂。</b>只能在乘車日前 5 天內預約，10/2 的車最早 <b>9/27</b> 開放，開放當天就去訂——
+            <a href="https://ntbus.welcometw.com/tour/yj9k" target="_blank" rel="noopener">南投客運線上預約</a>。套票已含車票，這是「訂位子」不是買票；沒訂到位子就可能上不了車。</li>
+        <li><b>10/1 的 6801 是整趟最關鍵的接點。</b>日月潭往溪頭一天沒幾班，09:00 只是推估，<b>務必用實際班表對過</b>。</li>
+        <li><b>兩張套票的兌換規則也要問清楚</b>：車票是兌換券還是直接搭、在哪裡蓋日期換票、遊湖船與纜車是指定航班還是當日任搭。</li>
+      </ul>
+    </div>
+
+    <p class="mute" style="margin-top:12px">班表查詢：<a href="https://www.taiwantrip.com.tw/" target="_blank" rel="noopener">台灣好行官網</a>　・　
+       <a href="https://www.ntbus.com.tw/" target="_blank" rel="noopener">南投客運官網</a>　・　
+       座位預約：<a href="https://ntbus.welcometw.com/tour/yj9k" target="_blank" rel="noopener">ntbus.welcometw.com/tour/yj9k</a></p>
+  </div>
+</section>
+
 <footer><div class="wrap">
   <p><a href="%E5%8F%B0%E7%81%A3%E8%A1%8C%E7%A8%8B.docx">下載紙本版（Word，30 頁，可直接列印）</a>　・　<a href="simple.html">大字版</a></p>
   <p>時間與費用皆為估算，實際以官方公告為準。景點照片在沒有自備圖時透過中文維基百科／Wikimedia Commons 載入，需連網才會顯示；海岸線與縣市界資料來自內政部國土測繪資料（g0v/twgeojson），台北捷運路網取自 leoluyi/taipei_mrt 並簡化；捷運路網只在台北尺度的地圖上顯示。台北地圖上的「家」只畫一個概略位置，不標地址。</p>
@@ -815,7 +867,7 @@ const DAYS=[
    {t:'16:00',i:'🚗',h:'開車回飯店（約 5 公里、15 分），下午還有時間休息',move:1},
    {t:'18:30',i:'🍜',h:'飯店一帶晚餐（南京東路、微風南京、小巨蛋商圈選擇都多）'}
   ],cards:['palaceMuseum','dadaocheng'],
-  notes:{pack:'<b>好走的鞋</b>——故宮是久站不是走路，三小時下來腳會酸；館內冷氣強，<b>帶件薄外套</b>。這天全程平地、沒有階梯。',tickets:'故宮全票 NT 350，現場買即可。迪化街免費。<b>這天全程開車，不用悠遊卡</b>——要花的是油錢與兩次停車費。',book:'<b>故宮的導覽要先預約</b>（上官網登記，確認場次時間；門票本身現場買就好）。迪化街不用預約。',other:'<ul><li><b>9/28 是週一，又是教師節連假的最後一天。</b>出發前務必自己對過官網：<b>故宮的週一開館狀況</b>。<b>迪化街是街區不是館，不受休館影響</b>，這天最穩的就是它。</li><li><b>採買安排在這天是有理由的</b>——迪化街的南北貨、茶葉、中藥材都不輕，這天有車，買完直接放後車廂；排在 10/4 就得搭捷運提一整天。</li><li><b>停車先想好。</b>故宮正館前有故宮廣場停車場；<b>迪化街是窄巷，車開不進去</b>，停大稻埕公園或塔城公園地下停車場再走進去。</li><li>迪化街店家約 <b>10:00–19:00</b>，我們 13:00 到剛好。<b>四點就回飯店</b>，下午還有時間休息——這天只有兩個點，走得比前一天輕鬆。</li></ul>',rain:'故宮全程室內，迪化街的騎樓整條有遮；加上是開車門到門，這天下雨幾乎沒影響。'}},
+  notes:{pack:'<b>好走的鞋</b>——故宮是久站不是走路，三小時下來腳會酸；館內冷氣強，<b>帶件薄外套</b>。這天全程平地、沒有階梯。',tickets:'故宮全票 NT 350，現場買即可。迪化街免費。<b>這天全程開車，不用悠遊卡</b>——要花的是油錢與兩次停車費。',book:'都不用預約。<b>故宮的定時導覽預約不到，就自己看</b>——到櫃台問有沒有語音導覽可租；門票現場買即可。迪化街也不用預約。',other:'<ul><li><b>9/28 是週一，又是教師節連假的最後一天，但這天兩個點都沒問題</b>——<b>故宮確定加開</b>（已確認），迪化街是街區不是館，本來就不受休館影響。</li><li><b>採買安排在這天是有理由的</b>——迪化街的南北貨、茶葉、中藥材都不輕，這天有車，買完直接放後車廂；排在 10/4 就得搭捷運提一整天。</li><li><b>停車先想好。</b>故宮正館前有故宮廣場停車場；<b>迪化街是窄巷，車開不進去</b>，停大稻埕公園或塔城公園地下停車場再走進去。</li><li>迪化街店家約 <b>10:00–19:00</b>，我們 13:00 到剛好。<b>四點就回飯店</b>，下午還有時間休息——這天只有兩個點，走得比前一天輕鬆。</li></ul>',rain:'故宮全程室內，迪化街的騎樓整條有遮；加上是開車門到門，這天下雨幾乎沒影響。'}},
  {n:4,date:'9/29',wd:'二',title:'松山・九份：泡茶等日落',sub:'上午松山慈祐宮與車站周邊，下午客運直達九份泡茶看海，日落點燈後搭同一條線回饒河街吃夜市',stay:'茹曦酒店',who:'吳老媽・吳老爸',
   map:{cap:'全日路線：松山 ⇄ 九份，來回都搭 1062',
    pts:['illume','raohe','ruifang','jiufen'],
@@ -1315,7 +1367,7 @@ function animateMap(svg){
 
 // strip nav
 const strip=document.getElementById('strip');
-strip.innerHTML='<a href="#pre">行前</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#meals">每天吃什麼</a><a href="#booking">訂票・預約</a><a href="#check">出發前確認</a>';
+strip.innerHTML='<a href="#pre">行前</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#meals">每天吃什麼</a><a href="#booking">訂票・預約</a><a href="#check">出發前確認</a><a href="#bus">三段巴士</a>';
 
 // days
 // IMG[id] 可以是三種形狀：單一路徑、路徑陣列，或分組 [{t:'瀧乃湯',u:[...]}]。
