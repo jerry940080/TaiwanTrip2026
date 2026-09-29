@@ -105,6 +105,10 @@ th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertic
 th{font-weight:500;color:var(--ink3);font-size:12.5px}
 td b{font-weight:500}
 .mute{color:var(--ink3);font-size:12.5px}
+/* 費用表：印出來要有地方填金額 */
+.fill td{padding-top:15px;padding-bottom:15px}
+.fill .blank{display:block;min-width:56px;height:20px;border-bottom:1.5px solid var(--ink3)}
+.fill .grp td{background:rgba(38,41,46,.05);font-weight:600;padding-top:10px;padding-bottom:10px}
 .money{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
 .money div{flex:1;min-width:150px;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:12px 14px}
 .money .big{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ai)}
@@ -444,6 +448,58 @@ footer p{max-width:70ch}
 </section>
 
 <div class="modal" id="modal" hidden><div class="modal-bg"></div><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mTitle"><button type="button" class="modal-x" aria-label="關閉">×</button><div class="modal-ph" id="mPh"></div><div class="modal-tabs" id="mTabs" role="tablist" hidden></div><div class="modal-bd"><div class="kind" id="mKind"></div><h3 id="mTitle"></h3><div class="jp" id="mJp"></div><p id="mText"></p><div class="chips" id="mChips"></div></div><div class="modal-video" id="mVideo"></div></div></div>
+<!-- ============ COST ============ -->
+<section class="block" id="cost">
+  <div class="wrap">
+    <h2>三天兩夜的費用</h2>
+    <p class="mute" style="max-width:70ch">9/30–10/2 這三天要花的錢。<b>已經付掉的（兩張套票、兩晚住宿、兩張高鐵票）也列進來</b>，
+       這樣才看得出這趟總共花多少。<br>
+       <b>金額我查不到的一律留白</b>——票價與房價都不在我手上，填上去就好。
+       <b>括號裡的是原價</b>，那幾項已經含在套票裡、不用再付，列出來只是讓你看得出套票值多少。
+       人數以 <b>4 人</b>計（溪頭電動車就是限四人）。</p>
+
+    <table class="fill">
+      <tr><th style="width:26%">項目</th><th style="width:13%">單價</th><th style="width:9%">人數</th><th style="width:13%">小計</th><th>備註</th></tr>
+      <tr class="grp"><td colspan="5">交通</td></tr>
+      <tr><td>高鐵 台北 → 台中<br><span class="mute">9/30 08:31 發・對號座</span></td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute">已訂（吳老弟）</td></tr>
+      <tr><td>高鐵 台中 → 台北<br><span class="mute">10/2 16:08 發・對號座</span></td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute">已訂（吳老弟）</td></tr>
+      <tr><td><b>日月潭溪頭套票</b></td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute">已訂。含 6670／6801／6883 三段車票與溪頭入園券</td></tr>
+      <tr><td><b>日月潭套票</b></td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute">已訂。含遊湖船、纜車來回、遊湖巴士一日券</td></tr>
+      <tr><td>6883 線上訂位（10/2）</td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute">套票已含車票，<b>訂位時問一下會不會另外收費</b></td></tr>
+      <tr class="grp"><td colspan="5">住宿（兩晚）</td></tr>
+      <tr><td>日月潭鴻賓大飯店<br><span class="mute">9/30 一晚</span></td><td><span class="blank"></span></td><td><span class="blank"></span><span class="mute" style="font-size:11.5px">房數</span></td><td><span class="blank"></span></td><td class="mute">已訂。含早餐</td></tr>
+      <tr><td>旬日覓覓<br><span class="mute">10/1 一晚</span></td><td><span class="blank"></span></td><td><span class="blank"></span><span class="mute" style="font-size:11.5px">房數</span></td><td><span class="blank"></span></td><td class="mute">已訂。含早餐</td></tr>
+      <tr class="grp"><td colspan="5">門票與活動</td></tr>
+      <tr><td><b>溪頭導覽解說電動車</b><br><span class="mute">10/1 下午</span></td><td><b>NT 1,400</b><br><span class="mute">／小時</span></td><td class="mute">限 4 人共乘</td><td><span class="blank"></span></td><td class="mute">已訂。小計看用幾小時——出發前跟車行確認用多久</td></tr>
+      <tr><td>溪頭自然教育園區入園券</td><td><span class="mute">（NT 220）</span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute"><b>已含在日月潭溪頭套票裡</b>，不另外付</td></tr>
+      <tr><td>日月潭遊湖船</td><td><span class="mute">（約 NT 300）</span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute"><b>已含在日月潭套票裡</b>，不另外付</td></tr>
+      <tr><td>日月潭纜車（來回）</td><td><span class="mute">（約 NT 300）</span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute"><b>已含在日月潭套票裡</b>，不另外付</td></tr>
+      <tr><td>水社 電動輔助自行車<br><span class="mute">9/30 下午</span></td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute"><b>現場租，車行價目還沒確認</b></td></tr>
+      <tr class="grp"><td colspan="5">吃（早餐兩晚住宿都有附，不用另外算）</td></tr>
+      <tr><td>9/30 午餐　伊達邵商店街</td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute">小吃攤，現場付</td></tr>
+      <tr><td>9/30 晚餐　水社商圈</td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute"></td></tr>
+      <tr><td>10/1 午餐　溪頭民宿附近</td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute"></td></tr>
+      <tr><td>10/1 晚餐　明山森林會館</td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute"></td></tr>
+      <tr><td>10/2 午餐　溪頭</td><td><span class="blank"></span></td><td class="mute">× 4</td><td><span class="blank"></span></td><td class="mute">13:35 的車，吃完再走</td></tr>
+      <tr class="grp"><td colspan="5">其他</td></tr>
+      <tr><td>零食・瓶裝水（超商）</td><td><span class="blank"></span></td><td class="mute"></td><td><span class="blank"></span></td><td class="mute">行李清單裡那幾樣</td></tr>
+      <tr><td>伴手禮・雜支</td><td><span class="blank"></span></td><td class="mute"></td><td><span class="blank"></span></td><td class="mute"></td></tr>
+      <tr class="grp"><td colspan="3" style="text-align:right">三天兩夜合計</td><td><span class="blank"></span></td><td class="mute">把上面所有小計加起來</td></tr>
+    </table>
+
+    <div class="one" style="margin-top:14px;border-left:4px solid var(--shu);background:#fff;border-radius:8px;padding:12px 16px">
+      <b>付錢的時候要注意</b>
+      <ul style="margin:8px 0 0;padding-left:1.2em">
+        <li><b>現金多帶一點。</b>伊達邵與溪頭的小吃攤、車行不一定能刷卡或用行動支付，山上也不好找提款機——<b>台幣現金在台北就先領好</b>。</li>
+        <li><b>電動車的小計要問過才填得出來。</b>NT 1,400 是<b>每小時</b>、四個人共乘一台，所以總價看用幾小時；
+            出發前打 <b>049-2612210</b> 問清楚建議用多久，順便問能不能只買單程。</li>
+        <li><b>兩張套票到底涵蓋什麼，兌換時再對一次。</b>票是兌換券還是直接搭、遊湖船與纜車是指定航班還是當日任搭——
+            這幾件事沒問清楚，現場可能得再掏一次錢。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- ============ BUS ============ -->
 <section class="block" id="bus">
   <div class="wrap">
@@ -1418,7 +1474,7 @@ function animateMap(svg){
 
 // strip nav
 const strip=document.getElementById('strip');
-strip.innerHTML='<a href="#pre">行前</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#meals">每天吃什麼</a><a href="#booking">訂票・預約</a><a href="#check">出發前確認</a><a href="#bus">三段巴士</a>';
+strip.innerHTML='<a href="#pre">行前</a>'+DAYS.map(d=>`<a href="#day${d.n}"><span class="n">${d.n}</span>${d.date} ${d.title.replace(/ → /g,'→')}</a>`).join('')+'<a href="#meals">每天吃什麼</a><a href="#booking">訂票・預約</a><a href="#check">出發前確認</a><a href="#cost">三天兩夜費用</a><a href="#bus">三段巴士</a>';
 
 // days
 // IMG[id] 可以是三種形狀：單一路徑、路徑陣列，或分組 [{t:'瀧乃湯',u:[...]}]。
